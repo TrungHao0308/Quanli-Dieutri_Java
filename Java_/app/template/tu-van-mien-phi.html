@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tư vấn miễn phí - Hy Vọng Mới</title>
+    <link rel="stylesheet" href="/app/static/css/tu-van-mien-phi.css" />
+    <script src="/app/static/js/tu-van-mien-phi.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <div class="logo">
+          <img src="/app/static/images/logo.png" alt="Logo Hy Vọng Mới" />
+          <h1>Hy Vọng Mới</h1>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="trang-chu-updated.html">Trang chủ</a></li>
+            <li><a href="phac-do-dieu-tri-html.html">Phác đồ điều trị</a></li>
+            <li><a href="doi-ngu-bac-si.html">Đội ngũ bác sĩ</a></li>
+            <li><a href="#lien-he">Liên hệ</a></li>
+            <li><a href="gioi-thieu-co-so-y-te.html">Giới thiệu cơ sở</a></li>
+          </ul>
+        </nav>
+        <div class="auth-buttons">
+          <a href="login-page.html" class="login-btn">Đăng nhập</a>
+          <a href="register-page.html" class="register-btn">Đăng ký</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Tư vấn miễn phí Section -->
+    <section class="consultation">
+      <div class="container">
+        <div class="consultation-container">
+          <div class="consultation-image">
+            <img src="/app/static/images/anhhao.jpg" alt="Chuyên gia tư vấn" />
+            <h3>Tư vấn miễn phí</h3>
+            <p>
+              Chia sẻ những băn khoăn và nhận lời khuyên từ đội ngũ chuyên gia
+              hàng đầu trong lĩnh vực hỗ trợ sinh sản
+            </p>
+
+            <div class="expert-info">
+              <h4>Đội ngũ tư vấn</h4>
+              <p>20+ bác sĩ chuyên khoa Sản phụ khoa và chuyên gia tâm lý</p>
+            </div>
+          </div>
+          <div class="consultation-form">
+            <h2>Nhận tư vấn cá nhân hóa</h2>
+            <p>
+              Chia sẻ lo lắng của bạn và nhận được những lời khuyên hữu ích từ
+              đội ngũ chuyên gia giàu kinh nghiệm của chúng tôi.
+            </p>
+
+            <form id="consultationForm">
+              <div class="form-group">
+                <label for="fullname">Họ và tên</label>
+                <input
+                  type="text"
+                  id="fullname"
+                  name="fullname"
+                  placeholder="Nhập họ và tên của bạn"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Số điện thoại</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="Nhập số điện thoại của bạn"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Nhập địa chỉ email của bạn"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="question">Câu hỏi của bạn</label>
+                <textarea
+                  id="question"
+                  name="question"
+                  placeholder="Nhập câu hỏi hoặc vấn đề bạn đang gặp phải..."
+                  required
+                ></textarea>
+              </div>
+
+              <button type="submit" class="submit-btn">
+                Gửi yêu cầu tư vấn
+              </button>
+            </form>
+
+            <p class="privacy-notice">
+              Chúng tôi cam kết bảo mật thông tin của bạn.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-us">
+      <div class="container">
+        <div class="section-title">
+          <h2>Lợi ích khi tư vấn với chúng tôi</h2>
+        </div>
+
+        <div class="benefits-container">
+          <div class="benefit-item">
+            <div class="benefit-icon">
+              <i class="fas fa-user-md"></i>
+            </div>
+            <h3>Đội ngũ chuyên gia</h3>
+            <p>
+              Được tư vấn bởi các bác sĩ có trên 15 năm kinh nghiệm trong lĩnh
+              vực điều trị hiếm muộn và hỗ trợ sinh sản.
+            </p>
+          </div>
+
+          <div class="benefit-item">
+            <div class="benefit-icon">
+              <i class="fas fa-clipboard-check"></i>
+            </div>
+            <h3>Phân tích cá nhân hóa</h3>
+            <p>
+              Nhận được phác đồ điều trị được thiết kế riêng biệt dựa trên tình
+              trạng sức khỏe và nhu cầu cụ thể của bạn.
+            </p>
+          </div>
+
+          <div class="benefit-item">
+            <div class="benefit-icon">
+              <i class="fas fa-heart"></i>
+            </div>
+            <h3>Hỗ trợ tâm lý</h3>
+            <p>
+              Không chỉ tư vấn về y tế, chúng tôi còn hỗ trợ tâm lý cho các cặp
+              đôi trong suốt quá trình điều trị.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="lien-he">
+      <div class="container footer-container">
+        <div class="footer-col">
+          <h3>Về chúng tôi</h3>
+          <p>
+            Hy Vọng Mới là đơn vị tiên phong trong lĩnh vực hỗ trợ điều trị hiếm
+            muộn tại Việt Nam với hơn 15 năm kinh nghiệm.
+          </p>
+          <p>
+            Chúng tôi cam kết mang đến cho bạn những phương pháp điều trị hiện
+            đại nhất và sự đồng hành tận tâm trên hành trình làm cha mẹ của bạn.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h3>Liên hệ</h3>
+          <ul>
+            <li>
+              <i class="fas fa-map-marker-alt"></i> 123 Đường Lê Lợi, Quận 1,
+              TP.HCM
+            </li>
+            <li><i class="fas fa-phone"></i> Hotline: 1900 1234 56</li>
+            <li><i class="fas fa-envelope"></i> info@hyvongmoi.vn</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Thông tin hữu ích</h3>
+          <ul>
+            <li><a href="#">Thông tin về hiếm muộn</a></li>
+            <li><a href="#">Phương pháp điều trị</a></li>
+            <li><a href="#">Đội ngũ bác sĩ</a></li>
+            <li><a href="#">Tin tức y khoa</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Kết nối với chúng tôi</h3>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-telegram-plane"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Hy Vọng Mới. Tất cả các quyền được bảo lưu.</p>
+      </div>
+    </footer>
+  </body>
+</html>
