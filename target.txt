@@ -1,0 +1,6 @@
+Mọi người làm project theo hướng này nha
+-Spring boot ( API ) bao gồm BE và FE 
++FE (Html, css, js)
++BE (Java)
+-JPA liên kết BE với database
++Database ( MySQL(Docker) )

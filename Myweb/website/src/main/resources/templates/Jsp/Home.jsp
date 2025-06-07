@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hy Vọng Mới - Theo dõi và Hỗ trợ Điều Trị Hiếm Muộn</title>
+   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/Home.css" />
+    <script src="${pageContext.request.contextPath}/resources/static/js/Home.js" defer></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <div class="logo">
+          <img src="/app/static/images/logo.png" alt="Logo Hy Vọng Mới" />
+          <h1>Hy Vọng Mới</h1>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="trang-chu-updated.html">Trang chủ</a></li>
+            <li><a href="phac-do-dieu-tri-html.html">Phác đồ điều trị</a></li>
+            <li><a href="doi-ngu-bac-si.html">Đội ngũ bác sĩ</a></li>
+            <li><a href="#lien-he">Liên hệ</a></li>
+            <li><a href="gioi-thieu-co-so-y-te.html">Giới thiệu cơ sở</a></li>
+          </ul>
+        </nav>
+
+        <div class="auth-buttons">
+          <a href="login-page.html" class="login-btn">Đăng nhập</a>
+          <a href="register-page.html" class="register-btn">Đăng ký</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container hero-content">
+        <div class="hero-text">
+          <h2>Hành trình làm cha mẹ bắt đầu từ đây</h2>
+          <p>
+            <strong
+              >Chào mừng bạn đến với ứng dụng "theo dõi và hỗ trợ điều trị hiếm
+              muộn". chúng tôi mang đến giải pháp toàn diện, giúp bạn nắm bắt
+              tốt nhất cơ hội làm cha mẹ với sự hỗ trợ của công nghệ hiện đại và
+              đội ngũ y bác sĩ chuyên nghiệp.</strong
+            >
+          </p>
+          <a href="tu-van-mien-phi.html" class="cta-button">Tư vấn miễn phí</a>
+        </div>
+        <div class="hero-image">
+          <img
+            src="/app/static/images/home.jpg"
+            alt="Tư vấn điều trị hiếm muộn"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+      <div class="container stats-container">
+        <div class="stat-item">
+          <h3>10.000+</h3>
+          <p>Ca điều trị thành công</p>
+        </div>
+        <div class="stat-item">
+          <h3>82%</h3>
+          <p>Tỷ lệ mang thai tự nhiên</p>
+        </div>
+        <div class="stat-item">
+          <h3>20+</h3>
+          <p>Bác sĩ chuyên khoa IVF</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+      <div class="container">
+        <div class="section-title">
+          <h2>Tính năng nổi bật</h2>
+        </div>
+        <div class="features-container">
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <h3>Theo dõi chu kỳ</h3>
+            <p>
+              Ghi chép và phân tích chi tiết chu kỳ kinh nguyệt, nhiệt độ cơ thể
+              và các chỉ số sinh học quan trọng.
+            </p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-bell"></i>
+            </div>
+            <h3>Nhắc lịch tái khám</h3>
+            <p>
+              Nhận thông báo tự động về lịch uống thuốc, tái khám và các hoạt
+              động quan trọng trong quá trình điều trị.
+            </p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-file-medical"></i>
+            </div>
+            <h3>Xem kết quả xét nghiệm</h3>
+            <p>
+              Truy cập kết quả xét nghiệm trực tuyến, trao đổi với bác sĩ về kết
+              quả và nhận hướng dẫn điều trị kịp thời.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+      <div class="container">
+        <div class="section-title">
+          <h2>Câu chuyện thành công</h2>
+        </div>
+        <div class="testimonials-container">
+          <div class="testimonial-item">
+            <div class="testimonial-content">
+              "Sau 5 năm điều trị hiếm muộn không kết quả, chúng tôi đã tìm đến
+              Hy Vọng Mới. Nhờ sự tận tâm của đội ngũ y bác sĩ và ứng dụng theo
+              dõi chu kỳ, chúng tôi đã đón con đầu lòng vào tháng trước. Cảm ơn
+              Hy Vọng Mới đã biến giấc mơ của chúng tôi thành hiện thực."
+            </div>
+            <div class="testimonial-author">
+              <div class="author-image">
+                <img
+                  src="/app/static/images/avataU.jpg"
+                  alt="Chị Nguyễn Thị Hoa"
+                />
+              </div>
+              <div class="author-info">
+                <h4>Chị Nguyễn Thị Hoa</h4>
+                <p>Hà Nội</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-item">
+            <div class="testimonial-content">
+              "Tôi đã sử dụng ứng dụng Hy Vọng Mới trong suốt quá trình điều trị
+              IVF. Việc theo dõi các chỉ số và lịch trình điều trị trở nên dễ
+              dàng hơn rất nhiều. Đặc biệt là tính năng kết nối trực tiếp với
+              bác sĩ qua ứng dụng giúp tôi an tâm hơn rất nhiều."
+            </div>
+            <div class="testimonial-author">
+              <div class="author-image">
+                <img
+                  src="/app/static/images/avataH.jpg"
+                  alt="Anh Trần Văn Nam"
+                />
+              </div>
+              <div class="author-info">
+                <h4>Anh Trần Văn Nam</h4>
+                <p>TP. Hồ Chí Minh</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+      <div class="container">
+        <div class="section-title">
+          <h2>Câu hỏi thường gặp</h2>
+        </div>
+        <div class="faq-container">
+          <div class="faq-item">
+            <div class="faq-question">
+              Hiếm muộn là gì?
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>
+                Hiếm muộn là tình trạng hai vợ chồng quan hệ đều đặn, không sử
+                dụng biện pháp tránh thai nào trong vòng 12 tháng nhưng vẫn
+                không thể thụ thai. Nguyên nhân có thể đến từ người vợ, người
+                chồng hoặc cả hai. Đây là vấn đề ngày càng phổ biến và hoàn toàn
+                có thể điều trị nếu được phát hiện và can thiệp kịp thời.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              Chi phí điều trị có cao không?
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>
+                Chi phí điều trị hiếm muộn phụ thuộc vào tình trạng cụ thể của
+                từng cặp vợ chồng và phương pháp điều trị được chỉ định (ví dụ:
+                IUI, IVF...). Một số phương pháp đơn giản như dùng thuốc hoặc
+                bơm tinh trùng vào buồng tử cung (IUI) có chi phí thấp hơn.
+                Trong khi đó, các kỹ thuật hỗ trợ sinh sản hiện đại như thụ tinh
+                trong ống nghiệm (IVF) sẽ tốn kém hơn. Tuy nhiên, nhiều cơ sở y
+                tế hiện đã có chính sách hỗ trợ tài chính hoặc chia nhỏ chi phí,
+                giúp người bệnh tiếp cận điều trị dễ dàng hơn.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              Làm thế nào để tăng cơ hội thụ thai tự nhiên?
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>
+                Để tăng cơ hội thụ thai tự nhiên, các cặp đôi nên duy trì lối
+                sống lành mạnh như: ăn uống đầy đủ dinh dưỡng, tập thể dục điều
+                độ, hạn chế rượu bia và thuốc lá, giảm căng thẳng, và quan hệ
+                đều đặn trong thời kỳ rụng trứng. Việc theo dõi chu kỳ kinh
+                nguyệt và sử dụng ứng dụng của chúng tôi sẽ giúp xác định thời
+                điểm rụng trứng chính xác, từ đó tăng cơ hội thụ thai.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              Khi nào nên gặp bác sĩ chuyên khoa điều trị hiếm muộn?
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>
+                Các cặp đôi nên gặp bác sĩ chuyên khoa hiếm muộn trong những
+                trường hợp sau: sau 12 tháng quan hệ đều đặn không dùng biện
+                pháp tránh thai mà không có thai (đối với phụ nữ dưới 35 tuổi);
+                sau 6 tháng (đối với phụ nữ trên 35 tuổi); khi có tiền sử về các
+                vấn đề sức khỏe sinh sản như u xơ tử cung, lạc nội mạc tử cung;
+                hoặc khi nam giới có các vấn đề về tinh trùng.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              Phương pháp IVF có đau không?
+              <span>+</span>
+            </div>
+            <div class="faq-answer">
+              <p>
+                Trong quá trình thực hiện IVF, bệnh nhân có thể cảm thấy khó
+                chịu nhẹ khi tiêm thuốc kích thích buồng trứng. Quy trình lấy
+                trứng được thực hiện dưới sự hỗ trợ của gây mê nhẹ hoặc gây tê,
+                do đó bệnh nhân sẽ không cảm thấy đau đớn. Sau khi chuyển phôi,
+                một số bệnh nhân có thể có cảm giác khó chịu nhẹ tương tự như
+                cảm giác đau bụng kinh, nhưng sẽ nhanh chóng biến mất.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="lien-he">
+      <div class="container footer-container">
+        <div class="footer-col">
+          <h3>Về chúng tôi</h3>
+          <p>
+            Hy Vọng Mới là đơn vị tiên phong trong lĩnh vực hỗ trợ điều trị hiếm
+            muộn tại Việt Nam với hơn 15 năm kinh nghiệm.
+          </p>
+          <p>
+            Chúng tôi cam kết mang đến cho bạn những phương pháp điều trị hiện
+            đại nhất và sự đồng hành tận tâm trên hành trình làm cha mẹ của bạn.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h3>Liên hệ</h3>
+          <ul>
+            <li>
+              <i class="fas fa-map-marker-alt"></i> 123 Đường Lê Lợi, Quận 1,
+              TP.HCM
+            </li>
+            <li><i class="fas fa-phone"></i> Hotline: 1900 1234 56</li>
+            <li><i class="fas fa-envelope"></i> info@hyvongmoi.vn</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Thông tin hữu ích</h3>
+          <ul>
+            <li><a href="#">Thông tin về hiếm muộn</a></li>
+            <li><a href="#">Phương pháp điều trị</a></li>
+            <li><a href="#">Đội ngũ bác sĩ</a></li>
+            <li><a href="#">Tin tức y khoa</a></li>
+          </ul>
+        </div>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-telegram-plane"></i></a>
+          <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Hy Vọng Mới. Tất cả các quyền được bảo lưu.</p>
+      </div>
+    </footer>
+
+    <!-- JavaScript cho các chức năng tương tác -->
+  </body>
+</html>
+

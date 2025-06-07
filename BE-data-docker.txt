@@ -1,0 +1,48 @@
+1/ docker volume create sqlserver-data
+2/ docker volume ls
+3/ docker pull mcr.microsoft.com/mssql/server:2019-latest
+4/ docker run -d `
+  --name sqlserver-container `
+  -e "ACCEPT_EULA=Y" `
+  -e "SA_PASSWORD=Your_strong@Passw0rd" `   
+  -p 1433:1433 `    
+  -v sqlserver-data:/var/opt/mssql `
+  mcr.microsoft.com/mssql/server:2019-latest
+5/ docker ps - xem thử có container nào đang chạy không
+* Pass thì mình để theo ý mình nhưng phải nhớ để tí bỏ vào form liên kết
+Mọi người làm theo các bước này để tạo một images database  trên Docker.
+
+Trong phần dự án sẽ có một file persistence.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2"
+    xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+                        http://xmlns.jcp.org/xml/ns/persistence_2_2.xsd">
+
+    <persistence-unit name="JPAs" transaction-type="RESOURCE_LOCAL">
+        <properties>
+            <property name="javax.persistence.jdbc.driver"
+                      value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+            <property name="javax.persistence.jdbc.url"
+                      value="jdbc:sqlserver://IP máy:1433;databaseName=tên database;encrypt=true;trustServerCertificate=true;"/>
+                        
+            <property name="javax.persistence.jdbc.user"
+                      value="sa"/>
+            <property name="javax.persistence.jdbc.password"
+                      value="Pass"/>                       
+            <property name="hibernate.dialect"
+                      value="org.hibernate.dialect.SQLServerDialect"/>
+            <property name="hibernate.show_sql"
+                      value="true"/>
+            <property name="hibernate.hbm2ddl.auto"
+                      value="update"/>
+        </properties>
+    </persistence-unit>
+
+</persistence>
+
+nó sẽ dùng để liên kết từ BE tới Docker đó nhé, chú ý chỗ IP máy với pass với tên database nhé
+
+Khi tạo database với tên database ở file persisten.xml thì nhớ edit phần andress là IP với port, user, pass ở file persistence.xml để BE liên kết được đến database
+
