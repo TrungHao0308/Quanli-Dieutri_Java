@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<html lang="vi">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Đăng Nhập - Hy Vọng Mới</title>
-    <link rel="stylesheet" th:href="@{/css/login-page.css}" />
+    <link rel="stylesheet" href="/app/static/css/login-page.css" />
+    <script src="/app/static/js/login-page.js"></script>
     <link
       rel="stylesheet"
-      href="/src/main/resources/static/css/login-page.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
   </head>
   <body>
@@ -15,16 +16,16 @@
     <header>
       <div class="container header-container">
         <div class="logo">
-          <img th:src="@{/images/logo.png}" alt="Logo Hy Vọng Mới" />
+          <img src="/app/static/images/logo.png" alt="Logo Hy Vọng Mới" />
           <h1>Hy Vọng Mới</h1>
         </div>
         <nav>
           <ul>
-            <li><a th:href="@{/home}">Trang chủ</a></li>
-            <li><a href="#">Phác đồ điều trị</a></li>
-            <li><a href="#">Đội ngũ bác sĩ</a></li>
-            <li><a th:href="@{/home#lien-he}">Liên hệ</a></li>
-            <li><a href="#">Giới thiệu cơ sở</a></li>
+            <li><a href="trang-chu-updated.html">Trang chủ</a></li>
+            <li><a href="phac-do-dieu-tri-html.html">Phác đồ điều trị</a></li>
+            <li><a href="doi-ngu-bac-si.html">Đội ngũ bác sĩ</a></li>
+            <li><a href="trang-chu-updated.html#lien-he">Liên hệ</a></li>
+            <li><a href="gioi-thieu-co-so-y-te.html">Giới thiệu cơ sở</a></li>
           </ul>
         </nav>
       </div>
@@ -38,21 +39,16 @@
           <p>Chào mừng bạn trở lại với Hy Vọng Mới</p>
         </div>
         <div class="login-form">
-          <form id="loginForm" th:action="@{/loginpage}" method="post">
+          <form id="loginForm" action="#" method="post">
             <div class="form-group">
-              <label for="emailOrPhone">Email hoặc số điện thoại</label>
+              <label for="email">Email hoặc số điện thoại</label>
               <input
                 type="text"
-                id="emailOrPhone"
-                name="emailOrPhone"
+                id="email"
+                name="email"
                 placeholder="Nhập email hoặc số điện thoại"
                 required
               />
-              <div
-                class="error-message"
-                th:if="${error}"
-                th:text="${error}"
-              ></div>
             </div>
             <div class="form-group">
               <label for="password">Mật khẩu</label>
@@ -79,15 +75,10 @@
             <hr />
           </div>
           <div class="register-link">
-            Bạn chưa có tài khoản? <a th:href="@{/register}">Đăng ký ngay</a>
-          </div>
-          <div th:if="${param.logout}" style="color: green">
-            Bạn đã đăng xuất thành công.
+            Bạn chưa có tài khoản? <a href="register-page.html">Đăng ký ngay</a>
           </div>
         </div>
       </div>
     </div>
-
-    <script th:src="@{/js/login-page.js}"></script>
   </body>
 </html>
