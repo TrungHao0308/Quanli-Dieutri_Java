@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Khách hàng - Hy Vọng Mới</title>
+	    <link rel="stylesheet" href="/static/css/ketquadieutri.css" />
+    <script src="/static/js/ketqudieutri.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body>
+    <button class="btn-toggle-sidebar" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2>Hy Vọng Mới</h2>
+                <div class="user-info">
+                    <div class="user-avatar">H</div>
+                    <div class="user-details">
+                        <h3>Customer</h3>
+                        <span>Khách hàng</span>
+                    </div>
+                </div>
+            </div>
+            
+            <ul class="sidebar-nav">
+                <li class="nav-item">
+                    <a href="customer.html">
+                        <i class="fas fa-home"></i>
+                        <span>Thông báo</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="dangkidichvu.html">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Đăng ký dịch vụ</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="lichtrinhdieutri.html">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Lịch trình điều trị</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="ketquadieutri.html">
+                        <i class="fas fa-file-medical-alt"></i>
+                        <span>Kết quả điều trị</span>
+                    </a>
+                </li>
+                </li>
+                <li class="nav-item">
+                    <a href="lichsudondat.html">
+                        <i class="fas fa-history"></i>
+                        <span>Lịch sử đơn đặt</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="danhgia.html">
+                        <i class="fas fa-star"></i>
+                        <span>Đánh giá</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="profile.html">
+                        <i class="fas fa-user-cog"></i>
+                        <span>Hồ sơ cá nhân</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="top-right">
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                </button>
+            </div>
+
+            <!-- Dashboard Overview -->
+            <div id="dashboard" class="content-page">
+                <div class="page-header">
+                    <h1>Chào mừng trở lại, Nguyễn Văn A!</h1>
+                    <p>Theo dõi thông tin điều trị và sức khỏe của bạn</p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">Lịch hẹn sắp tới</h3>
+                                <p class="card-subtitle">Ngày mai, 10:30 AM</p>
+                            </div>
+                            <div class="card-icon icon-blue">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">Kết quả mới</h3>
+                                <p class="card-subtitle">2 kết quả xét nghiệm</p>
+                            </div>
+                            <div class="card-icon icon-teal">
+                                <i class="fas fa-file-medical"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">Nhắc nhở thuốc</h3>
+                                <p class="card-subtitle">3 loại thuốc hôm nay</p>
+                            </div>
+                            <div class="card-icon icon-pink">
+                                <i class="fas fa-pills"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Treatment Results Page -->
+            <div id="treatment-results" class="content-page active">
+                <div class="page-header">
+                    <h1>Kết quả điều trị</h1>
+                    <p>Xem kết quả xét nghiệm và kết luận của bác sĩ</p>
+                </div>
+
+                <!-- Filter Section -->
+                <div class="filter-section">
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label>Tìm kiếm</label>
+                            <input type="text" placeholder="Tìm theo tên xét nghiệm..." id="searchInput">
+                        </div>
+                        <div class="filter-group">
+                            <label>Loại xét nghiệm</label>
+                            <select id="testTypeFilter">
+                                <option value="">Tất cả</option>
+                                <option value="blood">Xét nghiệm máu</option>
+                                <option value="urine">Xét nghiệm nước tiểu</option>
+                                <option value="imaging">Chẩn đoán hình ảnh</option>
+                                <option value="biopsy">Sinh thiết</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Thời gian</label>
+                            <select id="timeFilter">
+                                <option value="">Tất cả</option>
+                                <option value="week">7 ngày qua</option>
+                                <option value="month">30 ngày qua</option>
+                                <option value="quarter">3 tháng qua</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <button class="btn btn-primary" onclick="applyFilters()">
+                                <i class="fas fa-search"></i> Lọc
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results List -->
+                <div id="resultsContainer">
+                    <!-- Recent Blood Test Result -->
+                    <div class="result-item" data-type="blood" data-date="2024-12-15">
+                        <div class="result-header">
+                            <h3 class="result-title">Xét nghiệm máu tổng quát</h3>
+                            <div class="result-date">
+                                <i class="fas fa-calendar"></i> 15/12/2024
+                            </div>
+                        </div>
+                        
+                        <div class="result-content">
+                            <div class="lab-results">
+                                <h4><i class="fas fa-vial"></i> Kết quả xét nghiệm</h4>
+                                <div class="lab-item">
+                                    <span class="lab-name">Hồng cầu (RBC)</span>
+                                    <div class="lab-value">
+                                        <span class="value-number">4.5</span>
+                                        <span class="value-unit">triệu/μL</span>
+                                        <span class="value-status status-success">Bình thường</span>
+                                    </div>
+                                </div>
+                                <div class="lab-item">
+                                    <span class="lab-name">Bạch cầu (WBC)</span>
+                                    <div class="lab-value">
+                                        <span class="value-number">7.2</span>
+                                        <span class="value-unit">nghìn/μL</span>
+                                        <span class="value-status status-success">Bình thường</span>
+                                    </div>
+                                </div>
+                                <div class="lab-item">
+                                    <span class="lab-name">Tiểu cầu</span>
+                                    <div class="lab-value">
+                                        <span class="value-number">280</span>
+                                        <span class="value-unit">nghìn/μL</span>
+                                        <span class="value-status status-warning">Hơi cao</span>
+                                    </div>
+                                </div>
+                                <div class="lab-item">
+                                    <span class="lab-name">Hemoglobin</span>
+                                    <div class="lab-value">
+                                        <span class="value-number">14.2</span>
+                                        <span class="value-unit">g/dL</span>
+                                        <span class="value-status status-success">Bình thường</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="doctor-conclusion">
+                                <h4><i class="fas fa-user-md"></i> Kết luận của bác sĩ</h4>
+                                <div class="doctor-info">
+                                    <div class="doctor-avatar">BS</div>
+                                    <div>
+                                        <div class="doctor-name">BS. Nguyễn Thị Lan</div>
+                                        <div style="font-size: 0.8rem; color: #64748b;">Bác sĩ Huyết học</div>
+                                    </div>
+                                </div>
+                                <p class="conclusion-text">
+                                    Kết quả xét nghiệm máu tổng quát cho thấy các chỉ số trong giới hạn bình thường. 
+                                    Tiểu cầu hơi cao nhưng không đáng lo ngại. Cần theo dõi và tái khám sau 1 tháng.
+                                </p>
+                                <div class="recommendation">
+                                    <h5><i class="fas fa-lightbulb"></i> Khuyến nghị</h5>
+                                    <p>Duy trì chế độ ăn uống lành mạnh, tập thể dục đều đặn và uống đủ nước. 
+                                    Tái khám sau 4 tuần để theo dõi chỉ số tiểu cầu.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+					
+</body>
+</html>

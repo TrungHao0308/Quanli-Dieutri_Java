@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch trình Điều trị - Hy Vọng Mới</title>
+	    <link rel="stylesheet" href="/static/css/lichtrinhdieutri.css" />
+    <script src="/static/js/lichtrinhdieutri.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <button class="btn-toggle-sidebar" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2>Hy Vọng Mới</h2>
+                <div class="user-info">
+                    <div class="user-avatar">H</div>
+                    <div class="user-details">
+                        <h3>Customer</h3>
+                        <span>Bệnh nhân</span>
+                    </div>
+                </div>
+            </div>
+            
+            <ul class="sidebar-nav">
+                <li class="nav-item">
+                    <a href="customer.html">
+                        <i class="fas fa-home"></i>
+                        <span>Thông báo</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="dangkidichvu.html">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Đăng ký dịch vụ</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="lichtrinhdieutri.html">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Lịch trình điều trị</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="ketquadieutri.html">
+                        <i class="fas fa-file-medical-alt"></i>
+                        <span>Kết quả điều trị</span>
+                    </a>
+                </li>
+                </li>
+                <li class="nav-item">
+                    <a href="lichsudondat.html">
+                        <i class="fas fa-history"></i>
+                        <span>Lịch sử đơn đặt</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="danhgia.html">
+                        <i class="fas fa-star"></i>
+                        <span>Đánh giá</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="profile.html">
+                        <i class="fas fa-user-cog"></i>
+                        <span>Hồ sơ cá nhân</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="top-right">
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                </button>
+            </div>
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>Lịch trình Điều trị</h1>
+                <p>Theo dõi chi tiết lịch tiêm thuốc, xét nghiệm và hẹn khám của bạn</p>
+            </div>
+
+            <!-- Treatment Progress Overview -->
+            <div class="treatment-overview">
+                <h3 style="margin-bottom: 20px; color: var(--primary-blue);">Tổng quan tiến trình điều trị</h3>
+                <div class="progress-timeline">
+                    <div class="timeline-step completed">
+                        <i class="fas fa-check"></i>
+                        <div class="timeline-label">Khởi tạo<br>điều trị</div>
+                    </div>
+                    <div class="timeline-step completed">
+                        <i class="fas fa-check"></i>
+                        <div class="timeline-label">Giai đoạn 1<br>Chuẩn bị</div>
+                    </div>
+                    <div class="timeline-step current">
+                        2
+                        <div class="timeline-label">Giai đoạn 2<br>Kích thích</div>
+                    </div>
+                    <div class="timeline-step pending">
+                        3
+                        <div class="timeline-label">Giai đoạn 3<br>Thu nhận</div>
+                    </div>
+                    <div class="timeline-step pending">
+                        4
+                        <div class="timeline-label">Chuyển<br>phôi</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View Toggle -->
+             <div class="calendar-container" id="calendar-view">
+    <div class="calendar-header">
+        <button class="nav-btn" onclick="changeMonth(-1)">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="month-year" id="monthYear"></div>
+        <button class="nav-btn" onclick="changeMonth(1)">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <div class="calendar-grid" id="calendarGrid">
+        <!-- Các ô ngày sẽ được render bằng JavaScript -->
+    </div>
+</div>
+            <div class="view-toggle">
+                <button class="toggle-btn active" onclick="toggleView('list')">
+                    <i class="fas fa-list"></i> Danh sách
+                </button>
+                <button class="toggle-btn" onclick="toggleView('calendar')">
+                    <i class="fas fa-calendar"></i> Lịch
+                </button>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="filter-tabs">
+                <button class="tab-button active" onclick="filterSchedule('all')">
+                    <i class="fas fa-th-large"></i> Tất cả
+                </button>
+                <button class="tab-button" onclick="filterSchedule('injection')">
+                    <i class="fas fa-syringe"></i> Tiêm thuốc
+                </button>
+                <button class="tab-button" onclick="filterSchedule('test')">
+                    <i class="fas fa-vial"></i> Xét nghiệm
+                </button>
+                <button class="tab-button" onclick="filterSchedule('appointment')">
+                    <i class="fas fa-user-md"></i> Hẹn khám
+                </button>
+            </div>
+
+            <!-- List View -->
+            <div id="list-view" class="schedule-grid">
+                <!-- Today's Injection -->
+                <div class="schedule-card injection" data-type="injection">
+                    <div class="card-header">
+                        <div class="card-type">
+                            <div class="type-icon injection-icon">
+                                <i class="fas fa-syringe"></i>
+                            </div>
+                            <span>Tiêm thuốc kích thích</span>
+                        </div>
+                        <span class="status-badge status-today">Hôm nay</span>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="datetime">
+                            <div class="datetime-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>28/05/2025</span>
+                            </div>
+                            <div class="datetime-item">
+                                <i class="fas fa-clock"></i>
+                                <span>08:00</span>
+                            </div>
+                        </div>
+                        
+                        <div class="treatment-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Thuốc:</span>
+                                <span class="detail-value">Gonal-F 150IU</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Liều lượng:</span>
+                                <span class="detail-value">150IU/0.25ml</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Ngày thứ:</span>
+                                <span class="detail-value">3 trong chu kỳ</span>
+                            </div>
+                        </div>
+                        
+                        <div class="location-info">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Tại nhà - Tự tiêm</span>
+                        </div>
+                        
+                        <div class="notes">
+                            <i class="fas fa-info-circle"></i>
+                            <strong>Lưu ý:</strong> Tiêm vào bụng, xoay vị trí mỗi lần. Bảo quản thuốc trong tủ lạnh.
+                        </div>
+                    </div>
+                    
+                    <div class="card-actions">
+                        <button class="btn btn-success" onclick="markCompleted(this)">
+                            <i class="fas fa-check"></i> Đã tiêm
+                        </button>
+                        <button class="btn btn-secondary" onclick="setReminder()">
+                            <i class="fas fa-bell"></i> Nhắc nhở
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Blood Test Tomorrow -->
+                <div class="schedule-card test" data-type="test">
+                    <div class="card-header">
+                        <div class="card-type">
+                            <div class="type-icon test-icon">
+                                <i class="fas fa-vial"></i>
+                            </div>
+                            <span>Xét nghiệm máu</span>
+                        </div>
+                        <span class="status-badge status-upcoming">Ngày mai</span>
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="datetime">
+                            <div class="datetime-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>29/05/2025</span>
+                            </div>
+                            <div class="datetime-item">
+                                <i class="fas fa-clock"></i>
+                                <span>07:30</span>
+                            </div>
+                        </div>
+                        
+                        <div class="treatment-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Xét nghiệm:</span>
+                                <span class="detail-value">E2, LH, FSH</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Mục đích:</span>
+                                <span class="detail-value">Theo dõi phản ứng kích thích</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Nhịn ăn:</span>
+                                <span class="detail-value">Không yêu cầu</span>
+                            </div>
+                        </div>
+                        
+                        <div class="location-info">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Phòng khám Hy Vọng Mới - Tầng 2, Phòng xét nghiệm</span>
+                        </div>
+                        
+                        <div class="notes">
+                            <i class="fas fa-info-circle"></i>
+                            <strong>Chuẩn bị:</strong> Mang theo thẻ bảo hiểm và giấy tờ tùy thân. Đến sớm 15 phút.
+                        </div>
+                    </div>
+                    
+                    <div class="card-actions">
+                        <button class="btn btn-primary" onclick="viewDirections()">
+                            <i class="fas fa-route"></i> Chỉ đường
+                        </button>
+                        <button class="btn btn-secondary" onclick="setReminder()">
+                            <i class="fas fa-bell"></i> Nhắc nhở
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Ultrasound Appointment -->
+                <div class="schedule-card appointment" data-type="appointment">
+                    <div class="card-header">
+                        <div class="card-type">
+                            <div class="type-icon appointment-icon">
+                                <i class="fas fa-user-md"></i>
+                            </div>
+                            <span>Siêu âm theo dõi</span>
+                        </div>
+                        <span class="status-badge status-upcoming">30/05</span>
+                    </div>
+		
+</body>
+</html>
+					

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký dịch vụ - Hy Vọng Mới</title>
+	    <link rel="stylesheet" href="../static/css/dangkidichvu.css" />
+    <script src="../static/js/dangkidichvu.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body>
+<button class="btn-toggle-sidebar" onclick="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+</button>
+<nav class="sidebar">
+    <div class="sidebar-header">
+        <h2>Hy Vọng Mới</h2>
+        <div class="user-info">
+            <div class="user-avatar">H</div>
+            <div class="user-details">
+                <h3>Customer</h3>
+            </div>
+        </div>
+    </div>
+
+    <ul class="sidebar-nav">
+        <li class="nav-item">
+            <a href="customer.html">
+                <i class="fas fa-home"></i>
+                <span>Thông báo</span>
+            </a>
+        </li>
+        <li class="nav-item active">
+    <a href="dangkidichvu.html">
+        <i class="fas fa-plus-circle"></i>
+        <span>Đăng ký dịch vụ</span>
+    </a>
+</li>
+        <li class="nav-item">
+            <a href="lichtrinhdieutri.html">
+                <i class="fas fa-calendar-check"></i>
+                <span>Lịch trình điều trị</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="ketquadieutri.html">
+                <i class="fas fa-file-medical-alt"></i>
+                <span>Kết quả điều trị</span>
+            </a>
+        </li>
+        </li>
+        <li class="nav-item">
+            <a href="lichsudondat.html">
+                <i class="fas fa-history"></i>
+                <span>Lịch sử đơn đặt</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="danhgia.html">
+                <i class="fas fa-star"></i>
+                <span>Đánh giá</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="profile.html">
+                <i class="fas fa-user-cog"></i>
+                <span>Hồ sơ cá nhân</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+        <div class="dashboard-container">
+  <main class="main-content full">
+    <div class="container">
+        <div class="page-header">
+            <h1><i class="fas fa-heart"></i> Đăng ký dịch vụ điều trị</h1>
+            <p>Chọn dịch vụ phù hợp và đăng ký lịch hẹn với đội ngũ chuyên gia của chúng tôi</p>
+        </div>
+
+        <!-- Service Selection -->
+        <div class="service-grid">
+            <div class="service-card" onclick="selectService('consultation', this)">
+                <div class="service-icon">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <div class="service-title">Tư vấn ban đầu</div>
+                <div class="service-subtitle">Khám và tư vấn toàn diện</div>
+                <div class="service-description">
+                    Khám sức khỏe sinh sản toàn diện, tư vấn phương pháp điều trị phù hợp và lập kế hoạch điều trị cá nhân hóa.
+                </div>
+                <div class="service-price">500.000đ - 800.000đ</div>
+                <ul class="service-features">
+                    <li>Khám lâm sàng toàn diện</li>
+                    <li>Tư vấn chuyên sâu 45-60 phút</li>
+                    <li>Lập kế hoạch điều trị</li>
+                    <li>Hỗ trợ tâm lý</li>
+                </ul>
+                <button class="select-service-btn">Chọn dịch vụ</button>
+            </div>
+
+            <div class="service-card" onclick="selectService('iui', this)">
+                <div class="service-icon">
+                    <i class="fas fa-microscope"></i>
+                </div>
+                <div class="service-title">Thụ tinh nhân tạo (IUI)</div>
+                <div class="service-subtitle">Phương pháp hỗ trợ sinh sản cơ bản</div>
+                <div class="service-description">
+                    Quy trình đưa tinh trùng đã được xử lý vào tử cung trong thời điểm phóng trứng để tăng khả năng thụ thai.
+                </div>
+                <div class="service-price">3.500.000đ - 5.000.000đ</div>
+                <ul class="service-features">
+                    <li>Theo dõi phóng trứng</li>
+                    <li>Xử lý tinh trùng</li>
+                    <li>Thực hiện IUI</li>
+                    <li>Theo dõi sau điều trị</li>
+                </ul>
+                <button class="select-service-btn">Chọn dịch vụ</button>
+            </div>
+
+            <div class="service-card" onclick="selectService('ivf', this)">
+                <div class="service-icon">
+                    <i class="fas fa-flask"></i>
+                </div>
+                <div class="service-title">Thụ tinh trong ống nghiệm (IVF)</div>
+                <div class="service-subtitle">Phương pháp hỗ trợ sinh sản hiện đại</div>
+                <div class="service-description">
+                    Quy trình lấy trứng, thụ tinh ngoài cơ thể và chuyển phôi vào tử cung. Tỷ lệ thành công cao.
+                </div>
+                <div class="service-price">45.000.000đ - 65.000.000đ</div>
+                <ul class="service-features">
+                    <li>Kích thích buồng trứng</li>
+                    <li>Lấy trứng và tinh trùng</li>
+                    <li>Thụ tinh và nuôi cấy phôi</li>
+                    <li>Chuyển phôi và theo dõi</li>
+                </ul>
+                <button class="select-service-btn">Chọn dịch vụ</button>
+            </div>
+
+            <div class="service-card" onclick="selectService('icsi', this)">
+                <div class="service-icon">
+                    <i class="fas fa-syringe"></i>
+                </div>
+                <div class="service-title">Tiêm tinh trùng vào trứng (ICSI)</div>
+                <div class="service-subtitle">Giải pháp cho nam giới vô sinh</div>
+                <div class="service-description">
+                    Kỹ thuật tiêm một tinh trùng trực tiếp vào trứng, dành cho trường hợp tinh trùng yếu hoặc ít.
+                </div>
+                <div class="service-price">50.000.000đ - 70.000.000đ</div>
+                <ul class="service-features">
+                    <li>Kích thích buồng trứng</li>
+                    <li>Tiêm tinh trùng vào trứng</li>
+                    <li>Nuôi cấy phôi chuyên sâu</li>
+                    <li>Chuyển phôi chất lượng cao</li>
+                </ul>
+                <button class="select-service-btn">Chọn dịch vụ</button>
+            </div>
+
+            <div class="service-card" onclick="selectService('egg-freezing', this)">
+                <div class="service-icon">
+                    <i class="fas fa-snowflake"></i>
+                </div>
+                <div class="service-title">Đông lạnh trứng</div>
+                <div class="service-subtitle">Bảo tồn khả năng sinh sản</div>
+                <div class="service-description">
+                    Lưu trữ trứng ở nhiệt độ cực thấp để bảo tồn khả năng sinh sản cho tương lai.
+                </div>
+                <div class="service-price">25.000.000đ - 35.000.000đ</div>
+                <ul class="service-features">
+                    <li>Kích thích buồng trứng</li>
+                    <li>Lấy trứng chất lượng cao</li>
+                    <li>Đông lạnh bằng công nghệ Vitrification</li>
+                    <li>Lưu trữ dài hạn</li>
+                </ul>
+                <button class="select-service-btn">Chọn dịch vụ</button>
+            </div>
+
+            <div class="service-card" onclick="selectService('sperm-analysis', this)">
+                <div class="service-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="service-title">Xét nghiệm tinh dịch đồ</div>
+                <div class="service-subtitle">Đánh giá chất lượng tinh trùng</div>
+                <div class="service-description">
+                    Phân tích toàn diện chất lượng, số lượng và khả năng vận động của tinh trùng.
+                </div>
+                <div class="service-price">300.000đ - 500.000đ</div>
+                <ul class="service-features">
+                    <li>Phân tích số lượng tinh trùng</li>
+                    <li>Đánh giá khả năng vận động</li>
+                    <li>Kiểm tra hình thái</li>
+                    <li>Báo cáo chi tiết</li>
+                </ul>
+                <button class="select-service-btn">Chọn dịch vụ</button>
+            </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="registration-form" id="registrationForm">
+            <form id="serviceForm" onsubmit="handleSubmit(event)">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Vui lòng điền đầy đủ thông tin để chúng tôi có thể tư vấn và hỗ trợ bạn tốt nhất.</span>
+                </div>
+
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <h3 class="form-section-title">Thông tin cá nhân</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName">Họ và tên <span class="required">*</span></label>
+                            <input type="text" id="fullName" name="fullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNumber">Số điện thoại <span class="required">*</span></label>
+                            <input type="tel" id="phoneNumber" name="phoneNumber" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Tuổi <span class="required">*</span></label>
+                            <input type="number" id="age" name="age" min="18" max="60" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="address">Địa chỉ</label>
+                            <input type="text" id="address" name="address">
+                        </div>
+                        <div class="form-group">
+                            <label for="partnerName">Tên bạn đời</label>
+                            <input type="text" id="partnerName" name="partnerName">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medical History -->
+                <div class="form-section">
+                    <h3 class="form-section-title">Tiền sử bệnh lý</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="marriageYears">Số năm kết hôn</label>
+                            <input type="number" id="marriageYears" name="marriageYears" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="tryingYears">Số năm cố gắng có con</label>
+                            <input type="number" id="tryingYears" name="tryingYears" min="0">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="previousTreatments">Phương pháp điều trị đã thực hiện</label>
+                        <textarea id="previousTreatments" name="previousTreatments" placeholder="Mô tả các phương pháp điều trị bạn đã thực hiện trước đây (nếu có)..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="medicalHistory">Tiền sử bệnh lý</label>
+                        <textarea id="medicalHistory" name="medicalHistory" placeholder="Các bệnh lý hiện tại hoặc đã từng mắc phải..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Doctor Selection -->
+                <div class="form-section">
+                    <h3 class="form-section-title">Chọn bác sĩ (tùy chọn)</h3>
+                    <div class="doctor-selection">
+                        <div class="doctor-card" onclick="selectDoctor('auto', this)">
+                            <div class="doctor-info">
+                                <div class="doctor-avatar">
+                                    <i class="fas fa-random"></i>
+                                </div>
+                                <div class="doctor-details">
+                                    <h4>Tự động phân bổ</h4>
+                                    <p>Hệ thống sẽ chọn bác sĩ phù hợp nhất</p>
+                                    <p>Dựa trên lịch trình và chuyên môn</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="doctor-card" onclick="selectDoctor('dr-lan', this)">
+                            <div class="doctor-info">
+                                <div class="doctor-avatar">L</div>
+                                <div class="doctor-details">
+                                    <h4>BS. Nguyễn Thị Lan</h4>
+                                    <p>Chuyên khoa IVF - 15 năm kinh nghiệm</p>
+                                    <p>Tiến sĩ Y học, Bệnh viện Bạch Mai</p>
+                                    <div class="doctor-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        4.9/5 (127 đánh giá)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="doctor-card" onclick="selectDoctor('dr-nam', this)">
+                            <div class="doctor-info">
+                                <div class="doctor-avatar">N</div>
+                                <div class="doctor-details">
+                                    <h4>BS. Trần Văn Nam</h4>
+                                    <p>Chuyên khoa Nam học - 12 năm kinh nghiệm</p>
+                                    <p>Thạc sĩ Y học, Đại học Y Hà Nội</p>
+                                    <div class="doctor-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        4.8/5 (89 đánh giá)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+<div class="doctor-card" onclick="selectDoctor('dr-hong', this)">
+  <div class="doctor-info">
+    <div class="doctor-avatar">H</div>
+    <div class="doctor-details">
+      <h4>BS. Lê Thị Hồng</h4>
+      <p>Chuyên khoa Sản phụ khoa - 18 năm kinh nghiệm</p>
+      <p>Phó Giáo sư, Bệnh viện Phụ sản Trung ương</p>
+      <div class="doctor-rating">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+        4.7/5 (105 đánh giá)
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Thêm 20 bác sĩ mới -->
+<div class="doctor-card" onclick="selectDoctor('dr-vy', this)">
+  <div class="doctor-info">
+    <div class="doctor-avatar">V</div>
+    <div class="doctor-details">
+      <h4>BS. Nguyễn Văn Vy</h4>
+      <p>Chuyên khoa IVF - 10 năm kinh nghiệm</p>
+      <p>ĐH Y Dược TP.HCM</p>
+      <div class="doctor-rating">⭐⭐⭐⭐⭐ 4.9/5 (98 đánh giá)</div>
+    </div>
+  </div>
+</div>
+<div class="doctor-card" onclick="selectDoctor('dr-hanh', this)">
+  <div class="doctor-info">
+    <div class="doctor-avatar">H</div>
+    <div class="doctor-details">
+      <h4>BS. Vũ Thị Hạnh</h4>
+      <p>Chuyên khoa ICSI - 14 năm kinh nghiệm</p>
+      <p>Viện Công nghệ Sinh học</p>
+      <div class="doctor-rating">⭐⭐⭐⭐⭐ 4.8/5 (76 đánh giá)</div>
+    </div>
+  </div>
+</div>
+<div class="doctor-card" onclick="selectDoctor('dr-khoa', this)">
+  <div class="doctor-info">
+    <div class="doctor-avatar">K</div>
+    <div class="doctor-details">
+      <h4>BS. Phạm Minh Khoa</h4>
+      <p>Chuyên khoa Nam học - 9 năm kinh nghiệm</p>
+      <p>Bệnh viện Bình Dân</p>
+      <div class="doctor-rating">⭐⭐⭐⭐ 4.6/5 (61 đánh giá)</div>
+    </div>
+  </div>
+</div>
+<div class="doctor-card" onclick="selectDoctor('dr-hue', this)">
+  <div class="doctor-info">
+    <div class="doctor-avatar">H</div>
+    <div class="doctor-details">
+      <h4>BS. Trần Thị Huệ</h4>
+      <p>Chuyên khoa Nội tiết - 11 năm kinh nghiệm</p>
+      <p>Bệnh viện Nội tiết Trung ương</p>
+      <div class="doctor-rating">⭐⭐⭐⭐⭐ 4.9/5 (90 đánh giá)</div>
+    </div>
+  </div>
+</div>
+<div class="doctor-card" onclick="selectDoctor('dr-hieu', this)">
+  <div class="doctor-info">
+    <div class="doctor-avatar">H</div>
+    <div class="doctor-details">
+      <h4>BS. Đỗ Văn Hiếu</h4>
+      <p>Chuyên khoa Di truyền học - 8 năm kinh nghiệm</p>
+      <p>Đại học Y Dược Cần Thơ</p>
+      <div class="doctor-rating">⭐⭐⭐⭐ 4.5/5 (67 đánh giá)</div>
+    </div>
+  </div>
+</div>
+<div class="doctor-card" onclick="selectDoctor('dr-thao', this)">
+  <div class="doctor-info">
+    <div class="doctor-avatar">T</div>
+    <div class="doctor-details">
+      <h4>BS. Nguyễn Thị Thảo</h4>
+      <p>Chuyên khoa Sản phụ khoa - 13 năm kinh nghiệm</p>
+      <p>Viện Sản Nhi Quảng Ninh</p>
+      <div class="doctor-rating">⭐⭐⭐⭐⭐ 4.8/5 (84 đánh giá)</div>
+    </div>
+  </div>
+</div>
+<div class="doctor-card" onclick="selectDoctor('dr-son', this)">
+  <div class="doctor-info">
+    <div class="doctor-avatar">S</div>
+    <div class="doctor-details">
+      <h4>BS. Trần Văn Sơn</h4>
+      <p>Chuyên khoa IVF - 15 năm kinh nghiệm</p>
+      <p>ĐH Y Dược Huế</p>
+      <div class="doctor-rating">⭐⭐⭐⭐⭐ 4.9/5 (102 đánh giá)</div>
+    </div>
+  </div>
+</div>
+<div class="doctor-card" onclick="selectDoctor('dr-quynh', this)">
+  <div class="doctor-info">
+    <div class="doctor-avatar">Q</div>
+    <div class="doctor-details">
+      <h4>BS. Lê Thị Quỳnh</h4>
+      <p>Chuyên khoa Nội tiết - 10 năm kinh nghiệm</p>
+      <p>Bệnh viện Nội tiết TP.HCM</p>
+      <div class="doctor-rating">⭐⭐⭐⭐⭐ 4.7/5 (72 đánh giá)</div>
+    </div>
+  </div>
+</div>
+<div class="doctor-card" onclick="selectDoctor('dr-anh', this)">
+  <div class="doctor-info">
+    <div class="doctor-avatar">A</div>
+    <div class="doctor-details">
+      <h4>BS. Nguyễn Quốc Anh</h4>
+      <p>Chuyên khoa Nam học - 16 năm kinh nghiệm</p>
+      <p>Bệnh viện Việt Đức</p>
+      <div class="doctor-rating">⭐⭐⭐⭐⭐ 4.8/5 (110 đánh giá)</div>
+    </div>
+  </div>
+</div>
+<div class="doctor-card" onclick="selectDoctor('dr-nhung', this)">
+  <div class="doctor-info">
+    <div class="doctor-avatar">N</div>
+    <div class="doctor-details">
+      <h4>BS. Phạm Thị Nhung</h4>
+      <p>Chuyên khoa Di truyền học - 7 năm kinh nghiệm</p>
+      <p>Viện Hàn lâm Khoa học Việt Nam</p>
+      <div class="doctor-rating">⭐⭐⭐⭐ 4.6/5 (53 đánh giá)</div>
+    </div>
+  </div>
+</div>
+
+									 </div>
+            </div>
+  </main>
+</div>
+
+</body>
+</html>

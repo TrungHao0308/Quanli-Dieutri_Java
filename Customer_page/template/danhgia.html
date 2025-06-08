@@ -1,0 +1,320 @@
+ <!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đánh giá - Hy Vọng Mới</title>
+	    <link rel="stylesheet" href="/static/css/danhgia.css" />
+    <script src="/static/js/danhgia.js"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <button class="btn-toggle-sidebar" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2>Hy Vọng Mới</h2>
+                <div class="user-info">
+                    <div class="user-avatar">H</div>
+                    <div class="user-details">
+                        <h3>Customer</h3>              
+                    </div>
+                </div>
+            </div>
+            
+            <ul class="sidebar-nav">
+                <li class="nav-item">
+                    <a href="customer.html">
+                        <i class="fas fa-home"></i>
+                        <span>Thông báo</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="dangkidichvu.html">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Đăng ký dịch vụ</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="lichtrinhdieutri.html">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Lịch trình điều trị</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="ketquadieutri.html">
+                        <i class="fas fa-file-medical-alt"></i>
+                        <span>Kết quả điều trị</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="lichsudondat.html" onclick="showPage('order-history')">
+                        <i class="fas fa-history"></i>
+                        <span>Lịch sử đơn đặt</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a href="danhgia.html" onclick="showPage('reviews')">
+                        <i class="fas fa-star"></i>
+                        <span>Đánh giá</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="profile.html" onclick="showPage('profile')">
+                        <i class="fas fa-user-cog"></i>
+                        <span>Hồ sơ cá nhân</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="top-right">
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                </button>
+            </div>
+
+            <div class="page-header">
+                <h1>Đánh giá dịch vụ</h1>
+                <p>Chia sẻ trải nghiệm của bạn về dịch vụ và bác sĩ để chúng tôi cải thiện chất lượng</p>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-button active" onclick="switchTab('new-review')">
+                    <i class="fas fa-plus-circle"></i> Tạo đánh giá mới
+                </button>
+                <button class="tab-button" onclick="switchTab('review-history')">
+                    <i class="fas fa-history"></i> Lịch sử đánh giá
+                </button>
+            </div>
+
+            <!-- New Review Tab -->
+            <div id="new-review" class="tab-content active">
+                <div class="review-form">
+                    <form id="reviewForm">
+                        <!-- Service Selection -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-medical-alt"></i> Chọn dịch vụ để đánh giá</h3>
+                            <div class="form-group">
+                                <label for="service">Dịch vụ đã sử dụng</label>
+                                <select id="service" name="service" required>
+                                    <option value="">-- Vui lòng chọn dịch vụ --</option>
+                                    <option value="ivf">Thụ tinh trong ống nghiệm (IVF)</option>
+                                    <option value="iui">Thụ tinh nhân tạo (IUI)</option>
+                                    <option value="consultation">Tư vấn khám ban đầu</option>
+                                    <option value="monitoring">Theo dõi chu kỳ</option>
+                                    <option value="surgery">Phẫu thuật</option>
+                                    <option value="hormone-therapy">Điều trị hormone</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="doctor">Bác sĩ điều trị</label>
+                                <select id="doctor" name="doctor" required>
+                                    <option value="">-- Vui lòng chọn bác sĩ --</option>
+                                    <option value="dr-nguyen">BS. Nguyễn Thị Minh Châu</option>
+                                    <option value="dr-tran">BS. Trần Văn Đức</option>
+                                    <option value="dr-le">BS. Lê Thị Hương</option>
+                                    <option value="dr-pham">BS. Phạm Minh Tuấn</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Rating Section -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-star"></i> Đánh giá tổng thể</h3>
+                            
+                            <div class="form-group">
+                                <label>Chất lượng dịch vụ</label>
+                                <div class="star-rating" data-rating="service-rating">
+                                    <span class="star" data-value="1">★</span>
+                                    <span class="star" data-value="2">★</span>
+                                    <span class="star" data-value="3">★</span>
+                                    <span class="star" data-value="4">★</span>
+                                    <span class="star" data-value="5">★</span>
+                                    <span class="rating-label" id="service-label">Chọn đánh giá</span>
+                                </div>
+                                <input type="hidden" id="service-rating" name="service-rating" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tính chuyên nghiệp của bác sĩ</label>
+                                <div class="star-rating" data-rating="doctor-rating">
+                                    <span class="star" data-value="1">★</span>
+                                    <span class="star" data-value="2">★</span>
+                                    <span class="star" data-value="3">★</span>
+                                    <span class="star" data-value="4">★</span>
+                                    <span class="star" data-value="5">★</span>
+                                    <span class="rating-label" id="doctor-label">Chọn đánh giá</span>
+                                </div>
+                                <input type="hidden" id="doctor-rating" name="doctor-rating" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Sự hài lòng chung</label>
+                                <div class="star-rating" data-rating="overall-rating">
+                                    <span class="star" data-value="1">★</span>
+                                    <span class="star" data-value="2">★</span>
+                                    <span class="star" data-value="3">★</span>
+                                    <span class="star" data-value="4">★</span>
+                                    <span class="star" data-value="5">★</span>
+                                    <span class="rating-label" id="overall-label">Chọn đánh giá</span>
+                                </div>
+                                <input type="hidden" id="overall-rating" name="overall-rating" required>
+                            </div>
+                        </div>
+
+                        <!-- Feedback Section -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-comment-alt"></i> Nhận xét chi tiết</h3>
+                            
+                            <div class="form-group">
+                                <label for="positive-feedback">Điều bạn hài lòng nhất</label>
+                                <textarea id="positive-feedback" name="positive-feedback" 
+                                    placeholder="Chia sẻ những điểm tích cực trong quá trình điều trị..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="improvement-feedback">Đề xuất cải thiện</label>
+                                <textarea id="improvement-feedback" name="improvement-feedback" 
+                                    placeholder="Những điều bạn mong muốn được cải thiện trong lần tới..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="overall-comment">Nhận xét tổng quan</label>
+                                <textarea id="overall-comment" name="overall-comment" 
+                                    placeholder="Chia sẻ trải nghiệm tổng thể của bạn..."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Privacy Options -->
+                        <div class="form-section">
+                            <h3><i class="fas fa-shield-alt"></i> Tùy chọn riêng tư</h3>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="anonymous" name="anonymous">
+                                <label for="anonymous">Gửi đánh giá ẩn danh (tên của bạn sẽ không hiển thị)</label>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="allow-contact" name="allow-contact">
+                                <label for="allow-contact">Cho phép phòng khám liên hệ để thảo luận về phản hồi</label>
+                            </div>
+                        </div>
+
+                        <!-- Submit Buttons -->
+                        <div style="margin-top: 30px;">
+                            <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                                <i class="fas fa-undo"></i> Đặt lại
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> Gửi đánh giá
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Review History Tab -->
+            <div id="review-history" class="tab-content">
+                <div class="card">
+                    <h3 style="margin-bottom: 20px;">
+                        <i class="fas fa-history"></i> Lịch sử đánh giá của bạn
+                    </h3>
+                    
+                    <!-- Sample Review Item -->
+                    <div class="review-item">
+                        <div class="review-header">
+                            <div class="review-info">
+                                <h4>Thụ tinh trong ống nghiệm (IVF)</h4>
+                                <div class="review-meta">
+                                    BS. Nguyễn Thị Minh Châu • 15/03/2024
+                                </div>
+                            </div>
+                            <div class="review-rating">
+                                <span class="star active">★</span>
+                                <span class="star active">★</span>
+                                <span class="star active">★</span>
+                                <span class="star active">★</span>
+                                <span class="star">★</span>
+                            </div>
+                        </div>
+                        <div class="review-content">
+                            Dịch vụ theo dõi chu kỳ rất chuyên nghiệp. Các xét nghiệm được thực hiện đúng hẹn và kết quả trả về nhanh chóng. Bác sĩ Hương luôn giải đáp thắc mắc một cách tận tình.
+                        </div>
+                        <div class="review-status">
+                            <span class="status-badge status-public">Công khai</span>
+                            <span>• Đã gửi thành công</span>
+                        </div>
+                    </div>
+
+                    <!-- Empty state for when no reviews exist -->
+                    <div class="empty-state" style="display: none;" id="empty-reviews">
+                        <i class="fas fa-star"></i>
+                        <h3>Chưa có đánh giá nào</h3>
+                        <p>Bạn chưa gửi đánh giá nào. Hãy chia sẻ trải nghiệm của bạn!</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+	
+</body>
+</html></span>
+                                <span class="star active">★</span>
+                            </div>
+                        </div>
+                        <div class="review-content">
+                            Tôi rất hài lòng với dịch vụ tại phòng khám. Bác sĩ Châu rất tận tâm và giải thích rõ ràng về từng bước trong quá trình điều trị. Đội ngũ y tá cũng rất chăm sóc và nhiệt tình. Môi trường phòng khám sạch sẽ, hiện đại. Tôi sẽ giới thiệu cho bạn bè.
+                        </div>
+                        <div class="review-status">
+                            <span class="status-badge status-public">Công khai</span>
+                            <span>• Đã gửi thành công</span>
+                        </div>
+                    </div>
+
+                    <div class="review-item">
+                        <div class="review-header">
+                            <div class="review-info">
+                                <h4>Tư vấn khám ban đầu</h4>
+                                <div class="review-meta">
+                                    BS. Trần Văn Đức • 28/02/2024
+                                </div>
+                            </div>
+                            <div class="review-rating">
+                                <span class="star active">★</span>
+                                <span class="star active">★</span>
+                                <span class="star active">★</span>
+                                <span class="star active">★</span>
+                                <span class="star">★</span>
+                            </div>
+                        </div>
+                        <div class="review-content">
+                            Buổi tư vấn rất hữu ích, bác sĩ Đức giải thích chi tiết về các phương pháp điều trị. Tuy nhiên, thời gian chờ hơi lâu. Mong phòng khám cải thiện vấn đề này.
+                        </div>
+                        <div class="review-status">
+                            <span class="status-badge status-anonymous">Ẩn danh</span>
+                            <span>• Đã gửi thành công</span>
+                        </div>
+                    </div>
+
+                    <div class="review-item">
+                        <div class="review-header">
+                            <div class="review-info">
+                                <h4>Theo dõi chu kỳ</h4>
+                                <div class="review-meta">
+                                    BS. Lê Thị Hương • 10/01/2024
+                                </div>
+                            </div>
+                            <div class="review-rating">
+                                <span class="star active">★</span>
+                                <span class="star active">★</span>
+                                <span class="star active">★</span>
+                                <span class="star active">★

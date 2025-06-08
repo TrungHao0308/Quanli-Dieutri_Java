@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng Nhập - Hy Vọng Mới</title>
+    <link rel="stylesheet" href="/app/static/css/login-page.css" />
+    <script src="/app/static/js/login-page.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <div class="logo">
+          <img src="/app/static/images/logo.png" alt="Logo Hy Vọng Mới" />
+          <h1>Hy Vọng Mới</h1>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="trang-chu-updated.html">Trang chủ</a></li>
+            <li><a href="phac-do-dieu-tri-html.html">Phác đồ điều trị</a></li>
+            <li><a href="doi-ngu-bac-si.html">Đội ngũ bác sĩ</a></li>
+            <li><a href="trang-chu-updated.html#lien-he">Liên hệ</a></li>
+            <li><a href="gioi-thieu-co-so-y-te.html">Giới thiệu cơ sở</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Login Section -->
+    <div class="login-container">
+      <div class="login-card">
+        <div class="login-header">
+          <h2>Đăng Nhập</h2>
+          <p>Chào mừng bạn trở lại với Hy Vọng Mới</p>
+        </div>
+        <div class="login-form">
+          <form id="loginForm" action="#" method="post">
+            <div class="form-group">
+              <label for="email">Email hoặc số điện thoại</label>
+              <input
+                type="text"
+                id="email"
+                name="email"
+                placeholder="Nhập email hoặc số điện thoại"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="password">Mật khẩu</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Nhập mật khẩu"
+                required
+              />
+              <span class="password-toggle" id="passwordToggle">
+                <i class="far fa-eye"></i>
+              </span>
+            </div>
+            <div class="forgot-password">
+              <a href="#">Quên mật khẩu?</a>
+            </div>
+            <button type="submit" class="login-button">Đăng Nhập</button>
+          </form>
+
+          <div class="login-divider">
+            <hr />
+            <span>HOẶC</span>
+            <hr />
+          </div>
+
+          <div class="social-login">
+            <button class="social-button facebook-btn">
+              <i class="fab fa-facebook-f"></i> Facebook
+            </button>
+            <button class="social-button google-btn">
+              <i class="fab fa-google"></i> Google
+            </button>
+          </div>
+
+          <div class="register-link">
+            Bạn chưa có tài khoản? <a href="register-page.html">Đăng ký ngay</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

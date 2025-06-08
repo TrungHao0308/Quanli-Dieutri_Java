@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Khách hàng - Hy Vọng Mới</title>
+    <link rel="stylesheet" href="/static/css/customer.css" />
+    <script src="/static/js/customer.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <button class="btn-toggle-sidebar" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h2>Hy Vọng Mới</h2>
+          <div class="user-info">
+            <div class="user-avatar">H</div>
+            <div class="user-details">
+              <h3>Customer</h3>
+            </div>
+          </div>
+        </div>
+        <ul class="sidebar-nav">
+          <li class="nav-item active">
+            <a href="customer.html"
+              ><i class="fas fa-home"></i><span>Thông báo</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="dangkidichvu.html"
+              ><i class="fas fa-plus-circle"></i><span>Đăng ký dịch vụ</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="lichtrinhdieutri.html"
+              ><i class="fas fa-calendar-check"></i
+              ><span>Lịch trình điều trị</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="ketquadieutri.html"
+              ><i class="fas fa-file-medical-alt"></i
+              ><span>Kết quả điều trị</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="lichsudondat.html"
+              ><i class="fas fa-history"></i><span>Lịch sử đơn đặt</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="danhgia.html"
+              ><i class="fas fa-star"></i><span>Đánh giá</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="profile.html"
+              ><i class="fas fa-user-cog"></i><span>Hồ sơ cá nhân</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="top-right">
+          <button class="logout-btn" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> Đăng xuất
+          </button>
+        </div>
+
+        <div id="dashboard" class="content-page active">
+          <div class="page-header">
+            <h1>Chào mừng trở lại, Customer!</h1>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
