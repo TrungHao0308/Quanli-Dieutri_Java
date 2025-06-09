@@ -5,8 +5,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Đăng Ký - Hy Vọng Mới</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/static/css/RegisterPage.css" />
-    <script src="${pageContext.request.contextPath}/resources/static/js/Register.js" defer></script>
+    <link
+      rel="stylesheet"
+      href="${pageContext.request.contextPath}/resources/static/css/RegisterPage.css"
+    />
+    <script
+      src="${pageContext.request.contextPath}/resources/static/js/Register.js"
+      defer
+    ></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -17,11 +23,14 @@
     <header>
       <div class="container header-container">
         <div class="logo">
-          <img src="${pageContext.request.contextPath}/resources/static/images/logo.png" alt="Logo Hy Vọng Mới" />
+          <img
+            src="${pageContext.request.contextPath}/resources/static/images/logo.png"
+            alt="Logo Hy Vọng Mới"
+          />
           <h1>Hy Vọng Mới</h1>
         </div>
         <nav>
-          <ul> 
+          <ul>
             <li><a href="trang-chu-updated.html">Trang chủ</a></li>
             <li><a href="phac-do-dieu-tri-html.html">Phác đồ điều trị</a></li>
             <li><a href="doi-ngu-bac-si.html">Đội ngũ bác sĩ</a></li>
@@ -40,7 +49,7 @@
           <p>Cùng bắt đầu hành trình làm cha mẹ với Hy Vọng Mới</p>
         </div>
         <div class="register-form">
-          <form id="registerForm" action="#" method="post">
+          <form id="registerForm" action="Register" method="post">
             <div class="form-row">
               <div class="form-group">
                 <label for="firstName">Họ</label>
@@ -163,7 +172,7 @@
 
             <button type="submit" class="register-btn">Đăng Ký</button>
           </form>
-          
+
           <div class="login-link">
             <p>Đã có tài khoản? <a href="LoginPage.jsp">Đăng nhập ngay</a></p>
           </div>
