@@ -69,8 +69,13 @@
         <dependency>
            <groupId>com.mysql</groupId>
            <artifactId>mysql-connector-j</artifactId>
-           <version>9.3.0</version> <!-- Phiên bản mới nhất chính xác -->
+           <version>8.0.33</version> <!-- Phiên bản mới nhất chính xác -->
         </dependency>
+<dependency>
+    <groupId>com.microsoft.sqlserver</groupId>
+    <artifactId>mssql-jdbc</artifactId>
+    <version>12.6.1.jre11</version> <!-- Hoặc 12.x phù hợp với Java 21 -->
+</dependency>
 
         <!-- Spring Boot Test Starter -->
         <dependency>
@@ -97,9 +102,7 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <encoding>UTF-8</encoding>
-                    <compilerArgs>
-                        <arg>--enable-preview</arg>
-                    </compilerArgs>
+
                 </configuration>
             </plugin>
 

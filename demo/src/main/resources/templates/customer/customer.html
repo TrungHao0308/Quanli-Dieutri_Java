@@ -35,7 +35,7 @@
         </div>
         <ul class="sidebar-nav">
           <li class="nav-item active">
-            <a th:href="@{/customer}">
+            <a th:href="@{/customer/thongbao}">
               <i class="fas fa-home"></i><span>Thông báo</span>
             </a>
           </li>
@@ -46,12 +46,14 @@
           </li>
           <li class="nav-item">
             <a th:href="@{/customer/lichtrinhdieutri}">
-              <i class="fas fa-calendar-check"></i><span>Lịch trình điều trị</span>
+              <i class="fas fa-calendar-check"></i
+              ><span>Lịch trình điều trị</span>
             </a>
           </li>
           <li class="nav-item">
             <a th:href="@{/customer/ketquadieutri}">
-              <i class="fas fa-file-medical-alt"></i><span>Kết quả điều trị</span>
+              <i class="fas fa-file-medical-alt"></i
+              ><span>Kết quả điều trị</span>
             </a>
           </li>
           <li class="nav-item">
@@ -65,7 +67,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a th:href="@{/customer/profile}">
+            <a th:href="@{/customer/hosocanhan}">
               <i class="fas fa-user-cog"></i><span>Hồ sơ cá nhân</span>
             </a>
           </li>
@@ -84,15 +86,21 @@
 
         <div id="dashboard" class="content-page active">
           <div class="page-header">
-            <h1>Chào mừng trở lại, <span th:text="${customerName}">Customer</span>!</h1>
+            <h1>
+              Chào mừng trở lại,
+              <span th:text="${customerName}">Customer</span>!
+            </h1>
           </div>
           <p>Thông tin của bạn:</p>
           <ul>
-            <li>Email: <span th:text="${customer.email}">email@example.com</span></li>
-            <li>Số điện thoại: <span th:text="${customer.phone}">0123456789</span></li>
-            <li>Địa chỉ: <span th:text="${customer.address}">Địa chỉ của bạn</span></li>
-            <li>Ngày sinh: <span th:text="${customer.dateOfBirth}">01/01/2000</span></li>
-            <li>Giới tính: <span th:text="${customer.gender}">Nam</span></li>
+            <li>Email: <span th:text="${customer.email}"></span></li>
+            <li>Số điện thoại: <span th:text="${customer.phone}"></span></li>
+            <li>
+              Địa chỉ:
+              <span th:text="${customer.address}"></span>
+            </li>
+            <li>Ngày sinh: <span th:text="${customer.dateOfBirth}"></span></li>
+            <li>Giới tính: <span th:text="${customer.gender}"></span></li>
           </ul>
         </div>
       </main>

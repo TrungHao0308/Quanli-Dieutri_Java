@@ -53,7 +53,7 @@ public class AuthController {
         try {
             Customer customer = customerService.registerCustomer(registrationDto);
             
-            redirectAttributes.addFlashAttribute("successMessage", 
+            redirectAttributes.addFlashAttribute("successMessage",
                 "Đăng ký thành công! Vui lòng đăng nhập.");
             
             return "redirect:/auth/login";
