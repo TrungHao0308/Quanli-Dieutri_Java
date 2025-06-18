@@ -3,12 +3,14 @@ package com.hao.demo.service;
 import com.hao.demo.model.Customer;
 import com.hao.demo.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.Collections;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -18,16 +20,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        // Tìm customer đang active theo email
+        System.out.println("Tìm người dùng với email: " + email);
         Customer customer = customerRepository.findActiveCustomerByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
-
-        // Tạo UserDetails để Spring Security sử dụng xác thực
-        return org.springframework.security.core.userdetails.User.builder()
-                .username(customer.getEmail())       // email làm username
-                .password(customer.getPassword())    // password đã được mã hóa
-                .authorities(new ArrayList<>())      // Thêm quyền nếu có
+                .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy người dùng với email: " + email));
+        System.out.println("Tìm thấy người dùng: " + customer.getEmail());
+        return User.builder()
+                .username(customer.getEmail())
+                .password(customer.getPassword())
+                .authorities(Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")))
                 .build();
     }
 }
-
