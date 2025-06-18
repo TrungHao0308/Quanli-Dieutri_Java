@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
@@ -18,53 +19,47 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping
-    public String showCustomerPage(Model model) {
-        Customer customer = getLoggedInCustomer();
-        if (customer == null) return "redirect:/auth/login";
+    // @GetMapping
+    // public String showCustomerPage(Model model) {
+    //     return loadCustomerPage(model, "customer/customer");
+    // }
 
-        model.addAttribute("customer", customer);
-        model.addAttribute("customerName", customer.getFullName());
+    // @GetMapping("/thongbao")
+    // public String showThongBao(Model model) {
+    //     return loadCustomerPage(model, "customer/thongbao");
+    // }
 
-        return "customer/customer";
-    }
+    // @GetMapping("/dangkidichvu")
+    // public String showDangKiDichVu(Model model) {
+    //     return loadCustomerPage(model, "customer/dangkidichvu");
+    // }
 
-//  @GetMapping("/thongbao")
-//  public String viewNotifications(Model model) {
-//     return loadCustomerPage(model, "customer/thongbao");
-//  }
+    // @GetMapping("/lichtrinhdieutri")
+    // public String showLichTrinhDieuTri(Model model) {
+    //     return loadCustomerPage(model, "customer/lichtrinhdieutri");
+    // }
 
-//  @GetMapping("/dangkidichvu")
-// public String viewServiceRegistration(Model model) {
-//      return loadCustomerPage(model, "customer/dangkidichvu");
-//  }
+    // @GetMapping("/ketquadieutri")
+    // public String showKetQuaDieuTri(Model model) {
+    //     return loadCustomerPage(model, "customer/ketquadieutri");
+    // }
 
-//     @GetMapping("/lichtrinhdieutri")
-//     public String viewTreatmentSchedule(Model model) {
-//         return loadCustomerPage(model, "customer/lichtrinhdieutri");
-//     }
+    // @GetMapping("/lichsudondat")
+    // public String showLichSuDonDat(Model model) {
+    //     return loadCustomerPage(model, "customer/lichsudondat");
+    // }
 
-//     @GetMapping("/ketquadieutri")
-//     public String viewTreatmentResults(Model model) {
-//         return loadCustomerPage(model, "customer/ketquadieutri");
-//     }
+    // @GetMapping("/danhgia")
+    // public String showDanhGia(Model model) {
+    //     return loadCustomerPage(model, "customer/danhgia");
+    // }
 
-//     @GetMapping("/lichsodondat")
-//     public String viewOrderHistory(Model model) {
-//         return loadCustomerPage(model, "customer/lichsodondat");
-//     }
+    // @GetMapping("/hosocanhan")
+    // public String showHoSoCaNhan(Model model) {
+    //     return loadCustomerPage(model, "customer/hosocanhan");
+    // }
 
-//     @GetMapping("/danhgia")
-//     public String viewReviews(Model model) {
-//         return loadCustomerPage(model, "customer/danhgia");
-//     }
-
-//     @GetMapping("/hosocanhan")
-//     public String viewProfile(Model model) {
-//         return loadCustomerPage(model, "customer/hosocanhan");
-//     }
-
-     // Helper methods
+    // Helper methods
 
     private Customer getLoggedInCustomer() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -86,4 +81,4 @@ public class CustomerController {
 
         return viewName;
     }
- }
+}

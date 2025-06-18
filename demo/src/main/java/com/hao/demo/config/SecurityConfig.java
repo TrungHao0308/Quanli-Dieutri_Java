@@ -42,8 +42,8 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/", "/auth/**", "/css/**", "/js/**", "/images/**").permitAll() // Các đường dẫn cho phép truy cập công khai
-                .requestMatchers("/customer/**").authenticated() // Yêu cầu đăng nhập cho các đường dẫn /customer/**
+                .requestMatchers("/", "/trangchu", "/phacdodieutri", "/doingubacsi", "/cosoyte", "/auth/**", "/css/**", "/js/**", "/images/**").permitAll()
+                .requestMatchers("/customer/**").authenticated()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form

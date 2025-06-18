@@ -9,7 +9,19 @@ public class WebConfig implements WebMvcConfigurer {
     
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("redirect:/auth/login");
-        registry.addViewController("/index").setViewName("redirect:/auth/login");
+        registry.addViewController("/").setViewName("trangchu");
+        registry.addViewController("/trangchu").setViewName("trangchu");
+        registry.addViewController("/phacdodieutri").setViewName("phacdodieutri");
+        registry.addViewController("/doingubacsi").setViewName("doingubacsi");
+        registry.addViewController("/cosoyte").setViewName("cosoyte");
+        // registry.addViewController("/customer").setViewName("customer/customer");
+        // registry.addViewController("/customer/thongbao").setViewName("customer/thongbao");
+        // registry.addViewController("/customer/dangkidichvu").setViewName("customer/dangkidichvu");
+        // registry.addViewController("/customer/lichtrinhdieutri").setViewName("customer/lichtrinhdieutri");
+        // registry.addViewController("/customer/ketquadieutri").setViewName("customer/ketquadieutri");
+        // registry.addViewController("/customer/lichsudondat").setViewName("customer/lichsudondat");
+        // registry.addViewController("/customer/danhgia").setViewName("customer/danhgia");
+        // registry.addViewController("/customer/hosocanhan").setViewName("customer/hosocanhan");
+    
     }
 }

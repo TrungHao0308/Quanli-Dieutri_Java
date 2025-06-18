@@ -3,9 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard Khách hàng - Hy Vọng Mới</title>
+    <title>Thông báo - Hy Vọng Mới</title>
     <link rel="stylesheet" th:href="@{/css/customer.css}" />
-    <script th:src="@{/js/customer.js}" defer></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -35,41 +34,41 @@
         </div>
         <ul class="sidebar-nav">
           <li class="nav-item active">
-            <a th:href="@{/customer/thongbao}">
-              <i class="fas fa-home"></i><span>Thông báo</span>
-            </a>
+            <a th:href="@{/customer/thongbao}"
+              ><i class="fas fa-home"></i><span>Thông báo</span></a
+            >
           </li>
           <li class="nav-item">
-            <a th:href="@{/customer/dangkidichvu}">
-              <i class="fas fa-plus-circle"></i><span>Đăng ký dịch vụ</span>
-            </a>
+            <a th:href="@{/customer/dangkidichvu}"
+              ><i class="fas fa-plus-circle"></i><span>Đăng ký dịch vụ</span></a
+            >
           </li>
           <li class="nav-item">
-            <a th:href="@{/customer/lichtrinhdieutri}">
-              <i class="fas fa-calendar-check"></i
-              ><span>Lịch trình điều trị</span>
-            </a>
+            <a th:href="@{/customer/lichtrinhdieutri}"
+              ><i class="fas fa-calendar-check"></i
+              ><span>Lịch trình điều trị</span></a
+            >
           </li>
           <li class="nav-item">
-            <a th:href="@{/customer/ketquadieutri}">
-              <i class="fas fa-file-medical-alt"></i
-              ><span>Kết quả điều trị</span>
-            </a>
+            <a th:href="@{/customer/ketquadieutri}"
+              ><i class="fas fa-file-medical-alt"></i
+              ><span>Kết quả điều trị</span></a
+            >
           </li>
           <li class="nav-item">
-            <a th:href="@{/customer/lichsudondat}">
-              <i class="fas fa-history"></i><span>Lịch sử đơn đặt</span>
-            </a>
+            <a th:href="@{/customer/lichsudondat}"
+              ><i class="fas fa-history"></i><span>Lịch sử đơn đặt</span></a
+            >
           </li>
           <li class="nav-item">
-            <a th:href="@{/customer/danhgia}">
-              <i class="fas fa-star"></i><span>Đánh giá</span>
-            </a>
+            <a th:href="@{/customer/danhgia}"
+              ><i class="fas fa-star"></i><span>Đánh giá</span></a
+            >
           </li>
           <li class="nav-item">
-            <a th:href="@{/customer/hosocanhan}">
-              <i class="fas fa-user-cog"></i><span>Hồ sơ cá nhân</span>
-            </a>
+            <a th:href="@{/customer/hosocanhan}"
+              ><i class="fas fa-user-cog"></i><span>Hồ sơ cá nhân</span></a
+            >
           </li>
         </ul>
       </nav>
@@ -83,27 +82,17 @@
             </button>
           </form>
         </div>
-
-        <div id="dashboard" class="content-page active">
+        <div class="content-page active">
           <div class="page-header">
-            <h1>
-              Chào mừng trở lại,
-              <span th:text="${customerName}">Customer</span>!
-            </h1>
+            <h1>Thông báo</h1>
           </div>
-          <p>Thông tin của bạn:</p>
-          <ul>
-            <li>Email: <span th:text="${customer.email}"></span></li>
-            <li>Số điện thoại: <span th:text="${customer.phone}"></span></li>
-            <li>
-              Địa chỉ:
-              <span th:text="${customer.address}"></span>
-            </li>
-            <li>Ngày sinh: <span th:text="${customer.dateOfBirth}"></span></li>
-            <li>Giới tính: <span th:text="${customer.gender}"></span></li>
-          </ul>
+          <p>
+            Đây là trang thông báo của bạn. Các thông báo sẽ được hiển thị tại
+            đây.
+          </p>
         </div>
       </main>
     </div>
+    <script th:src="@{/js/customer.js}" defer></script>
   </body>
 </html>
