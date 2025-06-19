@@ -17,7 +17,7 @@
 
     <div class="dashboard-container">
       <!-- Sidebar -->
-      <nav class="sidebar">
+      <nav class="sidebar" th:fragment="sidebar">
         <div class="sidebar-header">
           <h2>Hy Vọng Mới</h2>
           <div class="user-info">
@@ -34,41 +34,41 @@
         </div>
         <ul class="sidebar-nav">
           <li class="nav-item active">
-            <a th:href="@{/customer/thongbao}"
-              ><i class="fas fa-home"></i><span>Thông báo</span></a
-            >
+            <a th:href="@{/customer/thongbao}">
+              <i class="fas fa-home"></i><span>Thông báo</span>
+            </a>
           </li>
           <li class="nav-item">
-            <a th:href="@{/customer/dangkidichvu}"
-              ><i class="fas fa-plus-circle"></i><span>Đăng ký dịch vụ</span></a
-            >
+            <a th:href="@{/customer/dangkidichvu}">
+              <i class="fas fa-plus-circle"></i><span>Đăng ký dịch vụ</span>
+            </a>
           </li>
           <li class="nav-item">
-            <a th:href="@{/customer/lichtrinhdieutri}"
-              ><i class="fas fa-calendar-check"></i
-              ><span>Lịch trình điều trị</span></a
-            >
+            <a th:href="@{/customer/lichtrinhdieutri}">
+              <i class="fas fa-calendar-check"></i
+              ><span>Lịch trình điều trị</span>
+            </a>
           </li>
           <li class="nav-item">
-            <a th:href="@{/customer/ketquadieutri}"
-              ><i class="fas fa-file-medical-alt"></i
-              ><span>Kết quả điều trị</span></a
-            >
+            <a th:href="@{/customer/ketquadieutri}">
+              <i class="fas fa-file-medical-alt"></i
+              ><span>Kết quả điều trị</span>
+            </a>
           </li>
           <li class="nav-item">
-            <a th:href="@{/customer/lichsudondat}"
-              ><i class="fas fa-history"></i><span>Lịch sử đơn đặt</span></a
-            >
+            <a th:href="@{/customer/lichsudondat}">
+              <i class="fas fa-history"></i><span>Lịch sử đơn đặt</span>
+            </a>
           </li>
           <li class="nav-item">
-            <a th:href="@{/customer/danhgia}"
-              ><i class="fas fa-star"></i><span>Đánh giá</span></a
-            >
+            <a th:href="@{/customer/danhgia}">
+              <i class="fas fa-star"></i><span>Đánh giá</span>
+            </a>
           </li>
           <li class="nav-item">
-            <a th:href="@{/customer/hosocanhan}"
-              ><i class="fas fa-user-cog"></i><span>Hồ sơ cá nhân</span></a
-            >
+            <a th:href="@{/customer/hosocanhan}">
+              <i class="fas fa-user-cog"></i><span>Hồ sơ cá nhân</span>
+            </a>
           </li>
         </ul>
       </nav>
@@ -93,6 +93,7 @@
         </div>
       </main>
     </div>
+
     <script th:src="@{/js/customer.js}" defer></script>
   </body>
 </html>

@@ -24,40 +24,41 @@ public class CustomerController {
         return loadCustomerPage(model, "customer/customer");
     }
 
-    @GetMapping("/thongbao")
-    public String showThongBao(Model model) {
-        return loadCustomerPage(model, "customer/thongbao");
-    }
+@GetMapping("/thongbao")
+public String showThongBao(Model model) {
+    return loadCustomerPage(model, "customer/thongbao");
+}
 
-    @GetMapping("/dangkidichvu")
-    public String showDangKiDichVu(Model model) {
-        return loadCustomerPage(model, "customer/dangkidichvu");
-    }
+@GetMapping("/dangkidichvu")
+public String showDangKiDichVu(Model model) {
+    return loadCustomerPage(model, "customer/dangkidichvu");
+}
 
-    @GetMapping("/lichtrinhdieutri")
-    public String showLichTrinhDieuTri(Model model) {
-        return loadCustomerPage(model, "customer/lichtrinhdieutri");
-    }
+@GetMapping("/lichtrinhdieutri")
+public String showLichTrinhDieuTri(Model model) {
+    return loadCustomerPage(model, "customer/lichtrinhdieutri");
+}
 
-    @GetMapping("/ketquadieutri")
-    public String showKetQuaDieuTri(Model model) {
-        return loadCustomerPage(model, "customer/ketquadieutri");
-    }
+@GetMapping("/ketquadieutri")
+public String showKetQuaDieuTri(Model model) {
+    return loadCustomerPage(model, "customer/ketquadieutri");
+}
 
-    @GetMapping("/lichsudondat")
-    public String showLichSuDonDat(Model model) {
-        return loadCustomerPage(model, "customer/lichsudondat");
-    }
+@GetMapping("/lichsudondat")
+public String showLichSuDonDat(Model model) {
+    return loadCustomerPage(model, "customer/lichsudondat");
+}
 
-    @GetMapping("/danhgia")
-    public String showDanhGia(Model model) {
-        return loadCustomerPage(model, "customer/danhgia");
-    }
+@GetMapping("/danhgia")
+public String showDanhGia(Model model) {
+    return loadCustomerPage(model, "customer/danhgia");
+}
 
-    @GetMapping("/hosocanhan")
-    public String showHoSoCaNhan(Model model) {
-        return loadCustomerPage(model, "customer/hosocanhan");
-    }
+@GetMapping("/hosocanhan")
+public String showHoSoCaNhan(Model model) {
+    return loadCustomerPage(model, "customer/hosocanhan");
+}
+
 
     // Helper methods
 
