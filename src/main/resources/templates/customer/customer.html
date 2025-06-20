@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thông báo - Hy Vọng Mới</title>
+    <link rel="stylesheet" th:href="@{/css/customer.css}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <button class="btn-toggle-sidebar" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h2>Hy Vọng Mới</h2>
+          <div class="user-info">
+            <div
+              class="user-avatar"
+              th:text="${customerName != null} ? ${customerName.substring(0,1)} : 'H'"
+            >
+              H
+            </div>
+            <div class="user-details">
+              <h3 th:text="${customerName}">Customer</h3>
+            </div>
+          </div>
+        </div>
+        <ul class="sidebar-nav">
+          <li class="nav-item active">
+            <a th:href="@{/customer/thongbao}"
+              ><i class="fas fa-home"></i><span>Thông báo</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/customer/dangkidichvu}"
+              ><i class="fas fa-plus-circle"></i><span>Đăng ký dịch vụ</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/customer/lichtrinhdieutri}"
+              ><i class="fas fa-calendar-check"></i
+              ><span>Lịch trình điều trị</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/customer/ketquadieutri}"
+              ><i class="fas fa-file-medical-alt"></i
+              ><span>Kết quả điều trị</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/customer/lichsudondat}"
+              ><i class="fas fa-history"></i><span>Lịch sử đơn đặt</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/customer/danhgia}"
+              ><i class="fas fa-star"></i><span>Đánh giá</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/customer/hosocanhan}"
+              ><i class="fas fa-user-cog"></i><span>Hồ sơ cá nhân</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="top-right">
+          <form th:action="@{/auth/logout}" method="post">
+            <button type="submit" class="logout-btn">
+              <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </button>
+          </form>
+        </div>
+        <div class="content-page active">
+          <div class="page-header">
+            <h1>Thông báo</h1>
+          </div>
+          <p>
+            Đây là trang thông báo của bạn. Các thông báo sẽ được hiển thị tại
+            đây.
+          </p>
+        </div>
+      </main>
+    </div>
+    <script th:src="@{/js/customer.js}" defer></script>
+  </body>
+</html>

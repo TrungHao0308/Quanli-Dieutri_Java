@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quản lý Bác sĩ - Hy Vọng Mới</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- CSS riêng -->
+    <link rel="stylesheet" th:href="@{/css/quanlybacsi.css}" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <button class="btn-toggle-sidebar" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h2>Hy Vọng Mới</h2>
+          <div class="user-info">
+            <div class="user-avatar">A</div>
+            <div class="user-details">
+              <h3>Manage</h3>
+            </div>
+          </div>
+        </div>
+        <ul class="sidebar-nav">
+          <li class="nav-item">
+            <a th:href="@{/dashboard-mng}">
+              <i class="fas fa-chart-line"></i><span>Thống kê tổng quan</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/quanlydichvu}">
+              <i class="fas fa-concierge-bell"></i><span>Quản lý Dịch vụ</span>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a th:href="@{/quanlybacsi}">
+              <i class="fas fa-user-md"></i><span>Quản lý Bác sĩ</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/baocao-mng}">
+              <i class="fas fa-file-alt"></i><span>Xem Báo cáo</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/quanlydanhgia}">
+              <i class="fas fa-star-half-alt"></i><span>Quản lý Đánh giá</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="top-right">
+          <form th:action="@{/auth/logout}" method="post">
+            <button type="submit" class="logout-btn">
+              <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </button>
+          </form>
+        </div>
+
+        <div class="content-page active">
+          <div class="page-header">
+            <h1>Quản lý Bác sĩ</h1>
+          </div>
+
+          <!-- Form Thêm bác sĩ -->
+          <section class="form-container">
+            <h2>Thêm bác sĩ mới</h2>
+            <form action="#" method="post">
+              <div class="form-group">
+                <label for="name">Họ và tên:</label>
+                <input type="text" id="name" name="name" required />
+              </div>
+
+              <div class="form-group">
+                <label for="specialty">Chuyên môn:</label>
+                <input type="text" id="specialty" name="specialty" required />
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Số điện thoại:</label>
+                <input type="tel" id="phone" name="phone" required />
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+
+              <div class="form-group">
+                <label for="schedule">Lịch làm việc:</label>
+                <textarea
+                  id="schedule"
+                  name="schedule"
+                  rows="2"
+                  placeholder="Ví dụ: Thứ 2 - Thứ 6, 8h00 - 17h00"
+                ></textarea>
+              </div>
+
+              <button type="submit" class="form-submit">Thêm bác sĩ</button>
+            </form>
+          </section>
+
+          <!-- Danh sách bác sĩ -->
+          <section class="doctor-table">
+            <h2>Danh sách bác sĩ</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Họ tên</th>
+                  <th>Chuyên môn</th>
+                  <th>Điện thoại</th>
+                  <th>Email</th>
+                  <th>Lịch làm việc</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Nguyễn Văn A</td>
+                  <td>Nội tổng quát</td>
+                  <td>0909123456</td>
+                  <td>a.nguyen@example.com</td>
+                  <td>Thứ 2 - 6 (8h - 17h)</td>
+                  <td class="action-buttons">
+                    <button class="btn btn-edit">Sửa</button>
+                    <button class="btn btn-delete" onclick="return confirm('Xóa bác sĩ này?')">Xóa</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <!-- JS riêng -->
+    <script th:src="@{/js/quanly-bacsi.js}" defer></script>
+  </body>
+</html>

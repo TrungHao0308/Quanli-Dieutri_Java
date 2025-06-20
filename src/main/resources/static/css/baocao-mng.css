@@ -1,0 +1,143 @@
+:root {
+  --primary-blue: #3f8fd1;
+  --primary-pink: #f6a6b4;
+  --light-gray: #f5f7fa;
+  --text-dark: #333;
+  --white: #fff;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, 'Open Sans', sans-serif;
+  margin: 0;
+  background-color: var(--light-gray);
+  color: var(--text-dark);
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: linear-gradient(to bottom right, #3f8fd1, #6ec1b6);
+  color: white;
+  position: fixed;
+  height: 100vh;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  margin-bottom: 30px;
+  font-size: 1.4rem;
+}
+
+.sidebar-nav {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-nav li {
+  margin: 15px 0;
+}
+
+.sidebar-nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.sidebar-nav .active a {
+  color: var(--primary-pink);
+}
+
+/* Main content */
+.main-content {
+  margin-left: 260px;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logout-btn {
+  background-color: #3f8fd1;
+  border: none;
+  padding: 8px 15px;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background-color: #f6a6b4;
+}
+
+/* Filter */
+.filter-section {
+  margin-top: 20px;
+  background: var(--white);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+}
+
+.filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filter-form input,
+.filter-form select,
+.filter-form button {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.filter-form button {
+  background-color: #3f8fd1;
+  border: none;
+  padding: 8px 15px;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.filter-form button:hover {
+  background-color: #f6a6b4;
+}
+/* Table */
+.report-list {
+  margin-top: 30px;
+}
+
+.report-list h3 {
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  color: var(--primary-blue);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: var(--shadow);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+table th,
+table td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.status-success {
+  color: green;
+  font-weight: bold;
+}

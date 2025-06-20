@@ -1,0 +1,64 @@
+package com.hao.demo.controller;
+
+import com.hao.demo.model.Customer;
+import com.hao.demo.service.CustomerService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/manage")
+public class ManageController {
+
+    private final CustomerService customerService;
+
+    public ManageController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
+
+    @GetMapping("/baocao")
+    public String showBaoCao(Model model) {
+        return loadManagePage(model, "manage/baocao-mng");
+    }
+
+    @GetMapping("/bacsi")
+    public String showBacSi(Model model) {
+        return loadManagePage(model, "manage/quanlybacsi");
+    }
+
+    @GetMapping("/danhgia")
+    public String showDanhGia(Model model) {
+        return loadManagePage(model, "manage/quanlydanhgia");
+    }
+
+    @GetMapping("/dichvu")
+    public String showDichVu(Model model) {
+        return loadManagePage(model, "manage/quanlydichvu");
+    }
+
+    // === Helper methods giống như trong CustomerController ===
+
+    private Customer getLoggedInCustomer() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated() ||
+            authentication.getPrincipal().equals("anonymousUser")) {
+            return null;
+        }
+
+        String email = authentication.getName();
+        return customerService.findByEmail(email).orElse(null);
+    }
+
+    private String loadManagePage(Model model, String viewName) {
+        Customer customer = getLoggedInCustomer();
+        if (customer == null) return "redirect:/auth/login";
+
+        model.addAttribute("customer", customer);
+        model.addAttribute("customerName", customer.getFullName());
+
+        return viewName;
+    }
+}

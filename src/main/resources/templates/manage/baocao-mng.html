@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Xem báo cáo - Hy Vọng Mới</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" th:href="@{/css/baocao-mng.css}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <h2>Hy Vọng Mới</h2>
+      <ul class="sidebar-nav">
+        <li><a th:href="@{/dashboard-mng}"><i class="fas fa-chart-line"></i> Thống kê tổng quan</a></li>
+        <li><a th:href="@{/quanlydichvu}"><i class="fas fa-concierge-bell"></i> Quản lý Dịch vụ</a></li>
+        <li><a th:href="@{/quanlybacsi}"><i class="fas fa-user-md"></i> Quản lý Bác sĩ</a></li>
+        <li class="active"><a th:href="@{/baocao-mng}"><i class="fas fa-file-alt"></i> Xem Báo cáo</a></li>
+        <li><a th:href="@{/quanlydanhgia}"><i class="fas fa-star-half-alt"></i> Quản lý Đánh giá</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main -->
+    <main class="main-content">
+      <div class="header">
+        <h1>Xem Báo cáo Hóa đơn</h1>
+        <form th:action="@{/auth/logout}" method="post">
+          <button class="logout-btn" type="submit"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
+        </form>
+      </div>
+
+      <!-- Bộ lọc -->
+      <section class="filter-section">
+        <form class="filter-form">
+          <select><option>1C23MAA</option></select>
+          <input type="text" placeholder="Trạng thái" />
+          <input type="text" placeholder="Kết quả trả về" />
+          <input type="date" />
+          <input type="text" placeholder="Tên khách hàng" />
+          <input type="text" placeholder="Mã số thuế" />
+          <input type="text" placeholder="Kiểu sắp xếp" />
+          <button type="submit">Tìm kiếm</button>
+        </form>
+      </section>
+
+      <!-- Danh sách báo cáo -->
+      <section class="report-list">
+        <h3><i class="fas fa-file-alt"></i> DANH SÁCH HÓA ĐƠN CÓ MÃ KHỞI TẠO TỪ MÁY TÍNH TIỀN</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Mẫu số</th>
+              <th>Số (HĐ)</th>
+              <th>Ngày tạo</th>
+              <th>Tổng tiền</th>
+              <th>Trạng thái</th>
+              <th>Kết quả</th>
+              <th>Xem</th>
+              <th>Xóa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>1C23MAA</td>
+              <td>17</td>
+              <td>16/02/2023</td>
+              <td>753.500</td>
+              <td>Đã phát hành</td>
+              <td class="status-success">Hợp lệ</td>
+              <td><i class="fas fa-eye"></i></td>
+              <td><i class="fas fa-trash-alt"></i></td>
+            </tr>
+            <!-- Thêm dòng dữ liệu khác -->
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <script th:src="@{/js/baocao-mng.js}" defer></script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quản lý Đánh giá - Hy Vọng Mới</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- CSS riêng -->
+    <link rel="stylesheet" th:href="@{/css/quanlydanhgia.css}" />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <button class="btn-toggle-sidebar" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h2>Hy Vọng Mới</h2>
+          <div class="user-info">
+            <div class="user-avatar">A</div>
+            <div class="user-details">
+              <h3>Manage</h3>
+            </div>
+          </div>
+        </div>
+        <ul class="sidebar-nav">
+          <li class="nav-item">
+            <a th:href="@{/dashboard-mng}">
+              <i class="fas fa-chart-line"></i><span>Thống kê tổng quan</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/quanlydichvu}">
+              <i class="fas fa-concierge-bell"></i><span>Quản lý Dịch vụ</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/quanlybacsi}">
+              <i class="fas fa-user-md"></i><span>Quản lý Bác sĩ</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/baocao-mng}">
+              <i class="fas fa-file-alt"></i><span>Xem Báo cáo</span>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a th:href="@{/quanlydanhgia}">
+              <i class="fas fa-star-half-alt"></i><span>Quản lý Đánh giá</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="top-right">
+          <form th:action="@{/auth/logout}" method="post">
+            <button type="submit" class="logout-btn">
+              <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </button>
+          </form>
+        </div>
+
+        <div class="content-page active">
+          <div class="page-header">
+            <h1>Quản lý Đánh giá</h1>
+          </div>
+
+          <!-- Danh sách đánh giá -->
+          <section class="review-table">
+            <h2>Danh sách đánh giá từ khách hàng</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Khách hàng</th>
+                  <th>Nội dung</th>
+                  <th>Số sao</th>
+                  <th>Ngày đánh giá</th>
+                  <th>Trạng thái</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Nguyễn Thị A</td>
+                  <td>Dịch vụ rất tốt</td>
+                  <td>
+                    <i class="fas fa-star" style="color: gold;"></i>
+                    <i class="fas fa-star" style="color: gold;"></i>
+                    <i class="fas fa-star" style="color: gold;"></i>
+                    <i class="fas fa-star" style="color: gold;"></i>
+                    <i class="fas fa-star" style="color: gold;"></i>
+                  </td>
+                  <td>01/06/2025</td>
+                  <td class="status">Hiển thị</td>
+                  <td class="action-buttons">
+                    <button class="btn btn-toggle-status">Ẩn</button>
+                    <button class="btn btn-delete" onclick="return confirm('Xóa đánh giá này?')">Xóa</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Trần Văn B</td>
+                  <td>Thái độ phục vụ chưa tốt</td>
+                  <td>
+                    <i class="fas fa-star" style="color: gold;"></i>
+                    <i class="fas fa-star" style="color: gold;"></i>
+                    <i class="fas fa-star" style="color: gold;"></i>
+                  </td>
+                  <td>05/06/2025</td>
+                  <td class="status">Ẩn</td>
+                  <td class="action-buttons">
+                    <button class="btn btn-toggle-status">Hiện</button>
+                    <button class="btn btn-delete" onclick="return confirm('Xóa đánh giá này?')">Xóa</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <!-- JS riêng -->
+    <script th:src="@{/js/quanly-danhgia.js}" defer></script>
+  </body>
+</html>

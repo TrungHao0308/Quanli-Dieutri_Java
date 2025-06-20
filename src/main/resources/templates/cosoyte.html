@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giới thiệu cơ sở y tế - Hy Vọng Mới</title>
+    <link rel="stylesheet" th:href="@{/css/cosoyte.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img th:src="@{/images/logo.png}" alt="Logo Hy Vọng Mới">
+                <h1>Hy Vọng Mới</h1>
+            </div>
+            <nav>
+    <ul>
+        <li><a th:href="@{/}">Trang chủ</a></li>
+                    <li><a th:href="@{/phacdodieutri}">Phác đồ điều trị</a></li>
+                    <li><a th:href="@{/doingubacsi}">Đội ngũ bác sĩ</a></li>
+                    <li><a th:href="@{/#lien-he}">Liên hệ</a></li>
+                    <li><a th:href="@{/cosoyte}">Giới thiệu cơ sở</a></li>
+    </ul>
+</nav>
+
+                    <div class="auth-buttons">
+    <a th:href="@{/auth/login}" class="login-btn">Đăng nhập</a>
+    <a th:href="@{/auth/register}" class="register-btn">Đăng ký</a>
+</div>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+        <div class="container banner-content">
+            <h2>Giới thiệu về Trung tâm Hỗ trợ Điều trị Hiếm Muộn<h2>
+			<h2>                     Hy Vọng Mới</h2>
+            <p>Nơi khởi đầu hạnh phúc cho gia đình Việt với đội ngũ chuyên gia hàng đầu và cơ sở vật chất hiện đại</p>
+        </div>
+    </section>
+
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs">
+        <div class="container breadcrumbs-container">
+            <a href="trang-chu-updated.html">Trang chủ</a>
+            <span>/</span>
+            <span class="current">Giới thiệu</span>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Về chúng tôi</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Trung tâm Hỗ trợ Điều trị Hiếm Muộn Hy Vọng Mới</h3>
+                    <p>Trung tâm Hỗ trợ Điều trị Hiếm Muộn Hy Vọng Mới được thành lập từ năm 2010, là một trong những đơn vị tiên phong trong lĩnh vực điều trị hiếm muộn và vô sinh tại Việt Nam. Với sứ mệnh mang lại hạnh phúc cho các gia đình Việt, chúng tôi không ngừng đầu tư vào công nghệ và nâng cao chất lượng dịch vụ y tế.</p>
+                    <p>Trải qua hơn 13 năm hoạt động, Trung tâm đã hỗ trợ hơn 10.000 cặp vợ chồng hiếm muộn có được niềm vui làm cha mẹ. Chúng tôi tự hào là đơn vị có tỷ lệ thành công cao và ổn định trong cả điều trị tự nhiên và hỗ trợ sinh sản.</p>
+                    <p>Trung tâm Hy Vọng Mới hiện có 3 cơ sở tại Hà Nội, TP.HCM và Đà Nẵng với đội ngũ hơn 20 bác sĩ chuyên khoa và hơn 100 nhân viên y tế được đào tạo bài bản, tận tâm. Chúng tôi liên tục cập nhật các phương pháp điều trị tiên tiến và hiện đại từ các nước phát triển để mang đến cho khách hàng dịch vụ tốt nhất.</p>
+                </div>
+                <div class="about-image">
+                    <img src="/app/static/images/trungtamhuyvong.jpg" alt="Trung tâm Hy Vọng Mới">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Mission Section -->
+    <section class="vision-mission">
+        <div class="container">
+            <div class="vision-mission-container">
+                <div class="vision-card">
+                    <div class="icon-box">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>Tầm nhìn</h3>
+                    <p>Trở thành trung tâm hỗ trợ sinh sản hàng đầu tại Việt Nam và khu vực Đông Nam Á, nơi mang lại hy vọng và hạnh phúc cho hàng trăm nghìn gia đình hiếm muộn.</p>
+                    <p>Chúng tôi hướng đến việc phát triển các giải pháp điều trị toàn diện, kết hợp y học hiện đại và tâm lý trị liệu, đảm bảo sức khỏe thể chất và tinh thần cho các cặp vợ chồng trong quá trình điều trị hiếm muộn.</p>
+                </div>
+                <div class="mission-card">
+                    <div class="icon-box">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Sứ mệnh</h3>
+                    <p>Mang đến giải pháp điều trị hiếm muộn chất lượng cao, an toàn và hiệu quả cho các cặp vợ chồng Việt Nam, đồng thời lan tỏa kiến thức về sức khỏe sinh sản trong cộng đồng.</p>
+                    <p>Chúng tôi cam kết đồng hành cùng mỗi cặp vợ chồng trên hành trình làm cha mẹ với sự tận tâm, thấu hiểu và chuyên nghiệp, mang lại niềm tin và hy vọng cho mọi người.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facilities Section -->
+    <section class="facilities">
+        <div class="container">
+            <div class="section-title">
+                <h2>Cơ sở vật chất</h2>
+            </div>
+            <div class="facilities-grid">
+                <div class="facility-item">
+                    <div class="facility-image">
+                        <img th:src="@{/images/phongkham.jpg}" alt="Phòng khám và tư vấn">
+                    </div>
+                    <div class="facility-info">
+                        <h3>Phòng khám và tư vấn</h3>
+                        <p>Không gian riêng tư, thoải mái giúp các cặp đôi có thể chia sẻ và nhận tư vấn từ các chuyên gia của chúng tôi.</p>
+                    </div>
+                </div>
+                <div class="facility-item">
+                    <div class="facility-image">
+                        <img th:src="@{/images/IVF.jpg}" alt="Phòng lab IVF">
+                    </div>
+                    <div class="facility-info">
+                        <h3>Phòng lab IVF</h3>
+                        <p>Phòng lab hiện đại với trang thiết bị tiên tiến nhập khẩu từ Mỹ, Đức và Nhật Bản, đảm bảo điều kiện tối ưu cho quá trình thụ tinh ống nghiệm.</p>
+                    </div>
+                </div>
+                <div class="facility-item">
+                    <div class="facility-image">
+                        <img th:src="@{/images/sieuam.jpg}" alt="Phòng siêu âm">
+                    </div>
+                    <div class="facility-info">
+                        <h3>Phòng siêu âm</h3>
+                        <p>Trang bị máy siêu âm 4D hiện đại giúp theo dõi quá trình phát triển của nang trứng và thai nhi một cách chính xác.</p>
+                    </div>
+                </div>
+                <div class="facility-item">
+                    <div class="facility-image">
+                        <img th:src="@{/images/phongphauthuat.jpg}" alt="Phòng phẫu thuật">
+                    </div>
+                    <div class="facility-info">
+                        <h3>Phòng phẫu thuật</h3>
+                        <p>Phòng phẫu thuật đạt tiêu chuẩn quốc tế, vô trùng tuyệt đối, đảm bảo an toàn cho các thủ thuật chuyên sâu.</p>
+                    </div>
+                </div>
+                <div class="facility-item">
+                    <div class="facility-image">
+                        <img th:src="@{/images/phoitinhtrung.jpg}" alt="Phòng lưu trữ phôi và tinh trùng">
+                    </div>
+                    <div class="facility-info">
+                        <h3>Phòng lưu trữ phôi và tinh trùng</h3>
+                        <p>Hệ thống bảo quản tiên tiến với nhiệt độ âm sâu, đảm bảo chất lượng phôi và tinh trùng trong thời gian dài.</p>
+                    </div>
+                </div>
+                <div class="facility-item">
+                    <div class="facility-image">
+                        <img th:src="@{/images/nghiduong.jpg}" alt="Phòng nghỉ dưỡng">
+                    </div>
+                    <div class="facility-info">
+                        <h3>Phòng nghỉ dưỡng</h3>
+                        <p>Không gian nghỉ ngơi yên tĩnh, thoải mái dành cho bệnh nhân sau các thủ thuật với sự chăm sóc chu đáo từ đội ngũ y tá.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
