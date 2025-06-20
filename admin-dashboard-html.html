@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Quản lý Tài khoản</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        .controls {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .search-filter {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex: 1;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7f8c8d;
+        }
+
+        .filter-select {
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(45deg, #56ab2f, #a8e6cf);
+            color: white;
+        }
+
+        .btn-warning {
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+
+        .users-table {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        th {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        tr:hover {
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status.active {
+            background: linear-gradient(45deg, #56ab2f, #a8e6cf);
+            color: white;
+        }
+
+        .status.inactive {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+        }
+
+        .role {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .role.doctor {
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            color: white;
+        }
+
+        .role.manager {
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+            color: white;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 95%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .modal-header h2 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+        }
+
+        .close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #7f8c8d;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #e74c3c;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .permissions-group {
+            margin-top: 20px;
+        }
+
+        .permissions-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .permission-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .permission-item:hover {
+            background: #e9ecef;
+        }
+
+        .permission-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #667eea;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-filter {
+                flex-direction: column;
+            }
+
+            .users-table {
+                overflow-x: auto;
+            }
+
+            table {
+                min-width: 800px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🏥 Admin Dashboard</h1>
+            <p>Quản lý tài khoản và phân quyền hệ thống</p>
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalUsers">0</div>
+                <div class="stat-label">Tổng Tài Khoản</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalDoctors">0</div>
+                <div class="stat-label">Bác Sĩ</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalManagers">0</div>
+                <div class="stat-label">Quản Lý</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="activeUsers">0</div>
+                <div class="stat-label">Đang Hoạt Động</div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <div class="search-filter">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm theo tên, email...">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <select id="roleFilter" class="filter-select">
+                    <option value="">Tất cả vai trò</option>
+                    <option value="doctor">Bác sĩ</option>
+                    <option value="manager">Quản lý</option>
+                </select>
+                <select id="statusFilter" class="filter-select">
+                    <option value="">Tất cả trạng thái</option>
+                    <option value="active">Hoạt động</option>
+                    <option value="inactive">Không hoạt động</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" onclick="openModal()">
+                ➕ Thêm Tài Khoản
+            </button>
+        </div>
+
+        <!-- Users Table -->
+        <div class="users-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên đăng nhập</th>
+                        <th>Họ tên</th>
+                        <th>Email</th>
+                        <th>Vai trò</th>
+                        <th>Trạng thái</th>
+                        <th>Ngày tạo</th>
+                        <th>Đăng nhập cuối</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                    <!-- Data will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal for Add/Edit User -->
+    <div id="userModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Thêm Tài Khoản Mới</h2>
+                <button class="close" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="userForm">
+                <div class="form-group">
+                    <label for="username">Tên đăng nhập *</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="fullName">Họ tên *</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mật khẩu *</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Vai trò *</label>
+                    <select id="role" name="role" required onchange="updatePermissions()">
+                        <option value="">Chọn vai trò</option>
+                        <option value="doctor">Bác sĩ</option>
+                        <option value="manager">Quản lý</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="status">Trạng thái</label>
+                    <select id="status" name="status">
+                        <option value="active">Hoạt động</option>
+                        <option value="inactive">Không hoạt động</option>
+                    </select>
+                </div>
+                <div class="permissions-group">
+                    <label>Quyền truy cập:</label>
+                    <div class="permissions-list" id="permissionsList">
+                        <!-- Permissions will be dynamically loaded -->
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn" onclick="closeModal()">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Sample data
+        let users = [
+            {
+                id: 1,
+                username: 'dr.nguyen',
+                fullName: 'BS. Nguyễn Văn An',
+                email: 'nguyen.van.an@hospital.com',
+                role: 'doctor',
+                status: 'active',
+                permissions: ['view_patients', 'edit_medical_records', 'prescribe_medicine'],
+                createdAt: '2024-01-15',
+                lastLogin: '2024-06-20'
+            },
+            {
+                id: 2,
+                username: 'manager.tran',
+                fullName: 'Trần Thị Bình',
+                email: 'tran.thi.binh@hospital.com',
+                role: 'manager',
+                status: 'active',
+                permissions: ['view_reports', 'manage_schedules', 'view_statistics'],
+                createdAt: '2024-02-01',
+                lastLogin: '2024-06-19'
+            },
+            {
+                id: 3,
+                username: 'dr.le',
+                fullName: 'BS. Lê Văn Cường',
+                email: 'le.van.cuong@hospital.com',
+                role: 'doctor',
+                status: 'inactive',
+                permissions: ['view_patients', 'edit_medical_records'],
+                createdAt: '2024-03-10',
+                lastLogin: '2024-06-15'
+            }
+        ];
+
+        const permissions = {
+            doctor: [
+                { id: 'view_patients', name: 'Xem thông tin bệnh nhân' },
+                { id: 'edit_medical_records', name: 'Chỉnh sửa hồ sơ bệnh án' },
+                { id: 'prescribe_medicine', name: 'Kê đơn thuốc' },
+                { id: 'view_lab_results', name: 'Xem kết quả xét nghiệm' },
+                { id: 'schedule_appointments', name: 'Đặt lịch khám' }
+            ],
+            manager: [
+                { id: 'view_reports', name: 'Xem báo cáo' },
+                { id: 'manage_schedules', name: 'Quản lý lịch trình' },
+                { id: 'view_statistics', name: 'Xem thống kê' },
+                { id: 'manage_staff', name: 'Quản lý nhân viên' },
+                { id: 'financial_reports', name: 'Báo cáo tài chính' },
+                { id: 'system_settings', name: 'Cài đặt hệ thống' }
+            ]
+        };
+
+        let currentEditId = null;
+        let filteredUsers = [...users];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderUsers();
+            updateStats();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            document.getElementById('searchInput').addEventListener('input', filterUsers);
+            document.getElementById('roleFilter').addEventListener('change', filterUsers);
+            document.getElementById('statusFilter').addEventListener('change', filterUsers);
+            document.getElementById('userForm').addEventListener('submit', handleFormSubmit);
+        }
+
+        function renderUsers() {
+            const tbody = document.getElementById('usersTableBody');
+            tbody.innerHTML = '';
+
+            filteredUsers.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.id}</td>
+                    <td><strong>${user.username}</strong></td>
+                    <td>${user.fullName}</td>
+                    <td>${user.email}</td>
+                    <td><span class="role ${user.role}">${user.role === 'doctor' ? 'Bác sĩ' : 'Quản lý'}</span></td>
+                    <td><span class="status ${user.status}">${user.status === 'active' ? 'Hoạt động' : 'Không hoạt động'}</span></td>
+                    <td>${formatDate(user.createdAt)}</td>
+                    <td>${formatDate(user.lastLogin)}</td>
+                    <td class="actions">
+                        <button class="btn btn-sm btn-warning" onclick="editUser(${user.id})" title="Chỉnh sửa">
+                            ✏️
+                        </button>
+                        <button class="btn btn-sm btn-success" onclick="viewPermissions(${user.id})" title="Xem quyền">
+                            🔒
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteUser(${user.id})" title="Xóa">
+                            🗑️
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function updateStats() {
+            const totalUsers = users.length;
+            const totalDoctors = users.filter(u => u.role === 'doctor').length;
+            const totalManagers = users.filter(u => u.role === 'manager').length;
+            const activeUsers = users.filter(u => u.status === 'active').length;
+
+            document.getElementById('totalUsers').textContent = totalUsers;
+            document.getElementById('totalDoctors').textContent = totalDoctors;
+            document.getElementById('totalManagers').textContent = totalManagers;
+            document.getElementById('activeUsers').textContent = activeUsers;
+        }
+
+        function filterUsers() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const roleFilter = document.getElementById('roleFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+
+            filteredUsers = users.filter(user => {
+                const matchesSearch = user.fullName.toLowerCase().includes(searchTerm) ||
+                                    user.email.toLowerCase().includes(searchTerm) ||
+                                    user.username.toLowerCase().includes(searchTerm);
+                const matchesRole = !roleFilter || user.role === roleFilter;
+                const matchesStatus = !statusFilter || user.status === statusFilter;
+
+                return matchesSearch && matchesRole && matchesStatus;
+            });
+
+            renderUsers();
+        }
+
+        function openModal(editId = null) {
+            currentEditId = editId;
+            const modal = document.getElementById('userModal');
+            const form = document.getElementById('userForm');
+            const title = document.getElementById('modalTitle');
+
+            if (editId) {
+                const user = users.find(u => u.id === editId);
+                title.textContent = 'Chỉnh sửa tài khoản';
+                
+                document.getElementById('username').value = user.username;
+                document.getElementById('fullName').value = user.fullName;
+                document.getElementById('email').value = user.email;
+                document.getElementById('password').required = false;
+                document.getElementById('role').value = user.role;
+                document.getElementById('status').value = user.status;
+                
+                updatePermissions();
+                
+                // Set permissions
+                user.permissions.forEach(perm => {
+                    const checkbox = document.getElementById(`perm_${perm}`);
+                    if (checkbox) checkbox.checked = true;
+                });
+            } else {
+                title.textContent = 'Thêm tài khoản mới';
+                form.reset();
+                document.getElementById('password').required = true;
+                updatePermissions();
+            }
+
+            modal.classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('userModal').classList.remove('show');
+            currentEditId = null;
+        }
+
+        function updatePermissions() {
+            const role = document.getElementById('role').value;
+            const permissionsList = document.getElementById('permissionsList');
+            
+            permissionsList.innerHTML = '';
+            
+            if (role && permissions[role]) {
+                permissions[role].forEach(perm => {
+                    const div = document.createElement('div');
+                    div.className = 'permission-item';
+                    div.innerHTML = `
+                        <input type="checkbox" id="perm_${perm.id}" name="permissions" value="${perm.id}">
+                        <label for="perm_${perm.id}">${perm.name}</label>
+                    `;
+                    permissionsList.appendChild(div);
+                });
+            }
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const selectedPermissions = Array.from(document.querySelectorAll('input[name="permissions"]:checked'))
+                .map(cb => cb.value);
+            
+            const userData = {
+                username: formData.get('username'),
+                fullName: formData.get('fullName'),
+                email: formData.get('email'),
+                role: formData.get('role'),
+                status: formData.get('status'),
+                permissions: selectedPermissions
+            };
+
+            if (currentEditId) {
+                // Update existing user
+                const userIndex = users.findIndex(u => u.id === currentEditId);
+                users[userIndex] = {
+                    ...users[userIndex],
+                    ...userData
+                };
+                alert('Cập nhật tài khoản thành công!');
+            } else {
+                // Add new user
+                const newUser = {
+                    id: Math.max(...users.map(u => u.id)) + 1,
+                    ...userData,
+                    createdAt: new Date().toISOString().split('T')[0],
+                    lastLogin: 'Chưa đăng nhập'
+                };
+                users.push(newUser);
+                alert('Thêm tài khoản thành công!');
+            }
+
+            closeModal();
+            filterUsers();
+            updateStats();
+        }
+
+        function editUser(id) {
+            openModal(id);
+        }
+
+        function deleteUser(id) {
+            const user = users.find(u => u.id === id);
+            if (confirm(`Bạn có chắc chắn muốn xóa tài khoản "${user.fullName}"?`)) {
+                users = users.filter(u => u.id !== id);
+                filterUsers();
+                updateStats();
+                alert('Xóa tài khoản thành công!');
+            }
+        }
+
+        function viewPermissions(id) {
+            const user = users.find(u => u.id === id);
+            const rolePermissions = permissions[user.role] || [];
+            
+            const permissionNames = user.permissions.map(permId => {
+                const perm = rolePermissions.find(p => p.id === permId);
+                return perm ? perm.name : permId;
+            });
+
+            alert(`Quyền của ${user.fullName}:\n\n${permissionNames.join('\n')}`);
+        }
+
+        function formatDate(dateString) {
+            if (dateString === 'Chưa đăng nhập') return dateString;
+            const date = new Date(dateString);
+            return date.toLocaleDateString('vi-VN');
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('userModal');
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
