@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý bác sĩ - Hy Vọng Mới</title>
+
+    <link rel="stylesheet" th:href="@{/css/doctor/doctor.css}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h2>🌟 Hy Vọng Mới</h2>
+          <p>Hệ thống quản lý bác sĩ</p>
+        </div>
+        <div class="doctor-info">
+          <div class="doctor-avatar">BS</div>
+          <div class="doctor-details">
+            <span th:text="${customer.fullName}"></span>
+            <p th:text="${customer != null ? 'Chuyên khoa IVF' : ''}">
+              Chuyên khoa IVF
+            </p>
+          </div>
+        </div>
+        <div class="nav-menu">
+          <a
+            class="nav-item"
+            th:classappend="${activePage == 'dashboard' ? 'active' : ''}"
+            th:href="@{/doctor/dashboard}"
+          >
+            <i class="fas fa-tachometer-alt"></i> Tổng quan
+          </a>
+          <a
+            class="nav-item"
+            th:classappend="${activePage == 'patients' ? 'active' : ''}"
+            th:href="@{/doctor/patients}"
+          >
+            <i class="fas fa-users"></i> Bệnh nhân
+          </a>
+          <a
+            class="nav-item"
+            th:classappend="${activePage == 'examination' ? 'active' : ''}"
+            th:href="@{/doctor/examination}"
+          >
+            <i class="fas fa-clipboard-list"></i> Kết quả khám
+          </a>
+        </div>
+      </nav>
+
+      <!-- Main -->
+      <main class="main-content">
+        <!-- Dashboard -->
+        <section
+          id="dashboard"
+          class="page"
+          th:classappend="${activePage == 'dashboard' ? 'active' : ''}"
+        >
+          <div class="page-header">
+            <h1 class="page-title">Tổng quan</h1>
+            <div class="header-actions">
+              <button class="btn btn-outline" th:onclick="@{/export-report}">
+                <i class="fas fa-download"></i> Xuất báo cáo
+              </button>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-number" th:text="${todayPatients}">--</div>
+              <div class="stat-label">Bệnh nhân hôm nay</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Patients -->
+        <section
+          id="patients"
+          class="page"
+          th:classappend="${activePage == 'patients' ? 'active' : ''}"
+        >
+          <div class="page-header">
+            <h1 class="page-title">Quản lý bệnh nhân</h1>
+            <div class="header-actions">
+              <input
+                type="text"
+                class="search-input"
+                placeholder="Tìm kiếm bệnh nhân..."
+                th:value="${searchTerm}"
+              />
+              <button class="btn btn-primary" th:onclick="@{/patients/add}">
+                <i class="fas fa-plus"></i> Thêm
+              </button>
+            </div>
+          </div>
+
+          <div class="patient-card" th:each="patient : ${patients}">
+            <div class="patient-header">
+              <div class="patient-basic-info">
+                <div class="patient-avatar-small" th:text="${patient.initials}">
+                  NL
+                </div>
+                <div>
+                  <div class="patient-name" th:text="${patient.name}">
+                    Nguyễn Thị Lan
+                  </div>
+                  <div
+                    class="appointment-time"
+                    th:text="${patient.appointmentTime}"
+                  >
+                    08:30 - Tái khám
+                  </div>
+                </div>
+              </div>
+              <div
+                class="appointment-status status-upcoming"
+                th:text="${patient.status}"
+              >
+                Đang chờ
+              </div>
+            </div>
+
+            <div class="patient-details-grid">
+              <div class="detail-item">
+                <span class="detail-label">Tuổi:</span
+                ><span class="detail-value" th:text="${patient.age}">32</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Điện thoại:</span
+                ><span class="detail-value" th:text="${patient.phone}"
+                  >0901***</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Examination -->
+        <section
+          id="examination"
+          class="page"
+          th:classappend="${activePage == 'examination' ? 'active' : ''}"
+        >
+          <div class="page-header">
+            <h1 class="page-title">Ghi nhận kết quả khám</h1>
+          </div>
+
+          <form
+            class="exam-form"
+            id="examinationForm"
+            th:action="@{/examination/submit}"
+            method="post"
+          >
+            <div class="form-title">
+              <i class="fas fa-clipboard-list"></i> Nhập kết quả khám
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="examDate">Ngày khám</label>
+                <input
+                  type="date"
+                  id="examDate"
+                  name="examDate"
+                  th:value="${examDate}"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="examType">Loại khám</label>
+                <select id="examType" name="examType" required>
+                  <option value="">Chọn loại khám</option>
+                  <option
+                    value="ultrasound"
+                    th:selected="${examType == 'ultrasound'}"
+                  >
+                    Siêu âm
+                  </option>
+                  <option
+                    value="blood_test"
+                    th:selected="${examType == 'blood_test'}"
+                  >
+                    Xét nghiệm máu
+                  </option>
+                  <option
+                    value="hormone"
+                    th:selected="${examType == 'hormone'}"
+                  >
+                    Xét nghiệm hormone
+                  </option>
+                  <option
+                    value="consultation"
+                    th:selected="${examType == 'consultation'}"
+                  >
+                    Tư vấn
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="examResults">Kết quả khám</label>
+              <textarea
+                id="examResults"
+                name="examResults"
+                rows="5"
+                th:text="${examResults}"
+                placeholder="Nhập kết quả chi tiết..."
+              ></textarea>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="importantValues">Chỉ số quan trọng</label>
+                <input
+                  type="text"
+                  id="importantValues"
+                  name="importantValues"
+                  th:value="${importantValues}"
+                  placeholder="VD: FSH: 8.5, LH: 12.3"
+                />
+              </div>
+              <div class="form-group">
+                <label for="examNotes">Ghi chú</label>
+                <input
+                  type="text"
+                  id="examNotes"
+                  name="examNotes"
+                  th:value="${examNotes}"
+                  placeholder="Ghi chú thêm..."
+                />
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-submit">Lưu kết quả</button>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal" id="patientModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Chi tiết bệnh nhân</h2>
+          <span class="close">×</span>
+        </div>
+        <div class="modal-body">
+          <p th:utext="${patientDetails}">
+            Thông tin chi tiết sẽ được tải tại đây.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script th:src="@{/js/doctor/doctor.js}"></script>
+  </body>
+</html>

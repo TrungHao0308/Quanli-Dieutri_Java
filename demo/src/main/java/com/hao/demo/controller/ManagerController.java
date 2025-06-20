@@ -11,32 +11,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/manager")
-public class ManageController {
+public class ManagerController {
 
     private final CustomerService customerService;
 
-    public ManageController(CustomerService customerService) {
+    public ManagerController(CustomerService customerService) {
         this.customerService = customerService;
     }
 
     @GetMapping("/baocao")
     public String showBaoCao(Model model) {
-        return loadManagePage(model, "manager/baocao");
+        return loadManagerPage(model, "manager/baocao");
     }
 
     @GetMapping("/quanlybacsi")
     public String showBacSi(Model model) {
-        return loadManagePage(model, "manager/quanlybacsi");
+        return loadManagerPage(model, "manager/quanlybacsi");
     }
 
     @GetMapping("/quanlydanhgia")
     public String showDanhGia(Model model) {
-        return loadManagePage(model, "manager/quanlydanhgia");
+        return loadManagerPage(model, "manager/quanlydanhgia");
     }
 
     @GetMapping("/quanlydichvu")
     public String showDichVu(Model model) {
-        return loadManagePage(model, "manager/quanlydichvu");
+        return loadManagerPage(model, "manager/quanlydichvu");
     }
 
     // === Helper methods giống như trong CustomerController ===
@@ -52,7 +52,7 @@ public class ManageController {
         return customerService.findByEmail(email).orElse(null);
     }
 
-    private String loadManagePage(Model model, String viewName) {
+    private String loadManagerPage(Model model, String viewName) {
         Customer customer = getLoggedInCustomer();
         if (customer == null) return "redirect:/auth/login";
 

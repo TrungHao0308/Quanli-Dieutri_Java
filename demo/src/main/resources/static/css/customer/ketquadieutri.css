@@ -1,0 +1,125 @@
+/* Kiểu cho trang ketquadieutri.html */
+.results-table {
+  width: 100%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-collapse: collapse;
+}
+
+.results-table th {
+  background: #3f8fd1;
+  color: white;
+  padding: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.results-table th:hover {
+  background: #6ec1b6;
+}
+
+.results-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.results-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Styling for empty state */
+.results-table td[colspan="4"] {
+  text-align: center;
+  color: #6b7280;
+  font-style: italic;
+  padding: 20px;
+}
+
+/* Page header */
+.page-header {
+  margin-bottom: 20px;
+}
+
+.page-header h1 {
+  font-size: 24px;
+  color: #3f8fd1;
+  margin: 0;
+}
+
+/* Main content with offset for fixed sidebar */
+.main-content {
+  margin-left: 250px;
+  padding: 20px;
+  background-color: #f3f4f6;
+  min-height: 100vh;
+}
+
+/* Logout button */
+.logout-btn {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logout-btn:hover {
+  background-color: #dc2626;
+}
+
+/* Fixed sidebar */
+.sidebar {
+  background-color: #3f8fd1;
+  color: white;
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
+}
+
+.sidebar-nav {
+  list-style: none;
+  padding: 0;
+}
+
+.nav-item a {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.nav-item a:hover,
+.nav-item.active a {
+  background-color: #6ec1b6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .results-table {
+    font-size: 0.9rem;
+  }
+
+  .results-table th,
+  .results-table td {
+    padding: 8px;
+  }
+
+  .main-content {
+    margin-left: 250px;
+    padding: 10px;
+  }
+
+  .sidebar {
+    width: 250px;
+  }
+}
