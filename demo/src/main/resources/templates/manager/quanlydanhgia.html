@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quản lý Đánh giá - Hy Vọng Mới</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/manager/quanlydanhgia.css}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <button class="btn-toggle-sidebar" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h2>Hy Vọng Mới</h2>
+          <div class="user-info">
+            <div class="user-avatar">A</div>
+            <div class="user-details">
+              <h3>Manage</h3>
+            </div>
+          </div>
+        </div>
+        <ul class="sidebar-nav">
+          <li class="nav-item">
+            <a th:href="@{/manager/quanlydichvu}">
+              <i class="fas fa-concierge-bell"></i><span>Quản lý Dịch vụ</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/manager/quanlybacsi}">
+              <i class="fas fa-user-md"></i><span>Quản lý Bác sĩ</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/manager/baocao}">
+              <i class="fas fa-file-alt"></i><span>Xem Báo cáo</span>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a th:href="@{/manager/quanlydanhgia}">
+              <i class="fas fa-star-half-alt"></i><span>Quản lý Đánh giá</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="top-right">
+          <form th:action="@{/auth/logout}" method="post">
+            <button type="submit" class="logout-btn">
+              <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </button>
+          </form>
+        </div>
+        <div class="content-page active">
+          <div class="page-header">
+            <h1>Quản lý Đánh giá</h1>
+          </div>
+          <section class="review-table">
+            <h2>Danh sách đánh giá</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Khách hàng</th>
+                  <th>Dịch vụ</th>
+                  <th>Điểm</th>
+                  <th>Bình luận</th>
+                  <th>Ngày</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Trần Thị B</td>
+                  <td>Khám nội tổng quát</td>
+                  <td>4.5</td>
+                  <td>Dịch vụ tốt, bác sĩ nhiệt tình</td>
+                  <td>2025-06-18</td>
+                  <td class="action-buttons">
+                    <button
+                      class="btn btn-delete"
+                      onclick="return confirm('Xóa đánh giá này?')"
+                    >
+                      Xóa
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+      </main>
+    </div>
+    <script th:src="@{/js/manager/quanlydanhgia.js}" defer></script>
+  </body>
+</html>

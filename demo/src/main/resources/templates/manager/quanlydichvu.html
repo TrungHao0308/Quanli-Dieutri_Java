@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quản lý Dịch vụ - Hy Vọng Mới</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/manager/quanlydichvu.css}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <button class="btn-toggle-sidebar" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h2>Hy Vọng Mới</h2>
+          <div class="user-info">
+            <div class="user-avatar">A</div>
+            <div class="user-details">
+              <h3>Manage</h3>
+            </div>
+          </div>
+        </div>
+        <ul class="sidebar-nav">
+          <li class="nav-item active">
+            <a th:href="@{/manager/quanlydichvu}">
+              <i class="fas fa-concierge-bell"></i><span>Quản lý Dịch vụ</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/manager/quanlybacsi}">
+              <i class="fas fa-user-md"></i><span>Quản lý Bác sĩ</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/manager/baocao}">
+              <i class="fas fa-file-alt"></i><span>Xem Báo cáo</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/manager/quanlydanhgia}">
+              <i class="fas fa-star-half-alt"></i><span>Quản lý Đánh giá</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="top-right">
+          <form th:action="@{/auth/logout}" method="post">
+            <button type="submit" class="logout-btn">
+              <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </button>
+          </form>
+        </div>
+        <div class="content-page active">
+          <div class="page-header">
+            <h1>Quản lý Dịch vụ</h1>
+          </div>
+          <!-- Form Thêm dịch vụ -->
+          <section class="form-container">
+            <h2>Thêm dịch vụ mới</h2>
+            <form action="#" method="post">
+              <div class="form-group">
+                <label for="serviceName">Tên dịch vụ:</label>
+                <input
+                  type="text"
+                  id="serviceName"
+                  name="serviceName"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="price">Giá dịch vụ (VND):</label>
+                <input type="number" id="price" name="price" required />
+              </div>
+              <div class="form-group">
+                <label for="description">Mô tả:</label>
+                <textarea
+                  id="description"
+                  name="description"
+                  rows="3"
+                  placeholder="Mô tả chi tiết dịch vụ"
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label for="category">Danh mục:</label>
+                <select id="category" name="category">
+                  <option value="kham">Khám bệnh</option>
+                  <option value="xetnghiem">Xét nghiệm</option>
+                  <option value="chupct">Chụp CT</option>
+                  <option value="sieumam">Siêu âm</option>
+                </select>
+              </div>
+              <button type="submit" class="form-submit">Thêm dịch vụ</button>
+            </form>
+          </section>
+          <!-- Danh sách dịch vụ -->
+          <section class="service-table">
+            <h2>Danh sách dịch vụ</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Tên dịch vụ</th>
+                  <th>Giá (VND)</th>
+                  <th>Danh mục</th>
+                  <th>Mô tả</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Khám nội tổng quát</td>
+                  <td>500,000</td>
+                  <td>Khám bệnh</td>
+                  <td>Khám và tư vấn sức khỏe tổng quát</td>
+                  <td class="action-buttons">
+                    <button class="btn btn-edit">Sửa</button>
+                    <button
+                      class="btn btn-delete"
+                      onclick="return confirm('Xóa dịch vụ này?')"
+                    >
+                      Xóa
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+      </main>
+    </div>
+    <script th:src="@{/js/manager/quanlydichvu.js}" defer></script>
+  </body>
+</html>

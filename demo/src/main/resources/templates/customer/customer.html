@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thông báo - Hy Vọng Mới</title>
-    <link rel="stylesheet" th:href="@{/css/customer.css}" />
+    <link rel="stylesheet" th:href="@{/css/customer/customer.css}" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -35,7 +35,7 @@
         <ul class="sidebar-nav">
           <li class="nav-item active">
             <a th:href="@{/customer/thongbao}">
-              <i class="fas fa-home"></i><span>Thông báo</span>
+              <i class="fas fa-home"></i><span>Nhắc nhở</span>
             </a>
           </li>
           <li class="nav-item">
@@ -55,11 +55,7 @@
               ><span>Kết quả điều trị</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a th:href="@{/customer/lichsudondat}">
-              <i class="fas fa-history"></i><span>Lịch sử đơn đặt</span>
-            </a>
-          </li>
+
           <li class="nav-item">
             <a th:href="@{/customer/danhgia}">
               <i class="fas fa-star"></i><span>Đánh giá</span>
@@ -84,16 +80,15 @@
         </div>
         <div class="content-page active">
           <div class="page-header">
-            <h1>Thông báo</h1>
+            <h1>Chào mừng bạn</h1>
           </div>
           <p>
-            Đây là trang thông báo của bạn. Các thông báo sẽ được hiển thị tại
-            đây.
+            Đây là trang chủ của bạn. Các thông báo sẽ được hiển thị tại đây.
           </p>
         </div>
       </main>
     </div>
 
-    <script th:src="@{/js/customer.js}" defer></script>
+    <script th:src="@{/js/customer/customer.js}" defer></script>
   </body>
 </html>

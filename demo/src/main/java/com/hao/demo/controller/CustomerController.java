@@ -62,6 +62,7 @@ public String showHoSoCaNhan(Model model) {
 
     // Helper methods
 
+    
     private Customer getLoggedInCustomer() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated() ||

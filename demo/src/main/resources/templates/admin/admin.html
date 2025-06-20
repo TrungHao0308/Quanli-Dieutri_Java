@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Quản lý Tài khoản</title>
+    <link
+      rel="stylesheet"
+      th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}"
+    />
+    <link rel="stylesheet" th:href="@{/css/admin/admin.css}" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <h1>🏥 Admin Dashboard</h1>
+        <p>Quản lý tài khoản và phân quyền hệ thống</p>
+      </div>
+
+      <!-- Controls -->
+      <div class="controls">
+        <div class="search-filter">
+          <div class="search-box">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Tìm kiếm theo tên, email..."
+            />
+            <span class="search-icon">🔍</span>
+          </div>
+          <select id="roleFilter" class="filter-select">
+            <option value="">Tất cả vai trò</option>
+            <option value="doctor">Bác sĩ</option>
+            <option value="manager">Quản lý</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" onclick="openModal()">
+          ➕ Thêm Tài Khoản
+        </button>
+      </div>
+
+      <!-- Users Table -->
+      <div class="users-table">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Tên đăng nhập</th>
+              <th>Họ tên</th>
+              <th>Email</th>
+              <th>Vai trò</th>
+              <th>Trạng thái</th>
+              <th>Ngày tạo</th>
+              <th>Đăng nhập cuối</th>
+              <th>Thao tác</th>
+            </tr>
+          </thead>
+          <tbody id="usersTableBody">
+            <!-- Dữ liệu sẽ được thêm bằng JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="userModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modalTitle">Thêm Tài Khoản Mới</h2>
+          <button class="close" onclick="closeModal()">&times;</button>
+        </div>
+        <form id="userForm">
+          <div class="form-group">
+            <label for="username">Tên đăng nhập *</label>
+            <input type="text" id="username" name="username" required />
+          </div>
+          <div class="form-group">
+            <label for="fullName">Họ tên *</label>
+            <input type="text" id="fullName" name="fullName" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="password">Mật khẩu *</label>
+            <input type="password" id="password" name="password" required />
+          </div>
+          <div class="form-group">
+            <label for="role">Vai trò *</label>
+            <select id="role" name="role" required>
+              <option value="">Chọn vai trò</option>
+              <option value="doctor">Bác sĩ</option>
+              <option value="manager">Quản lý</option>
+            </select>
+          </div>
+
+          <div class="modal-actions">
+            <button type="button" class="btn" onclick="closeModal()">
+              Hủy
+            </button>
+            <button type="submit" class="btn btn-primary">Lưu</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script th:src="@{/js/admin/admin.js}" defer></script>
+  </body>
+</html>

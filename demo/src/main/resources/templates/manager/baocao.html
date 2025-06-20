@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Xem Báo cáo - Hy Vọng Mới</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/manager/baocao.css}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <button class="btn-toggle-sidebar" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h2>Hy Vọng Mới</h2>
+          <div class="user-info">
+            <div class="user-avatar">A</div>
+            <div class="user-details">
+              <h3>Manage</h3>
+            </div>
+          </div>
+        </div>
+        <ul class="sidebar-nav">
+          <li class="nav-item">
+            <a th:href="@{/manager/quanlydichvu}">
+              <i class="fas fa-concierge-bell"></i><span>Quản lý Dịch vụ</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/manager/quanlybacsi}">
+              <i class="fas fa-user-md"></i><span>Quản lý Bác sĩ</span>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a th:href="@{/manager/baocao}">
+              <i class="fas fa-file-alt"></i><span>Xem Báo cáo</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/manager/quanlydanhgia}">
+              <i class="fas fa-star-half-alt"></i><span>Quản lý Đánh giá</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="top-right">
+          <form th:action="@{/auth/logout}" method="post">
+            <button type="submit" class="logout-btn">
+              <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </button>
+          </form>
+        </div>
+        <div class="content-page active">
+          <div class="page-header">
+            <h1>Xem Báo cáo</h1>
+          </div>
+          <section class="report-filter">
+            <h2>Lọc báo cáo</h2>
+            <form action="#" method="get">
+              <div class="form-group">
+                <label for="reportType">Loại báo cáo:</label>
+                <select id="reportType" name="reportType">
+                  <option value="dichvu">Dịch vụ</option>
+                  <option value="benhnhan">Bệnh nhân</option>
+                  <option value="danhgia">Đánh giá</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="dateRange">Khoảng thời gian:</label>
+                <input type="date" id="dateRangeStart" name="dateRangeStart" />
+                <input type="date" id="dateRangeEnd" name="dateRangeEnd" />
+              </div>
+              <button type="submit" class="form-submit">Xem báo cáo</button>
+            </form>
+          </section>
+          <section class="report-table">
+            <h2>Báo cáo dịch vụ</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Dịch vụ</th>
+                  <th>Số lượng</th>
+                  <th>Doanh thu (VND)</th>
+                  <th>Thời gian</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Khám nội tổng quát</td>
+                  <td>50</td>
+                  <td>25,000,000</td>
+                  <td>Tháng 6/2025</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+      </main>
+    </div>
+    <script th:src="@{/js/manager/baocao.js}" defer></script>
+  </body>
+</html>

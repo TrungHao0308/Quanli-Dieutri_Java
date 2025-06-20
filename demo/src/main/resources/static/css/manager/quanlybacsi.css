@@ -1,0 +1,374 @@
+:root {
+  --primary-blue: #3f8fd1;
+  --primary-pink: #f6a6b4;
+  --accent-teal: #6ec1b6;
+  --light-gray: #f5f7fa;
+  --text-dark: #333;
+  --white: #ffffff;
+  --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  --hover-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Roboto, "Open Sans", sans-serif;
+}
+
+body {
+  background-color: var(--light-gray);
+  color: var(--text-dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+  color: var(--white);
+  min-height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 20px 0;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.sidebar.collapsed {
+  transform: translateX(-100%);
+}
+
+.sidebar-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 0 20px;
+}
+
+.sidebar-header h2 {
+  font-size: 1.6rem;
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar-header h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--primary-pink);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-header:hover h2::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  background-color: var(--primary-pink);
+  color: white;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+}
+
+.user-avatar:hover {
+  transform: scale(1.1);
+}
+
+.sidebar-nav {
+  list-style: none;
+  padding-left: 0;
+}
+
+.sidebar-nav .nav-item {
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.sidebar-nav .nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.sidebar-nav .nav-item a {
+  color: #ffffff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  transition: color 0.3s ease;
+  font-weight: 500;
+}
+
+.sidebar-nav .nav-item i {
+  margin-right: 12px;
+  font-size: 1.2rem;
+}
+
+.sidebar-nav .nav-item:hover a,
+.sidebar-nav .nav-item.active a {
+  color: var(--primary-pink);
+}
+
+/* Main content */
+.dashboard-container {
+  display: flex;
+}
+
+.main-content {
+  margin-left: 250px;
+  padding: 30px;
+  width: calc(100% - 250px);
+  transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+.top-right {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.logout-btn {
+  background-color: var(--primary-pink);
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.logout-btn:hover {
+  background-color: var(--primary-blue);
+  transform: translateY(-2px);
+}
+
+.page-header h1 {
+  font-size: 2rem;
+  color: var(--primary-blue);
+  margin-bottom: 30px;
+  position: relative;
+  display: inline-block;
+}
+
+.page-header h1::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 50%;
+  height: 3px;
+  background: var(--accent-teal);
+  transition: width 0.3s ease;
+}
+
+.page-header h1:hover::after {
+  width: 100%;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--white);
+  box-shadow: var(--shadow);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 30px;
+  animation: fadeIn 0.5s ease;
+}
+
+table th,
+table td {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+table th {
+  background-color: var(--light-gray);
+  font-weight: bold;
+  color: var(--text-dark);
+}
+
+table tr {
+  transition: background-color 0.3s ease;
+}
+
+table tr:hover {
+  background-color: #f0f8ff;
+}
+
+/* Action buttons */
+.action-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn {
+  padding: 8px 15px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-edit {
+  background-color: var(--primary-blue);
+}
+
+.btn-edit:hover {
+  background-color: #5bb0a8;
+  transform: translateY(-2px);
+}
+
+.btn-delete {
+  background-color: var(--primary-pink);
+}
+
+.btn-delete:hover {
+  background-color: #ed7387;
+  transform: translateY(-2px);
+}
+
+/* Forms */
+.form-container {
+  background-color: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  max-width: 800px;
+  margin-bottom: 30px;
+  transition: box-shadow 0.3s ease;
+}
+
+.form-container:hover {
+  box-shadow: var(--hover-shadow);
+}
+
+.form-container h2 {
+  font-size: 1.5rem;
+  color: var(--primary-blue);
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--text-dark);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 8px rgba(63, 143, 209, 0.2);
+  outline: none;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.form-submit {
+  background-color: var(--primary-blue);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.form-submit:hover {
+  background-color: #3277b6;
+  transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .sidebar.collapsed {
+    display: block;
+    transform: translateX(0);
+  }
+
+  .btn-toggle-sidebar {
+    display: block;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background-color: var(--primary-blue);
+    color: white;
+    border: none;
+    padding: 12px;
+    z-index: 1001;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+  }
+
+  .btn-toggle-sidebar:hover {
+    transform: scale(1.1);
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+
+  .form-container {
+    padding: 15px;
+  }
+}

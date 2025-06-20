@@ -1,0 +1,41 @@
+/* Kiểu cho trang lichtrinhdieutri.html */
+.schedule-table {
+  width: 100%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-collapse: collapse;
+}
+
+.schedule-table th {
+  background: #3f8fd1;
+  color: white;
+  padding: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.schedule-table th:hover {
+  background: #6ec1b6;
+}
+
+.schedule-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.schedule-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .schedule-table {
+    font-size: 0.9rem;
+  }
+
+  .schedule-table th,
+  .schedule-table td {
+    padding: 8px;
+  }
+}

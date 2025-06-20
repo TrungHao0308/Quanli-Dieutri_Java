@@ -1,0 +1,52 @@
+/* Kiểu cho trang thongbao.html */
+.notifications-container {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.notifications-list {
+  list-style: none;
+}
+
+.notification-item {
+  padding: 15px;
+  border-bottom: 1px solid #e5e7eb;
+  transition: background-color 0.3s ease;
+}
+
+.notification-item:hover {
+  background-color: #f9fafb;
+}
+
+.notification-item:last-child {
+  border-bottom: none;
+}
+
+.notification-item h3 {
+  font-size: 1.1rem;
+  color: #3f8fd1;
+  margin-bottom: 5px;
+}
+
+.notification-item p {
+  color: #64748b;
+  margin-bottom: 5px;
+}
+
+.notification-item span {
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .notifications-container {
+    padding: 15px;
+  }
+
+  .notification-item {
+    padding: 10px;
+  }
+}
