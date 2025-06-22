@@ -1,73 +1,64 @@
-package com.hao.demo.controller;
+// package com.hao.demo.controller;
 
-import com.hao.demo.model.Customer;
-import com.hao.demo.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+// import com.hao.demo.model.Role;
+// import com.hao.demo.repository.RoleRepository;
 
-import java.util.List;
+// import java.util.Set;
+// import java.util.HashSet;
 
-@Controller
-@RequestMapping("/admin")
-public class AdminController {
+// import com.hao.demo.dto.AdminCustomerDto;
+// import com.hao.demo.model.Customer;
+// import com.hao.demo.service.CustomerService;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.http.ResponseEntity;
+// import org.springframework.security.core.Authentication;
+// import org.springframework.security.core.context.SecurityContextHolder;
+// import org.springframework.stereotype.Controller;
+// import org.springframework.ui.Model;
+// import org.springframework.web.bind.annotation.*;
 
-    private final CustomerService customerService;
+// import java.util.List;
 
-    @Autowired
-    public AdminController(CustomerService customerService) {
-        this.customerService = customerService;
-    }
+// @Controller
+// @RequestMapping("/admin")
+// public class AdminController {
+//         @Autowired
+// private RoleRepository roleRepository;
+//     private final CustomerService customerService;
 
-    // Hiển thị trang quản lý tài khoản
-    @GetMapping("admin")
-    public String showAdminPage(Model model) {
-        return loadAdminPage(model, "admin/admin");
-    }
-        private Customer getLoggedInCustomer() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated() ||
-            authentication.getPrincipal().equals("anonymousUser")) {
-            return null;
-        }
+//     @Autowired
+//     public AdminController(CustomerService customerService) {
+//         this.customerService = customerService;
+//     }
 
-        String email = authentication.getName();
-        return customerService.findByEmail(email).orElse(null);
-    }
+//     // Hiển thị trang chính admin
+//     @GetMapping("")
+//     public String showAdminPage(Model model) {
+//         return loadAdminPage(model, "admin/admin");
+//     }
 
-    private String loadAdminPage(Model model, String viewName) {
-        Customer customer = getLoggedInCustomer();
-        if (customer == null) return "redirect:/auth/login";
-
-        model.addAttribute("customer", customer);
-        model.addAttribute("customerName", customer.getFullName());
-
-        return viewName;
-    }
-}
 //     // Lấy danh sách tài khoản (hỗ trợ AJAX)
-//     @GetMapping(produces = "application/json")
+//     @GetMapping(value = "/list", produces = "application/json")
 //     @ResponseBody
 //     public List<Customer> getCustomers(@RequestParam(required = false) String search,
 //                                        @RequestParam(required = false) String role) {
 //         List<Customer> customers = customerService.getAllCustomers();
+
 //         if (search != null && !search.isEmpty()) {
 //             String searchLower = search.toLowerCase();
 //             customers = customers.stream()
-//                     .filter(customer -> customer.getUsername().toLowerCase().contains(searchLower) ||
-//                                         customer.getFullName().toLowerCase().contains(searchLower) ||
-//                                         customer.getEmail().toLowerCase().contains(searchLower))
+//                     .filter(customer -> customer.getFullName().toLowerCase().contains(searchLower)
+//                             || customer.getEmail().toLowerCase().contains(searchLower))
 //                     .toList();
 //         }
+
 //         if (role != null && !role.isEmpty()) {
 //             customers = customers.stream()
-//                     .filter(customer -> customer.getRole().equals(role))
+//                     .filter(customer -> customer.getRoles().stream()
+//                             .anyMatch(r -> r.getName().equalsIgnoreCase(role)))
 //                     .toList();
 //         }
+
 //         return customers;
 //     }
 
@@ -80,16 +71,38 @@ public class AdminController {
 //                 .orElseGet(() -> ResponseEntity.notFound().build());
 //     }
 
-//     // Lưu tài khoản (thêm hoặc sửa)
-//     @PostMapping("/save")
-//     @ResponseBody
-//     public void saveCustomer(@RequestBody Customer customer) {
-//         if (customer.getId() == null) {
+//     // Thêm hoặc cập nhật tài khoản
+// @PostMapping("/save")
+// @ResponseBody
+// public ResponseEntity<String> saveCustomer(@RequestBody AdminCustomerDto dto) {
+//     try {
+//         Customer customer = new Customer();
+//         customer.setId(dto.getId());
+//         customer.setFullName(dto.getFullName());
+//         customer.setEmail(dto.getEmail());
+//         customer.setPassword(dto.getPassword());
+//         customer.setIsActive(true);
+
+//         // Tìm Role
+//         String roleName = "ROLE_" + dto.getRole().toUpperCase();
+//         Role role = roleRepository.findByName(roleName)
+//             .orElseThrow(() -> new RuntimeException("Không tìm thấy role: " + roleName));
+
+//         customer.setRoles(Set.of(role));
+
+//         if (dto.getId() == null) {
 //             customerService.addCustomer(customer);
 //         } else {
 //             customerService.updateCustomer(customer);
 //         }
+
+//         return ResponseEntity.ok("Success");
+//     } catch (Exception e) {
+//         e.printStackTrace();
+//         return ResponseEntity.status(500).body("Lỗi: " + e.getMessage());
 //     }
+// }
+
 
 //     // Xóa tài khoản
 //     @PostMapping("/delete/{id}")
@@ -98,7 +111,19 @@ public class AdminController {
 //         customerService.deleteCustomer(id);
 //     }
 
-//     // Helper method để kiểm tra đăng nhập và load trang
+//     // Lấy người dùng đang đăng nhập
+//     private Customer getLoggedInCustomer() {
+//         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//         if (authentication == null || !authentication.isAuthenticated() ||
+//                 authentication.getPrincipal().equals("anonymousUser")) {
+//             return null;
+//         }
+
+//         String email = authentication.getName();
+//         return customerService.findByEmail(email).orElse(null);
+//     }
+
+//     // Tải thông tin người dùng lên trang
 //     private String loadAdminPage(Model model, String viewName) {
 //         Customer customer = getLoggedInCustomer();
 //         if (customer == null) {
@@ -111,16 +136,175 @@ public class AdminController {
 
 //         return viewName;
 //     }
-
-//     // Lấy thông tin người dùng đã đăng nhập
-//     private Customer getLoggedInCustomer() {
-//         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//         if (authentication == null || !authentication.isAuthenticated() ||
-//                 authentication.getPrincipal().equals("anonymousUser")) {
-//             return null;
-//         }
-
-//         String email = authentication.getName();
-//         return customerService.findByEmail(email).orElse(null);
-//     }
+//     // Controller: AdminController.java
+// @GetMapping("/users")
+// @ResponseBody
+// public List<Customer> getAllUsers() {
+//     return customerService.getAllCustomers();
 // }
+
+// }
+
+package com.hao.demo.controller;
+
+import com.hao.demo.dto.AdminCustomerDto;
+import com.hao.demo.model.Customer;
+import com.hao.demo.model.Role;
+import com.hao.demo.repository.RoleRepository;
+import com.hao.demo.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import jakarta.validation.Valid;
+import java.util.List;
+import java.util.Set;
+
+@Controller
+@RequestMapping("/admin")
+public class AdminController {
+    @Autowired
+    private CustomerService customerService;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @GetMapping("")
+    public String showAdminPage(Model model) {
+        return loadAdminPage(model, "admin/admin");
+    }
+
+    @GetMapping(value = "/list", produces = "application/json")
+    @ResponseBody
+    public List<Customer> getCustomers(@RequestParam(required = false) String search,
+                                       @RequestParam(required = false) String role) {
+        List<Customer> customers = customerService.getAllCustomers();
+
+        if (search != null && !search.isEmpty()) {
+            String searchLower = search.toLowerCase();
+            customers = customers.stream()
+                .filter(customer -> customer.getFullName().toLowerCase().contains(searchLower)
+                    || customer.getEmail().toLowerCase().contains(searchLower))
+                .toList();
+        }
+
+        if (role != null && !role.isEmpty()) {
+            String roleName = "ROLE_" + role.toUpperCase();
+            customers = customers.stream()
+                .filter(customer -> customer.getRoles().stream()
+                    .anyMatch(r -> r.getName().equalsIgnoreCase(roleName)))
+                .toList();
+        }
+
+        return customers;
+    }
+
+    @GetMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<Customer> getCustomerById(@PathVariable Long id) {
+        return customerService.findById(id)
+            .map(ResponseEntity::ok)
+            .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+@PostMapping("/save")
+@ResponseBody
+public ResponseEntity<String> saveCustomer(@Valid @RequestBody AdminCustomerDto dto) {
+    System.out.println("🎯 Vào saveCustomer()");
+    try {    
+        System.out.println("📥 Nhận dữ liệu từ frontend: " + dto);
+        // Kiểm tra role hợp lệ
+        String roleName = "ROLE_" + dto.getRole().toUpperCase();
+        if (!roleName.equals("ROLE_DOCTOR") && !roleName.equals("ROLE_MANAGER")) {
+            System.out.println("❌ Vai trò không hợp lệ: " + roleName);
+            return ResponseEntity.badRequest().body("Vai trò không hợp lệ! Chỉ được chọn 'doctor' hoặc 'manager'.");
+        }
+
+        // Kiểm tra email tồn tại
+        if (customerService.existsByEmail(dto.getEmail()) && 
+            (dto.getId() == null || 
+             !customerService.findById(dto.getId()).map(c -> c.getEmail().equals(dto.getEmail())).orElse(false))) {
+            System.out.println("❌ Email đã được sử dụng: " + dto.getEmail());
+            return ResponseEntity.badRequest().body("Email đã được sử dụng!");
+        }
+
+        Customer customer = new Customer();
+        customer.setId(dto.getId());
+        customer.setFullName(dto.getFullName());
+        customer.setEmail(dto.getEmail());
+        customer.setIsActive(true);
+
+        // Mã hóa mật khẩu
+        if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
+            customer.setPassword(customerService.getPasswordEncoder().encode(dto.getPassword()));
+            System.out.println("🔒 Mật khẩu đã được mã hóa cho: " + dto.getEmail());
+        } else if (dto.getId() == null) {
+            System.out.println("❌ Mật khẩu trống khi tạo mới");
+            return ResponseEntity.badRequest().body("Mật khẩu không được để trống khi tạo mới!");
+        }
+
+        // Tìm Role
+        Role role = roleRepository.findByName(roleName)
+            .orElseThrow(() -> {
+                System.out.println("❌ Không tìm thấy role: " + roleName);
+                return new RuntimeException("Không tìm thấy role: " + roleName);
+            });
+        customer.setRoles(Set.of(role));
+
+        if (dto.getId() == null) {
+            System.out.println("📝 Thêm mới khách hàng: " + customer.getEmail());
+            customerService.addCustomer(customer);
+        } else {
+            System.out.println("📝 Cập nhật khách hàng: " + customer.getEmail());
+            customerService.updateCustomer(customer);
+        }
+        System.out.println("✅ Đã lưu: " + customer.getEmail() + " với vai trò: " + role.getName());
+
+        return ResponseEntity.ok("Success");
+    } catch (Exception e) {
+        e.printStackTrace();
+        System.out.println("❌ Lỗi khi lưu tài khoản: " + e.getMessage());
+        return ResponseEntity.status(500).body("Lỗi: " + e.getMessage());
+    }
+}
+
+    @PostMapping("/delete/{id}")
+    @ResponseBody
+    public void deleteCustomer(@PathVariable Long id) {
+        customerService.deleteCustomer(id);
+    }
+
+    @GetMapping("/users")
+    @ResponseBody
+    public List<Customer> getAllUsers() {
+        return customerService.getAllCustomers();
+    }
+
+    private Customer getLoggedInCustomer() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated() ||
+            authentication.getPrincipal().equals("anonymousUser")) {
+            return null;
+        }
+
+        String email = authentication.getName();
+        return customerService.findByEmail(email).orElse(null);
+    }
+
+    private String loadAdminPage(Model model, String viewName) {
+        Customer customer = getLoggedInCustomer();
+        if (customer == null) {
+            return "redirect:/auth/login";
+        }
+
+        model.addAttribute("customer", customer);
+        model.addAttribute("customerName", customer.getFullName());
+        model.addAttribute("customers", customerService.getAllCustomers());
+
+        return viewName;
+    }
+}

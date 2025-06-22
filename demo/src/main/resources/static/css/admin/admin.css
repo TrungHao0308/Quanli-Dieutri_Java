@@ -212,13 +212,9 @@ tr:hover {
 }
 
 .role.doctor {
-  background: linear-gradient(45deg, #4facfe, #00f2fe);
-  color: white;
 }
 
 .role.manager {
-  background: linear-gradient(45deg, #f093fb, #f5576c);
-  color: white;
 }
 
 .actions {
