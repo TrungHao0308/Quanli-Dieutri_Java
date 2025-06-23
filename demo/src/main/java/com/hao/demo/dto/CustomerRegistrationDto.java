@@ -21,10 +21,10 @@ public class CustomerRegistrationDto {
     @NotBlank(message = "Xác nhận mật khẩu không được để trống")
     private String confirmPassword;
     
-    private String phone;
-    private String address;
-    private String dateOfBirth;
-    private String gender;
+    // private String phone;
+    // private String address;
+    // private String dateOfBirth;
+    // private String gender;
     
     // Constructors
     public CustomerRegistrationDto() {}
@@ -42,15 +42,15 @@ public class CustomerRegistrationDto {
     public String getConfirmPassword() { return confirmPassword; }
     public void setConfirmPassword(String confirmPassword) { this.confirmPassword = confirmPassword; }
     
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
+    // public String getPhone() { return phone; }
+    // public void setPhone(String phone) { this.phone = phone; }
     
-    public String getAddress() { return address; }
-    public void setAddress(String address) { this.address = address; }
+    // public String getAddress() { return address; }
+    // public void setAddress(String address) { this.address = address; }
     
-    public String getDateOfBirth() { return dateOfBirth; }
-    public void setDateOfBirth(String dateOfBirth) { this.dateOfBirth = dateOfBirth; }
+    // public String getDateOfBirth() { return dateOfBirth; }
+    // public void setDateOfBirth(String dateOfBirth) { this.dateOfBirth = dateOfBirth; }
     
-    public String getGender() { return gender; }
-    public void setGender(String gender) { this.gender = gender; }
+    // public String getGender() { return gender; }
+    // public void setGender(String gender) { this.gender = gender; }
 }

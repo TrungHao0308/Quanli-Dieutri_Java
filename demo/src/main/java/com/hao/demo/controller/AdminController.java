@@ -153,6 +153,7 @@ import com.hao.demo.model.Role;
 import com.hao.demo.repository.RoleRepository;
 import com.hao.demo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -258,10 +259,11 @@ public ResponseEntity<String> saveCustomer(@Valid @RequestBody AdminCustomerDto 
         if (dto.getId() == null) {
             System.out.println("📝 Thêm mới khách hàng: " + customer.getEmail());
             customerService.addCustomer(customer);
-        } else {
-            System.out.println("📝 Cập nhật khách hàng: " + customer.getEmail());
-            customerService.updateCustomer(customer);
         }
+        // } else {
+        //     System.out.println("📝 Cập nhật khách hàng: " + customer.getEmail());
+        //     customerService.updateCustomer(customer);
+        // }
         System.out.println("✅ Đã lưu: " + customer.getEmail() + " với vai trò: " + role.getName());
 
         return ResponseEntity.ok("Success");
@@ -272,11 +274,17 @@ public ResponseEntity<String> saveCustomer(@Valid @RequestBody AdminCustomerDto 
     }
 }
 
-    @PostMapping("/delete/{id}")
-    @ResponseBody
-    public void deleteCustomer(@PathVariable Long id) {
+    @DeleteMapping("/users/{id}")
+@ResponseBody
+public ResponseEntity<String> deleteCustomer(@PathVariable Long id) {
+    if (customerService.findById(id).isPresent()) {
         customerService.deleteCustomer(id);
+        return ResponseEntity.ok("Đã xóa thành công");
+    } else {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không tìm thấy người dùng");
     }
+}
+
 
     @GetMapping("/users")
     @ResponseBody

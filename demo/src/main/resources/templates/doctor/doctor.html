@@ -52,11 +52,17 @@
           </a>
         </div>
       </nav>
-    
+
       <!-- Main -->
       <main class="main-content">
-        
-         <!-- trang doctor chỗ xuất báo cáocáo -->
+        <div class="top-right">
+          <form th:action="@{/auth/logout}" method="post">
+            <button type="submit" class="logout-btn">
+              <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </button>
+          </form>
+        </div>
+        <!-- trang doctor chỗ xuất báo cáocáo -->
         <!-- Dashboard -->
         <section
           id="dashboard"
@@ -81,7 +87,7 @@
         </section>
 
         <!-- Patients -->
-         <!-- Quảny lý người dùng, bệnh nhânnhân -->
+        <!-- Quảny lý người dùng, bệnh nhânnhân -->
         <section
           id="patients"
           class="page"
@@ -144,7 +150,7 @@
         </section>
 
         <!-- Examination -->
-         <!-- lịch trình điều trị -->
+        <!-- lịch trình điều trị -->
         <section
           id="examination"
           class="page"

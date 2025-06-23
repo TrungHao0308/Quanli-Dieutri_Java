@@ -45,7 +45,7 @@ public interface CustomerService {
     List<Customer> getAllCustomers();
     Optional<Customer> findById(Long id);
     Customer addCustomer(Customer customer);
-    Customer updateCustomer(Customer customer);
+    // Customer updateCustomer(Customer customer);
     void deleteCustomer(Long id);
     PasswordEncoder getPasswordEncoder();
 }

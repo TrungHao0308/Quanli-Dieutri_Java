@@ -18,6 +18,11 @@ public class ManagerController {
     public ManagerController(CustomerService customerService) {
         this.customerService = customerService;
     }
+    @GetMapping("")
+public String indexPage(Model model) {
+    return loadManagerPage(model, "manager/baocao");
+}
+
 
     @GetMapping("/baocao")
     public String showBaoCao(Model model) {

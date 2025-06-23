@@ -42,11 +42,11 @@ public Customer registerCustomer(CustomerRegistrationDto registrationDto) throws
     customer.setFullName(registrationDto.getFullName());
     customer.setEmail(registrationDto.getEmail());
     customer.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
-    customer.setPhone(registrationDto.getPhone());
-    customer.setAddress(registrationDto.getAddress());
-    customer.setDateOfBirth(registrationDto.getDateOfBirth());
-    customer.setGender(registrationDto.getGender());
-    customer.setIsActive(true); // Nếu cần
+    // customer.setPhone(registrationDto.getPhone());
+    // customer.setAddress(registrationDto.getAddress());
+    // customer.setDateOfBirth(registrationDto.getDateOfBirth());
+    // customer.setGender(registrationDto.getGender());
+    customer.setIsActive(true); 
 
     // ✅ Gán role CUSTOMER mặc định
     Role customerRole = roleRepository.findByName(RoleName.ROLE_CUSTOMER.name())
@@ -116,15 +116,20 @@ System.out.println(">>> Role được gán: " + customer.getRoles().stream().map
 
 
 
-@Override
-public Customer updateCustomer(Customer customer) {
-    return customerRepository.save(customer); // hoặc custom xử lý logic nếu cần
-}
+// @Override
+// public Customer updateCustomer(Customer customer) {
+//     return customerRepository.save(customer); // hoặc custom xử lý logic nếu cần
+// }
 
 @Override
 public void deleteCustomer(Long id) {
-    customerRepository.deleteById(id);
+    customerRepository.findById(id).ifPresent(customer -> {
+        customer.getRoles().clear(); // xóa liên kết trong bảng customer_roles
+        customerRepository.save(customer); 
+        customerRepository.deleteById(id);
+    });
 }
+
 @Override
 public Optional<Customer> loginCustomer(CustomerLoginDto loginDto) {
     Optional<Customer> customer = customerRepository.findByEmail(loginDto.getEmail());

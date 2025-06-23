@@ -11,6 +11,13 @@
     <link rel="stylesheet" th:href="@{/css/admin/admin.css}" />
   </head>
   <body>
+    <div class="top-right">
+      <form th:action="@{/auth/logout}" method="post">
+        <button type="submit" class="logout-btn">
+          <i class="fas fa-sign-out-alt"></i> Đăng xuất
+        </button>
+      </form>
+    </div>
     <div class="container">
       <!-- Header -->
       <div class="header">
@@ -52,9 +59,6 @@
               <th>Họ tên</th>
               <th>Email</th>
               <th>Vai trò</th>
-              <th>Trạng thái</th>
-              <th>Ngày tạo</th>
-              <th>Đăng nhập cuối</th>
               <th>Thao tác</th>
             </tr>
           </thead>
@@ -103,6 +107,13 @@
         </form>
       </div>
     </div>
+    <div id="successAlert" class="custom-alert">
+      <div class="alert-content">
+        <p id="alertMessage">✅ Tạo tài khoản thành công!</p>
+        <button onclick="closeAlert()">Đóng</button>
+      </div>
+    </div>
+
     <script th:src="@{/js/admin/admin.js}" defer></script>
   </body>
 </html>

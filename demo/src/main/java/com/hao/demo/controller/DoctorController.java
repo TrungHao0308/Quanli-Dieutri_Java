@@ -45,7 +45,7 @@ public class DoctorController {
 
         return viewName;
     }
-    @GetMapping("/doctor")
+    @GetMapping("")
 public String loadDoctorPage(Model model) {
     return loadDoctorPage(model, "doctor/doctor", "dashboard");
 }

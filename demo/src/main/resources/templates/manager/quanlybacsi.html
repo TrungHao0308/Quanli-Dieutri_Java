@@ -22,24 +22,24 @@
           <div class="user-info">
             <div class="user-avatar">A</div>
             <div class="user-details">
-              <h3>Manage</h3>
+              <h3 th:text="${customerName}">Tên Người Dùng</h3>
             </div>
           </div>
         </div>
         <ul class="sidebar-nav">
           <li class="nav-item">
-            <a th:href="@{/manager/quanlydichvu}">
-              <i class="fas fa-concierge-bell"></i><span>Quản lý Dịch vụ</span>
+            <a th:href="@{/manager/baocao}">
+              <i class="fas fa-file-alt"></i><span>Xem Báo cáo</span>
             </a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a th:href="@{/manager/quanlybacsi}">
               <i class="fas fa-user-md"></i><span>Quản lý Bác sĩ</span>
             </a>
           </li>
           <li class="nav-item">
-            <a th:href="@{/manager/baocao}">
-              <i class="fas fa-file-alt"></i><span>Xem Báo cáo</span>
+            <a th:href="@{/manager/quanlydichvu}">
+              <i class="fas fa-concierge-bell"></i><span>Quản lý Dịch vụ</span>
             </a>
           </li>
           <li class="nav-item">

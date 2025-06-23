@@ -194,23 +194,23 @@ public class Customer {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "phone")
-    private String phone;
+    // @Column(name = "phone")
+    // private String phone;
 
-    @Column(name = "address")
-    private String address;
+    // @Column(name = "address")
+    // private String address;
 
-    @Column(name = "date_of_birth")
-    private String dateOfBirth;
+    // @Column(name = "date_of_birth")
+    // private String dateOfBirth;
 
-    @Column(name = "gender")
-    private String gender;
+    // @Column(name = "gender")
+    // private String gender;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    // @Column(name = "updated_at")
+    // private LocalDateTime updatedAt;
 
     @Column(name = "is_active")
     private Boolean isActive = true;
@@ -225,7 +225,7 @@ public class Customer {
 
     public Customer() {
         this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+        // this.updatedAt = LocalDateTime.now();
         this.isActive = true;
     }
 
@@ -236,10 +236,10 @@ public class Customer {
         this.password = password;
     }
 
-    @PreUpdate
-    public void preUpdate() {
-        this.updatedAt = LocalDateTime.now();
-    }
+    // @PreUpdate
+    // public void preUpdate() {
+    //     this.updatedAt = LocalDateTime.now();
+    // }
 
     // Getters and Setters
     public Long getId() { return id; }
@@ -254,20 +254,20 @@ public class Customer {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
+    // public String getPhone() { return phone; }
+    // public void setPhone(String phone) { this.phone = phone; }
 
-    public String getAddress() { return address; }
-    public void setAddress(String address) { this.address = address; }
+    // public String getAddress() { return address; }
+    // public void setAddress(String address) { this.address = address; }
 
-    public String getDateOfBirth() { return dateOfBirth; }
-    public void setDateOfBirth(String dateOfBirth) { this.dateOfBirth = dateOfBirth; }
+    // public String getDateOfBirth() { return dateOfBirth; }
+    // public void setDateOfBirth(String dateOfBirth) { this.dateOfBirth = dateOfBirth; }
 
-    public String getGender() { return gender; }
-    public void setGender(String gender) { this.gender = gender; }
+    // public String getGender() { return gender; }
+    // public void setGender(String gender) { this.gender = gender; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
-    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    // public LocalDateTime getUpdatedAt() { return updatedAt; }
     public Boolean getIsActive() { return isActive; }
     public void setIsActive(Boolean isActive) { this.isActive = isActive; }
 

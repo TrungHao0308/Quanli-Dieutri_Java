@@ -244,6 +244,26 @@ body {
   margin-top: 25px;
   text-align: right;
 }
+.top-right {
+  text-align: right;
+  margin-bottom: 20px;
+}
+.logout-btn {
+  background-color: var(--primary-blue);
+  border: none;
+  color: white;
+  font-size: 15px;
+  padding: 15px 25px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.logout-btn:hover {
+  background-color: var(--primary-blue);
+  transform: translateY(-2px);
+}
 
 .exam-form .btn-submit {
   background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));

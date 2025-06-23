@@ -86,23 +86,13 @@ function renderUsers() {
     }</span></td>
                     <td>${formatDate(user.createdAt)}</td>
                     <td>${formatDate(user.lastLogin)}</td>
-                    <td class="actions">
-                        <button class="btn btn-sm btn-warning" onclick="editUser(${
-                          user.id
-                        })" title="Chỉnh sửa">
-                            ✏️
-                        </button>
-                        <button class="btn btn-sm btn-success" onclick="viewPermissions(${
-                          user.id
-                        })" title="Xem quyền">
-                            🔒
-                        </button>
-                        <button class="btn btn-sm btn-danger" onclick="deleteUser(${
-                          user.id
-                        })" title="Xóa">
-                            🗑️
-                        </button>
-                    </td>
+                     <td class="actions">
+    <button class="btn btn-sm btn-danger" onclick="deleteUser(${
+      user.id
+    })" title="Xóa">
+      🗑️ Xóa
+    </button>
+  </td>
                 `;
     tbody.appendChild(row);
   });
@@ -209,6 +199,7 @@ function handleFormSubmit(e) {
     errorMessageDiv.style.display = "block";
     return;
   }
+  closeModal();
 
   const customerData = {
     fullName: formData.get("fullName"),
@@ -245,14 +236,19 @@ function handleFormSubmit(e) {
         throw new Error(text.trim());
       }
       errorMessageDiv.style.display = "none";
-      alert(
+      showAlert(
         currentEditId
           ? "✅ Cập nhật tài khoản thành công!"
           : "✅ Tạo tài khoản thành công!"
       );
+
       closeModal();
       currentEditId = null;
-      location.reload();
+
+      // Đợi người dùng đọc xong rồi reload sau 2 giây
+      setTimeout(() => {
+        location.reload();
+      }, 2000);
     })
     .catch((error) => {
       console.error("Lỗi chi tiết:", error);
@@ -347,22 +343,23 @@ function renderUsers(data) {
   tableBody.innerHTML = "";
 
   if (!data.length) {
-    tableBody.innerHTML = `<tr><td colspan="8">Không có kết quả nào.</td></tr>`;
+    tableBody.innerHTML = `<tr><td colspan="5">Không có kết quả nào.</td></tr>`;
     return;
   }
 
   data.forEach((user) => {
     const row = document.createElement("tr");
+    row.id = `user-row-${user.id}`; // Để JS dễ xoá dòng sau này
+
     row.innerHTML = `
       <td>${user.id}</td>
       <td>${user.fullName}</td>
       <td>${user.email}</td>
       <td>${getRoleLabel(user.role)}</td>
-      <td>${user.active ? "Hoạt động" : "Không hoạt động"}</td>
-      <td>${formatDate(user.createdAt)}</td>
-      <td>${formatDate(user.lastLogin)}</td>
       <td>
-        <button onclick="openModal(${user.id})">✏️</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteUser(${user.id})">
+          🗑️ Xóa
+        </button>
       </td>
     `;
     tableBody.appendChild(row);
@@ -406,3 +403,31 @@ function applyFilters() {
 roleFilter.addEventListener("change", () => {
   applyFilters();
 });
+function deleteUser(userId) {
+  if (!confirm("Bạn có chắc chắn muốn xoá người dùng này?")) return;
+
+  fetch(`/admin/users/${userId}`, {
+    method: "DELETE",
+  }).then(() => {
+    // ✅ Luôn xoá dòng giao diện và cập nhật
+    const row = document.getElementById(`user-row-${userId}`);
+    if (row) row.remove();
+
+    users = users.filter((u) => u.id !== userId);
+    filteredUsers = filteredUsers.filter((u) => u.id !== userId);
+    updateStats();
+
+    alert("✅ Đã xoá người dùng thành công!");
+  });
+}
+function showAlert(message) {
+  const alertBox = document.getElementById("successAlert");
+  const alertMessage = document.getElementById("alertMessage");
+  alertMessage.textContent = message;
+  alertBox.style.display = "flex";
+}
+
+function closeAlert() {
+  document.getElementById("successAlert").style.display = "none";
+  location.reload(); // reload sau khi alert tắt
+}
