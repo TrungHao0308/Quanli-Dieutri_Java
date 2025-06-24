@@ -351,8 +351,8 @@ table tr:hover {
   .btn-toggle-sidebar {
     display: block;
     position: fixed;
-    top: 15px;
-    left: 15px;
+    top: 10px;
+    left: 10px;
     background-color: var(--primary-blue);
     color: white;
     border: none;

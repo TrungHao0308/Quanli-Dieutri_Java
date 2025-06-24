@@ -324,7 +324,7 @@ nav ul li a:hover::after {
 }
 
 .facility-image {
-  height: 190px;
+  height: 200px;
   overflow: hidden;
 }
 
@@ -351,7 +351,7 @@ nav ul li a:hover::after {
 
 /* Team Section */
 .team {
-  padding: 58px 0;
+  padding: 60px 0;
   background-color: var(--light-gray);
 }
 

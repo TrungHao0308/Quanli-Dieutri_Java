@@ -572,8 +572,8 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 50%;
   color: white;
@@ -624,7 +624,7 @@ footer {
 
 @media (max-width: 768px) {
   .team-hero h2 {
-    font-size: 3rem;
+    font-size: 2rem;
   }
 
   .stat-item {

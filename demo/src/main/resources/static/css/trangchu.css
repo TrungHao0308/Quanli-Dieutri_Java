@@ -203,7 +203,6 @@ nav ul li a:hover::after {
   box-shadow: 0 6px 15px rgba(63, 143, 209, 0.4);
 }
 
-/* Stats section */
 .stats {
   padding: 60px 0;
   background-color: white;
@@ -315,6 +314,7 @@ nav ul li a:hover::after {
   color: var(--primary-blue);
 }
 
+/* Testimonials section */
 .testimonials {
   padding: 60px 0;
   background-color: white;
@@ -350,7 +350,7 @@ nav ul li a:hover::after {
   height: 50px;
   border-radius: 50%;
   overflow: hidden;
-  margin-right: 16px;
+  margin-right: 15px;
 }
 
 .author-image img {
@@ -432,7 +432,7 @@ footer {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 39px;
+  gap: 40px;
 }
 
 .footer-col {
@@ -488,8 +488,8 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 50%;
   color: white;
@@ -518,7 +518,7 @@ footer {
 }
 
 .footer-bottom a:hover {
-  color: rgb(232, 224, 224);
+  color: white;
 }
 
 /* For the FAQ toggle */
