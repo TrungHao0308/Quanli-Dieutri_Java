@@ -29,8 +29,7 @@ public class AuthController {
         return "login";
     }
 
-    // Lưu ý: Để sử dụng formLogin() của Spring Security, không cần xử lý POST /auth/login thủ công,
-    // nên phương thức xử lý POST login sẽ không có ở đây.
+
 
     // Hiển thị trang đăng ký
     @GetMapping("/register")

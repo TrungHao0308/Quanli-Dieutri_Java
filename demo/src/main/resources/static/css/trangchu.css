@@ -278,9 +278,9 @@ nav ul li a:hover::after {
 .feature-item {
   flex: 1;
   background-color: white;
-  padding: 30px;
+  padding: 32px;
   border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
   text-align: center;
 }

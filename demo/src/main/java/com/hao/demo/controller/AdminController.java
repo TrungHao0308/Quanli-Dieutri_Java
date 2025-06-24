@@ -104,46 +104,6 @@
 // }
 
 
-//     // Xóa tài khoản
-//     @PostMapping("/delete/{id}")
-//     @ResponseBody
-//     public void deleteCustomer(@PathVariable Long id) {
-//         customerService.deleteCustomer(id);
-//     }
-
-//     // Lấy người dùng đang đăng nhập
-//     private Customer getLoggedInCustomer() {
-//         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//         if (authentication == null || !authentication.isAuthenticated() ||
-//                 authentication.getPrincipal().equals("anonymousUser")) {
-//             return null;
-//         }
-
-//         String email = authentication.getName();
-//         return customerService.findByEmail(email).orElse(null);
-//     }
-
-//     // Tải thông tin người dùng lên trang
-//     private String loadAdminPage(Model model, String viewName) {
-//         Customer customer = getLoggedInCustomer();
-//         if (customer == null) {
-//             return "redirect:/auth/login";
-//         }
-
-//         model.addAttribute("customer", customer);
-//         model.addAttribute("customerName", customer.getFullName());
-//         model.addAttribute("customers", customerService.getAllCustomers());
-
-//         return viewName;
-//     }
-//     // Controller: AdminController.java
-// @GetMapping("/users")
-// @ResponseBody
-// public List<Customer> getAllUsers() {
-//     return customerService.getAllCustomers();
-// }
-
-// }
 
 package com.hao.demo.controller;
 
@@ -260,10 +220,7 @@ public ResponseEntity<String> saveCustomer(@Valid @RequestBody AdminCustomerDto 
             System.out.println("📝 Thêm mới khách hàng: " + customer.getEmail());
             customerService.addCustomer(customer);
         }
-        // } else {
-        //     System.out.println("📝 Cập nhật khách hàng: " + customer.getEmail());
-        //     customerService.updateCustomer(customer);
-        // }
+
         System.out.println("✅ Đã lưu: " + customer.getEmail() + " với vai trò: " + role.getName());
 
         return ResponseEntity.ok("Success");
