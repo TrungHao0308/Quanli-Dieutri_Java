@@ -239,7 +239,7 @@ nav ul li a:hover::after {
   color: #666;
 }
 
-/* Features section */
+
 .features {
   padding: 60px 0;
   background-color: var(--light-gray);
@@ -316,7 +316,7 @@ nav ul li a:hover::after {
   color: var(--primary-blue);
 }
 
-/* Testimonials section */
+
 .testimonials {
   padding: 60px 0;
   background-color: white;
