@@ -1,31 +1,3 @@
-// package com.hao.demo.dto;
-
-// public class AdminCustomerDto {
-//     private Long id;
-//     private String fullName;
-//     private String email;
-//     private String password;
-//     private String role; // "ROLE_CUSTOMER" for customer role
-
-//      // Getter/setter
-//     public Long getId() {
-//         return id;
-// }
-//     public void setId(Long id) {
-//         this.id = id;
-//     }
-
-//     public String getFullName() {
-//         return fullName;
-//     }
-
-//     public void setFullName(String fullName) {
-//         this.fullName = fullName;
-//     }
-
-//     public String getEmail() {
-//         return email;
-//     }
 
 package com.hao.demo.dto;
 
