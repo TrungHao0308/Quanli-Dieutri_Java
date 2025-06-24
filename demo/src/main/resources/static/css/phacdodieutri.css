@@ -412,8 +412,8 @@ nav ul li a:hover::after {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 35px;
-  height: 35px;
+  width: 37px;
+  height: 37px;
   border-radius: 50%;
   background-color: var(--light-gray);
   color: var(--primary-blue);
@@ -858,5 +858,5 @@ footer {
 .author-location,
 .story-date {
   font-size: 0.9rem;
-  color: #777;
+  color: #777777;
 }

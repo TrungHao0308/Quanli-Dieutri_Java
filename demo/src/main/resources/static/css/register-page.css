@@ -65,7 +65,7 @@
         }
         
         nav ul li {
-            margin-left: 25px;
+            margin-left: 24px;
         }
         
         nav ul li a {
@@ -343,7 +343,7 @@
         }
         
         /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 770px) {
             .register-card {
                 max-width: 100%;
                 border-radius: 0;
@@ -357,6 +357,6 @@
             }
             
             .register-container {
-                padding-top: 80px;
+                padding-top: 90px;
             }
         }
