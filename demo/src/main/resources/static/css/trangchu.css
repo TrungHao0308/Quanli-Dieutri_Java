@@ -239,7 +239,6 @@ nav ul li a:hover::after {
   color: #666;
 }
 
-
 .features {
   padding: 60px 0;
   background-color: var(--light-gray);
@@ -316,7 +315,6 @@ nav ul li a:hover::after {
   color: var(--primary-blue);
 }
 
-
 .testimonials {
   padding: 60px 0;
   background-color: white;
@@ -352,7 +350,7 @@ nav ul li a:hover::after {
   height: 50px;
   border-radius: 50%;
   overflow: hidden;
-  margin-right: 15px;
+  margin-right: 16px;
 }
 
 .author-image img {
@@ -434,7 +432,7 @@ footer {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: 39px;
 }
 
 .footer-col {
@@ -490,8 +488,8 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 50%;
   color: white;
@@ -520,7 +518,7 @@ footer {
 }
 
 .footer-bottom a:hover {
-  color: white;
+  color: rgb(232, 224, 224);
 }
 
 /* For the FAQ toggle */

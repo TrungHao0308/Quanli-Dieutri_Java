@@ -3,7 +3,7 @@
   --primary-pink: #f6a6b4;
   --accent-teal: #6ec1b6;
   --light-gray: #f5f7fa;
-  --text-dark: #2e2d2d;
+  --text-dark: #333;
 }
 
 * {
@@ -239,7 +239,7 @@ nav ul li a:hover::after {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 18px;
+  padding: 12px 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: white;
