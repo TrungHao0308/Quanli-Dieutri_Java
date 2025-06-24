@@ -349,8 +349,8 @@ table tr:hover {
   .btn-toggle-sidebar {
     display: block;
     position: fixed;
-    top: 18px;
-    left: 18px;
+    top: 15px;
+    left: 15px;
     background-color: var(--primary-blue);
     color: white;
     border: none;
@@ -369,6 +369,6 @@ table tr:hover {
   }
 
   .form-container {
-    padding: 17px;
+    padding: 15px;
   }
 }

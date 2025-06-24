@@ -114,11 +114,11 @@ body {
   align-items: center;
   width: 100%;
   transition: color 0.3s ease;
-  font-weight: 450;
+  font-weight: 500;
 }
 
 .sidebar-nav .nav-item i {
-  margin-right: 10px;
+  margin-right: 12px;
   font-size: 1.2rem;
 }
 
@@ -311,12 +311,12 @@ table tr:hover {
   .btn-toggle-sidebar {
     display: block;
     position: fixed;
-    top: 18px;
-    left: 18px;
+    top: 15px;
+    left: 15px;
     background-color: var(--primary-blue);
     color: white;
     border: none;
-    padding: 10px;
+    padding: 12px;
     z-index: 1001;
     border-radius: 8px;
     transition: transform 0.3s ease;

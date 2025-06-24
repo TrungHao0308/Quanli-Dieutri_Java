@@ -4,7 +4,7 @@
   --light-gray: #f5f7fa;
   --dark-gray: #495057;
   --sidebar-bg: #2c3e50;
-  --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  --card-shadow: 0 4px 15px rgba(16, 15, 15, 0.1);
 }
 
 body {
@@ -15,13 +15,13 @@ body {
 }
 
 .sidebar {
-  width: 280px;
+  width: 285px;
   height: 100vh;
   background: linear-gradient(135deg, var(--sidebar-bg), #34495e);
   color: white;
   position: fixed;
   padding-top: 20px;
-  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 5px 0 15px rgba(23, 22, 22, 0.1);
 }
 
 .sidebar-header {
@@ -37,8 +37,8 @@ body {
 }
 
 .doctor-avatar {
-  width: 50px;
-  height: 50px;
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
   display: flex;
@@ -143,8 +143,8 @@ body {
 }
 
 .patient-avatar-small {
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
   display: flex;
@@ -206,7 +206,7 @@ body {
 .exam-form .form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  gap: 22px;
   margin-bottom: 25px;
 }
 
@@ -253,7 +253,7 @@ body {
   border: none;
   color: white;
   font-size: 16px;
-  padding: 10px 20px;
+  padding: 10px 22px;
   font-weight: bold;
   border-radius: 8px;
   cursor: pointer;
@@ -280,5 +280,5 @@ body {
 
 .exam-form .btn-submit:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(63, 143, 209, 0.4);
+  box-shadow: 0 8px 25px rgba(59, 136, 199, 0.4);
 }

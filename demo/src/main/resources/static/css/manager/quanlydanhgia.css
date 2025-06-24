@@ -272,13 +272,13 @@ table tr:hover {
   .btn-toggle-sidebar {
     display: block;
     position: fixed;
-    top: 10px;
-    left: 10px;
+    top: 15px;
+    left: 15px;
     background-color: var(--primary-blue);
     color: white;
     border: none;
     padding: 12px;
-    z-index: 1100;
+    z-index: 1001;
     border-radius: 8px;
     transition: transform 0.3s ease;
   }
