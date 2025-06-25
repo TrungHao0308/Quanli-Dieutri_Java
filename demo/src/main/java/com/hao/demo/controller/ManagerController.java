@@ -43,6 +43,10 @@ public String indexPage(Model model) {
     public String showDichVu(Model model) {
         return loadManagerPage(model, "manager/quanlydichvu");
     }
+    @GetMapping("/quanlylichkham")
+    public String showLichkham(Model model) {
+        return loadManagerPage(model, "manager/quanlylichkham");
+    }
 
     // === Helper methods giống như trong CustomerController ===
 

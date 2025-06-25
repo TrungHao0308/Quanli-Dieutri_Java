@@ -22,9 +22,11 @@
         <div class="doctor-info">
           <div class="doctor-avatar">BS</div>
           <div class="doctor-details">
-            <span th:text="${customer.fullName}"></span>
-            <p th:text="${customer != null ? 'Chuyên khoa IVF' : ''}">
-              Chuyên khoa IVF
+            <h1>
+              <strong> <span th:text="${customer.fullName}"></span></strong>
+            </h1>
+            <p th:text="${customer != null ? 'Chuyên khoa hiếm muộn' : ''}">
+              Chuyên khoa hiếm muộn
             </p>
           </div>
         </div>
@@ -34,7 +36,14 @@
             th:classappend="${activePage == 'dashboard' ? 'active' : ''}"
             th:href="@{/doctor/dashboard}"
           >
-            <i class="fas fa-tachometer-alt"></i> Tổng quan
+            <i class="fas fa-tachometer-alt"></i> Lịch làm việc
+          </a>
+          <a
+            class="nav-item"
+            th:classappend="${activePage == 'schedule' ? 'active' : ''}"
+            th:href="@{/doctor/schedule}"
+          >
+            <i class="fas fa-calendar"></i> Lịch phân công
           </a>
           <a
             class="nav-item"
@@ -82,6 +91,30 @@
             <div class="stat-card">
               <div class="stat-number" th:text="${todayPatients}">--</div>
               <div class="stat-label">Bệnh nhân hôm nay</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- trang doctor chỗ xuất báo cáocáo -->
+        <!-- Dashboard -->
+        <section
+          id="schedule"
+          class="page"
+          th:classappend="${activePage == 'schedule' ? 'active' : ''}"
+        >
+          <div class="page-header">
+            <h1 class="page-title">Tổng quan</h1>
+            <div class="header-actions">
+              <button class="btn btn-outline" th:onclick="@{/export-report}">
+                <i class="fas fa-download"></i> báo cáo
+              </button>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-number" th:text="${todayPatients}">--</div>
+              <div class="stat-label">Lịch phân công hôm nay</div>
             </div>
           </div>
         </section>

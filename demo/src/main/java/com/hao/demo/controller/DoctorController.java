@@ -57,6 +57,13 @@ public String loadDoctorPage(Model model) {
         return loadDoctorPage(model, "doctor/doctor", "dashboard");
     }
 
+        // Trang lịch phân công
+    @GetMapping("/schedule")
+    public String showSchedule(Model model) {
+        // model.addAttribute("patients", listPatientService.findAll());
+        return loadDoctorPage(model, "doctor/doctor", "schedule");
+    }
+
     // Trang bệnh nhân
     @GetMapping("/patients")
     public String showPatients(Model model) {

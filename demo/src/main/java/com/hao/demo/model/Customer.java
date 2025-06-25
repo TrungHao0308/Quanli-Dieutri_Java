@@ -206,53 +206,53 @@ public class Customer {
     // @Column(name = "gender")
     // private String gender;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+   // @Column(name = "created_at", nullable = false, updatable = false)
+   // private LocalDateTime createdAt;
 
     // @Column(name = "updated_at")
     // private LocalDateTime updatedAt;
 
-    @Column(name = "is_active")
-    private Boolean isActive = true;
+        @Column(name = "is_active")
+        private Boolean isActive = true;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "customer_roles",
-        joinColumns = @JoinColumn(name = "customer_id"),
-        inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles = new HashSet<>();
+        @ManyToMany(fetch = FetchType.EAGER)
+        @JoinTable(
+            name = "customer_roles",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+        )
+        private Set<Role> roles = new HashSet<>();
 
-    public Customer() {
-        this.createdAt = LocalDateTime.now();
-        // this.updatedAt = LocalDateTime.now();
-        this.isActive = true;
-    }
+        public Customer() {
+        // this.createdAt = LocalDateTime.now();
+            // this.updatedAt = LocalDateTime.now();
+            this.isActive = true;
+        }
 
-    public Customer(String fullName, String email, String password) {
-        this();
-        this.fullName = fullName;
-        this.email = email;
-        this.password = password;
-    }
+        public Customer(String fullName, String email, String password) {
+            this();
+            this.fullName = fullName;
+            this.email = email;
+            this.password = password;
+        }
 
-    // @PreUpdate
-    // public void preUpdate() {
-    //     this.updatedAt = LocalDateTime.now();
-    // }
+        // @PreUpdate
+        // public void preUpdate() {
+        //     this.updatedAt = LocalDateTime.now();
+        // }
 
-    // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+        // Getters and Setters
+        public Long getId() { return id; }
+        public void setId(Long id) { this.id = id; }
 
-    public String getFullName() { return fullName; }
-    public void setFullName(String fullName) { this.fullName = fullName; }
+        public String getFullName() { return fullName; }
+        public void setFullName(String fullName) { this.fullName = fullName; }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+        public String getEmail() { return email; }
+        public void setEmail(String email) { this.email = email; }
 
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
+        public String getPassword() { return password; }
+        public void setPassword(String password) { this.password = password; }
 
     // public String getPhone() { return phone; }
     // public void setPhone(String phone) { this.phone = phone; }
@@ -266,7 +266,7 @@ public class Customer {
     // public String getGender() { return gender; }
     // public void setGender(String gender) { this.gender = gender; }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
+   // public LocalDateTime getCreatedAt() { return createdAt; }
     // public LocalDateTime getUpdatedAt() { return updatedAt; }
     public Boolean getIsActive() { return isActive; }
     public void setIsActive(Boolean isActive) { this.isActive = isActive; }
