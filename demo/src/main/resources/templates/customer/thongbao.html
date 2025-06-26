@@ -81,7 +81,7 @@
             </button>
           </form>
         </div>
-        <div class="content-page active">
+        <!-- <div class="content-page active">
           <div class="page-header">
             <h1>Thông báo</h1>
           </div>
@@ -99,10 +99,44 @@
               </li>
             </ul>
           </div>
+        </div> -->
+        <div class="alert alert-success">
+          Bạn đã được phân công lịch khám thành công!
+        </div>
+
+        <ul class="thong-bao-list">
+          <li th:each="lich : ${lichKhams}">
+            <span
+              th:text="'Lịch khám ngày ' + ${lich.ngayKham} + ' với bác sĩ ' + ${lich.tenBacSi}"
+            ></span>
+            <a href="#lich-[[${lich.id}]]" class="xem-link">Xem</a>
+          </li>
+        </ul>
+
+        <hr />
+
+        <div class="chi-tiet">
+          <div
+            th:each="lich : ${lichKhams}"
+            th:attr="id='lich-' + ${lich.id}"
+            class="lich-item"
+          >
+            <h4 th:text="'Lịch khám ngày ' + ${lich.ngayKham}"></h4>
+            <p>
+              <strong>Giờ & Phòng:</strong>
+              <span th:text="${lich.lichKham}"></span>
+            </p>
+            <p>
+              <strong>Bác sĩ:</strong> <span th:text="${lich.tenBacSi}"></span>
+            </p>
+            <p>
+              <strong>Dịch vụ:</strong> <span th:text="${lich.dichVu}"></span>
+            </p>
+          </div>
         </div>
       </main>
     </div>
-    <script th:src="@{/js/customer/customer.js}" defer></script>
+
     <script th:src="@{/js/customer/thongbao.js}" defer></script>
   </body>
 </html>

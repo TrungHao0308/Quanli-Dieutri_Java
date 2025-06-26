@@ -1,13 +1,24 @@
 package com.hao.demo.controller;
 
 import com.hao.demo.model.Customer;
+import com.hao.demo.model.DangkiDichvu;
+import com.hao.demo.model.PhancongLichkham;
+import com.hao.demo.repository.DangkiDichvuRepository;
+import com.hao.demo.repository.PhancongLichkhamRepository;
 import com.hao.demo.service.CustomerService;
+import java.util.List;
+import java.time.LocalDate;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/customer")
@@ -26,8 +37,17 @@ public class CustomerController {
 
 @GetMapping("/thongbao")
 public String showThongBao(Model model) {
-    return loadCustomerPage(model, "customer/thongbao");
+    Customer customer = getLoggedInCustomer();
+    if (customer == null) return "redirect:/auth/login";
+
+    List<PhancongLichkham> lichKhams = phancongLichkhamRepository.findByEmailBenhNhan(customer.getEmail());
+    model.addAttribute("customer", customer);
+    model.addAttribute("customerName", customer.getFullName());
+    model.addAttribute("lichKhams", lichKhams);
+
+    return "customer/thongbao";
 }
+
 
 @GetMapping("/dangkidichvu")
 public String showDangKiDichVu(Model model) {
@@ -59,6 +79,34 @@ public String showHoSoCaNhan(Model model) {
     return loadCustomerPage(model, "customer/hosocanhan");
 }
 
+@Autowired
+private DangkiDichvuRepository dangkiDichvuRepository;
+
+@PostMapping("/dangkidichvu")
+public String xuLyDangKiDichVu(
+        @RequestParam("dichVu") String dichVu,
+        @RequestParam("tenBacSi") String tenBacSi,
+        @RequestParam("emailBacSi") String emailBacSi,
+        @RequestParam("ngayKham") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate ngayKham,
+        @RequestParam("chiTiet") String chiTiet,
+        Model model) {
+
+    Customer customer = getLoggedInCustomer();
+    if (customer == null) return "redirect:/auth/login";
+
+    DangkiDichvu dk = new DangkiDichvu();
+    dk.setDichVu(dichVu);
+    dk.setTenBacSi(tenBacSi);
+    dk.setEmailBacSi(emailBacSi);
+    dk.setNgayKham(ngayKham);
+    dk.setChiTiet(chiTiet);
+    dk.setEmailBenhNhan(customer.getEmail());
+    dk.setTenBenhNhan(customer.getFullName());
+
+    dangkiDichvuRepository.save(dk);
+
+    return "redirect:/customer/lichtrinhdieutri"; // hoặc thông báo thành công
+}
 
     // Helper methods
 
@@ -83,5 +131,8 @@ public String showHoSoCaNhan(Model model) {
 
         return viewName;
     }
+    @Autowired
+private PhancongLichkhamRepository phancongLichkhamRepository;
+
     
 }

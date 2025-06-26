@@ -47,3 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+function setEmailBacSi() {
+  const select = document.getElementById("doctor");
+  const email = select.options[select.selectedIndex].getAttribute("data-email");
+  document.getElementById("emailBacSi").value = email || "";
+}

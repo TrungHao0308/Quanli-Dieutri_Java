@@ -85,7 +85,7 @@ người bệnh có thể điều chỉnh bác sĩ-->
             <h1>Đăng ký Dịch vụ</h1>
           </div>
           <div class="form-container">
-            <form th:action="@{/customer/dangkidichvu}" method="post">
+            <!-- <form th:action="@{/customer/dangkidichvu}" method="post">
               <div class="form-group">
                 <label for="serviceType">Loại dịch vụ</label>
                 <select id="serviceType" name="serviceType" required>
@@ -125,6 +125,49 @@ người bệnh có thể điều chỉnh bác sĩ-->
                   placeholder="Nhập ghi chú (nếu có)"
                 ></textarea>
               </div>
+              <button type="submit" class="btn-submit">Đăng ký</button>
+            </form> -->
+            <form th:action="@{/customer/dangkidichvu}" method="post">
+              <div class="form-group">
+                <label for="serviceType">Loại dịch vụ</label>
+                <select id="serviceType" name="dichVu" required>
+                  <option value="">Chọn dịch vụ</option>
+                  <option value="IUI">IUI</option>
+                  <option value="IVF">IVF</option>
+                  <option value="consultation">Tư vấn</option>
+                  <option value="examination">Khám tổng quát</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="doctor">Bác sĩ</label>
+                <select id="doctor" name="tenBacSi" onchange="setEmailBacSi()">
+                  <option value="">Chọn bác sĩ</option>
+                  <option value="Nguyễn Văn A" data-email="bs1@example.com">
+                    BS. Nguyễn Văn A
+                  </option>
+                  <option value="Trần Thị B" data-email="bs2@example.com">
+                    BS. Trần Thị B
+                  </option>
+                </select>
+                <input type="hidden" id="emailBacSi" name="emailBacSi" />
+              </div>
+
+              <div class="form-group">
+                <label for="appointmentDate">Ngày khám</label>
+                <input
+                  type="date"
+                  id="appointmentDate"
+                  name="ngayKham"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="notes">Ghi chú</label>
+                <textarea id="notes" name="chiTiet"></textarea>
+              </div>
+
               <button type="submit" class="btn-submit">Đăng ký</button>
             </form>
           </div>

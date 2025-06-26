@@ -69,7 +69,7 @@
             <h1>Phân công lịch khám</h1>
           </div>
           <!-- Form Thêm bác sĩ -->
-          <section class="form-container">
+          <!-- <section class="form-container">
             <h2>Thêm bác sĩ mới</h2>
             <form action="#" method="post">
               <div class="form-group">
@@ -100,7 +100,7 @@
               <button type="submit" class="form-submit">Phân công</button>
             </form>
           </section>
-          <!-- Danh sách bác sĩ -->
+         
           <section class="doctor-table">
             <h2>Danh sách bác sĩ</h2>
             <table>
@@ -134,7 +134,48 @@
                   </td>
                 </tr>
               </tbody>
-            </table>
+            </table> -->
+            <h2>Quản lý lịch khám</h2>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Bệnh nhân</th>
+      <th>Email</th>
+      <th>Ngày khám</th>
+      <th>Dịch vụ</th>
+      <th>Bác sĩ</th>
+      <th>Chi tiết</th>
+      <th>Phân công lịch khám</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="dk : ${danhSachDangKy}">
+      <form th:action="@{/manager/phancong}" method="post">
+        <!-- Trường ẩn: copy từ đăng ký -->
+        <input type="hidden" name="emailBenhNhan" th:value="${dk.emailBenhNhan}" />
+        <input type="hidden" name="tenBenhNhan" th:value="${dk.tenBenhNhan}" />
+        <input type="hidden" name="ngayKham" th:value="${dk.ngayKham}" />
+        <input type="hidden" name="dichVu" th:value="${dk.dichVu}" />
+        <input type="hidden" name="chiTiet" th:value="${dk.chiTiet}" />
+        <input type="hidden" name="emailBacSi" th:value="${dk.emailBacSi}" />
+        <input type="hidden" name="tenBacSi" th:value="${dk.tenBacSi}" />
+
+        <td th:text="${dk.tenBenhNhan}">Tên</td>
+        <td th:text="${dk.emailBenhNhan}">Email</td>
+        <td th:text="${dk.ngayKham}">Ngày</td>
+        <td th:text="${dk.dichVu}">Dịch vụ</td>
+        <td th:text="${dk.tenBacSi}">Bác sĩ</td>
+        <td th:text="${dk.chiTiet}">Chi tiết</td>
+
+        <td>
+          <input type="text" name="lichKham" placeholder="VD: 9:00 - Phòng 3" required />
+          <button type="submit">Xác nhận</button>
+        </td>
+      </form>
+    </tr>
+  </tbody>
+</table>
           </section>
         </div>
       </main>
