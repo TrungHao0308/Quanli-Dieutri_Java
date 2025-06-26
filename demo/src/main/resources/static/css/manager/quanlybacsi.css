@@ -329,7 +329,6 @@ table tr:hover {
     transform: translateY(0);
   }
 }
-
 /* Responsive */
 @media screen and (max-width: 768px) {
   .main-content {
@@ -371,4 +370,38 @@ table tr:hover {
   .form-container {
     padding: 15px;
   }
+} /* <- đóng @media ở đây */
+
+/* Các nút ngoài @media: luôn hiển thị */
+.btn {
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
 }
+
+.btn-update {
+  background-color: #28a745;
+}
+
+.btn-cancel {
+  background-color: #dc3545;
+}
+
+.btn:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+/* .btn {
+  display: inline-block !important;
+  background-color: red !important;
+  color: white !important;
+  padding: 6px 12px !important;
+  font-size: 1rem !important;
+  border: 1px solid black !important;
+  z-index: 9999 !important;
+} */

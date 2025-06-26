@@ -235,6 +235,15 @@ public class Customer {
             this.email = email;
             this.password = password;
         }
+        @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+private BacsiChuyenmon bacsiChuyenmon;
+
+public String getChuyenMon() {
+    return bacsiChuyenmon != null ? bacsiChuyenmon.getChuyenMon() : null;
+}
+public String getCaLam() {
+    return bacsiChuyenmon != null ? bacsiChuyenmon.getCaLam() : null;
+}
 
         // @PreUpdate
         // public void preUpdate() {
