@@ -5,6 +5,7 @@ import com.hao.demo.model.Customer;
 import com.hao.demo.model.DangkiDichvu;
 import com.hao.demo.model.PhancongLichkham;
 import com.hao.demo.repository.DangkiDichvuRepository;
+import com.hao.demo.repository.DichvuRepository;
 import com.hao.demo.repository.PhancongLichkhamRepository;
 import com.hao.demo.service.BacsiChuyenmonService;
 import com.hao.demo.service.CustomerService;
@@ -51,10 +52,18 @@ public String showThongBao(Model model) {
     return "customer/thongbao";
 }
 
+@Autowired
+private DichvuRepository dichvuRepository;
 
 @GetMapping("/dangkidichvu")
 public String showDangKiDichVu(Model model) {
-    return loadCustomerPage(model, "customer/dangkidichvu");
+    Customer customer = getLoggedInCustomer();
+    if (customer == null) return "redirect:/auth/login";
+
+    model.addAttribute("customerName", customer.getFullName());
+    model.addAttribute("dichVuList", dichvuRepository.findAll()); // truyền dịch vụ
+
+    return "customer/dangkidichvu";
 }
 
 @GetMapping("/lichtrinhdieutri")

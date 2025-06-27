@@ -40,26 +40,26 @@
           </a>
           <a
             class="nav-item"
-            th:classappend="${activePage == 'schedule' ? 'active' : ''}"
-            th:href="@{/doctor/schedule}"
-          >
-            <i class="fas fa-calendar"></i> Lịch phân công
-          </a>
-          <a
-            class="nav-item"
             th:classappend="${activePage == 'patients' ? 'active' : ''}"
             th:href="@{/doctor/patients}"
           >
-             <!-- Quản lý hồ sơ bệnh nhân -->
+            <!-- Quản lý hồ sơ bệnh nhân -->
             <i class="fas fa-users"></i> Bệnh nhân
           </a>
+          <a
+            class="nav-item"
+            th:classappend="${activePage == 'schedule' ? 'active' : ''}"
+            th:href="@{/doctor/schedule}"
+          >
+            <i class="fas fa-calendar"></i> Lịch trình điều trị
+          </a>
+
           <a
             class="nav-item"
             th:classappend="${activePage == 'examination' ? 'active' : ''}"
             th:href="@{/doctor/examination}"
           >
-
-             <!-- nhập kết quả khám -->
+            <!-- nhập kết quả khám -->
             <i class="fas fa-clipboard-list"></i> Kết quả khám
           </a>
         </div>
@@ -82,20 +82,42 @@
           th:classappend="${activePage == 'dashboard' ? 'active' : ''}"
         >
           <div class="page-header">
-            <h1 class="page-title">Tổng quan</h1>
+            <h1 class="page-title">Lịch làm việc</h1>
             <div class="header-actions">
-              <button class="btn btn-outline" th:onclick="@{/export-report}">
-                <i class="fas fa-download"></i> Xuất báo cáo
-              </button>
+              <form method="get" th:action="@{/doctor/dashboard}">
+                <input type="date" name="ngay" />
+                <button type="submit" class="btn btn-outline">
+                  Lọc theo ngày
+                </button>
+              </form>
             </div>
           </div>
 
-          <div class="stats-grid">
-            <div class="stat-card">
-              <div class="stat-number" th:text="${todayPatients}">--</div>
-              <div class="stat-label">Bệnh nhân hôm nay</div>
-            </div>
-          </div>
+          <table class="table-patient">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Email bệnh nhân</th>
+                <th>Tên bệnh nhân</th>
+                <th>Dịch vụ</th>
+                <th>Ngày khám</th>
+                <th>Lịch khám</th>
+                <th>Chi tiết</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="lich : ${lichKhams}">
+                <td th:text="${lich.id}">1</td>
+                <td th:text="${lich.emailBenhNhan}">abc@gmail.com</td>
+                <td th:text="${lich.tenBenhNhan}">Nguyễn Văn A</td>
+                <td th:text="${lich.dichVu}">IVF</td>
+                <td th:text="${lich.ngayKham}">2025-07-01</td>
+                <td th:text="${lich.lichKham}">08:00 - Phòng 2</td>
+
+                <td th:text="${lich.chiTiet}">Khám tổng quát</td>
+              </tr>
+            </tbody>
+          </table>
         </section>
 
         <!-- trang doctor chỗ xuất báo cáocáo -->
@@ -138,51 +160,31 @@
                 placeholder="Tìm kiếm bệnh nhân..."
                 th:value="${searchTerm}"
               />
-              <button class="btn btn-primary" th:onclick="@{/patients/add}">
-                <i class="fas fa-plus"></i> Thêm
-              </button>
             </div>
           </div>
 
-          <div class="patient-card" th:each="patient : ${patients}">
-            <div class="patient-header">
-              <div class="patient-basic-info">
-                <div class="patient-avatar-small" th:text="${patient.initials}">
-                  NL
-                </div>
-                <div>
-                  <div class="patient-name" th:text="${patient.name}">
-                    Nguyễn Thanh Tùng      <!-- demo dữ liệu ảo -->
-                  </div>
-                  <div
-                    class="appointment-time"
-                    th:text="${patient.appointmentTime}"
-                  >
-                    08:30 - Tái khám
-                  </div>
-                </div>
-              </div>
-              <div
-                class="appointment-status status-upcoming"
-                th:text="${patient.status}"
-              >
-                Đang chờ
-              </div>
-            </div>
-
-            <div class="patient-details-grid">
-              <div class="detail-item">
-                <span class="detail-label">Tuổi:</span
-                ><span class="detail-value" th:text="${patient.age}">32</span>
-              </div>
-              <div class="detail-item">
-                <span class="detail-label">Điện thoại:</span
-                ><span class="detail-value" th:text="${patient.phone}"
-                  >0901***</span
-                >
-              </div>
-            </div>
-          </div>
+          <table class="table-patient">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Email bệnh nhân</th>
+                <th>Tên bệnh nhân</th>
+                <th>Dịch vụ</th>
+                <th>Ngày khám</th>
+                <th>Chi tiết</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="patient : ${patients}">
+                <td th:text="${patient.id}">1</td>
+                <td th:text="${patient.emailBenhNhan}">email@example.com</td>
+                <td th:text="${patient.tenBenhNhan}">Nguyễn Văn A</td>
+                <td th:text="${patient.dichVu}">IVF</td>
+                <td th:text="${patient.ngayKham}">2025-07-01</td>
+                <td th:text="${patient.chiTiet}">Chi tiết ghi chú</td>
+              </tr>
+            </tbody>
+          </table>
         </section>
 
         <!-- Examination -->

@@ -87,18 +87,20 @@
 
                 <!-- Chuyên môn -->
                 <td>
-                    <select th:id="'specialty-' + ${doctor.id}" class="form-select"
-                            th:disabled="${doctorUpdatedMap.containsKey(doctor.id)}">
-                        <option value="" disabled 
-  th:selected="${doctorUpdatedMap.get(doctor.id) == null}">Chọn chuyên môn</option>
+  <select th:id="'specialty-' + ${doctor.id}" class="form-select"
+          th:disabled="${doctorUpdatedMap.containsKey(doctor.id)}">
+    <option value="" disabled th:selected="${doctorUpdatedMap.get(doctor.id) == null}">
+      Chọn chuyên môn
+    </option>
 
-                        <option value="IUI" th:selected="${doctorUpdatedMap.get(doctor.id)?.chuyenMon == 'IUI'}">IUI</option>
-<option value="IVF" th:selected="${doctorUpdatedMap.get(doctor.id)?.chuyenMon == 'IVF'}">IVF</option>
-<option value="Tư vấn" th:selected="${doctorUpdatedMap.get(doctor.id)?.chuyenMon == 'Tư vấn'}">Tư vấn</option>
-<option value="Khám tổng quát" th:selected="${doctorUpdatedMap.get(doctor.id)?.chuyenMon == 'Khám tổng quát'}">Khám tổng quát</option>
+    <option th:each="dv : ${dichVus}"
+            th:value="${dv.tenDichVu}"
+            th:text="${dv.tenDichVu}"
+            th:selected="${doctorUpdatedMap.get(doctor.id)?.chuyenMon == dv.tenDichVu}">
+    </option>
+  </select>
+</td>
 
-                    </select>
-                </td>
 
                 <!-- Ca làm -->
                 <td>

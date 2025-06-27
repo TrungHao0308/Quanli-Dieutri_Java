@@ -9,6 +9,8 @@ import com.hao.demo.repository.CustomerRepository;
 import com.hao.demo.repository.DangkiDichvuRepository;
 import com.hao.demo.repository.PhancongLichkhamRepository;
 import com.hao.demo.service.CustomerService;
+import com.hao.demo.model.Dichvu;
+import com.hao.demo.repository.DichvuRepository;
 
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -36,6 +38,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.time.format.DateTimeFormatter;
 @Controller
 @RequestMapping("/manager")
@@ -65,12 +68,14 @@ public String indexPage(Model model) {
 
     
 
+@Autowired
+private DichvuRepository dichvuRepository;
 
 @GetMapping("/quanlybacsi")
 public String showBacSi(Model model) {
         List<Customer> doctors = customerRepository.findByRoleName("ROLE_DOCTOR");
     List<BacsiChuyenmon> danhSachDaCo = bacsiChuyenmonRepository.findAll();
-
+List<Dichvu> dichVus = dichvuRepository.findAll();
     Map<Long, BacsiChuyenmon> daCapNhatMap = danhSachDaCo.stream()
         .filter(b -> b.getCustomer() != null)
         .collect(Collectors.toMap(
@@ -80,7 +85,7 @@ public String showBacSi(Model model) {
 
     model.addAttribute("doctors", doctors);
     model.addAttribute("doctorUpdatedMap", daCapNhatMap); // rất quan trọng
-
+model.addAttribute("dichVus", dichVus);
     return loadManagerPage(model, "manager/quanlybacsi");
 }
 
@@ -91,10 +96,47 @@ public String showBacSi(Model model) {
         return loadManagerPage(model, "manager/quanlydanhgia");
     }
 
-    @GetMapping("/quanlydichvu")
-    public String showDichVu(Model model) {
-        return loadManagerPage(model, "manager/quanlydichvu");
-    }
+   @Autowired
+private DichvuRepository dichVuRepository;
+
+@GetMapping("/quanlydichvu")
+public String showDichvu(Model model) {
+    model.addAttribute("dichVu", new Dichvu());
+    model.addAttribute("dichVuList", dichVuRepository.findAll());
+    return loadManagerPage(model, "manager/quanlydichvu");
+}
+
+@PostMapping("/quanlydichvu/add")
+public String themDichvu(@ModelAttribute("dichVu") Dichvu dichVu) {
+    dichVuRepository.save(dichVu);
+    return "redirect:/manager/quanlydichvu";
+}
+
+// Xóa dịch vụ
+@PostMapping("/quanlydichvu/delete/{id}")
+public String xoaDichVu(@PathVariable Long id) {
+    dichVuRepository.deleteById(id);
+    return "redirect:/manager/quanlydichvu";
+}
+
+// Hiển thị form sửa dịch vụ
+@GetMapping("/quanlydichvu/edit/{id}")
+public String showFormSua(@PathVariable Long id, Model model) {
+    Dichvu dichvu = dichVuRepository.findById(id).orElse(null);
+    if (dichvu == null) return "redirect:/manager/quanlydichvu";
+    model.addAttribute("dichVu", dichvu);
+    model.addAttribute("dichVuList", dichVuRepository.findAll());
+    return loadManagerPage(model, "manager/quanlydichvu");
+}
+
+// Cập nhật dịch vụ sau khi sửa
+@PostMapping("/quanlydichvu/update")
+public String capNhatDichVu(@ModelAttribute("dichVu") Dichvu dichVu) {
+    dichVuRepository.save(dichVu); // save sẽ update nếu có id
+    return "redirect:/manager/quanlydichvu";
+}
+
+
     // @GetMapping("/quanlylichkham")
     // public String showLichkham(Model model) {
     //     return loadManagerPage(model, "manager/quanlylichkham");

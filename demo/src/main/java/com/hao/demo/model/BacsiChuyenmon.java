@@ -75,4 +75,7 @@ public void setCustomer(Customer customer) {
                 ", caLam='" + caLam + '\'' +
                 '}';
     }
+    public String getFullName() {
+    return this.ten;
+}
 }

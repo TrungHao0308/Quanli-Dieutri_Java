@@ -26,7 +26,7 @@ public class Dichvu {
     public void setTenDichVu(String tenDichVu) {
         this.tenDichVu = tenDichVu;
     }
-    public double getGiaKham() {
+    public Double getGiaKham() {
         return giaKham;
     }
     public void setGiaKham(double giaKham) {

@@ -1,24 +1,61 @@
-function toggleSidebar() {
-  const sidebar = document.querySelector(".sidebar");
-  sidebar.classList.toggle("collapsed");
-  const mainContent = document.querySelector(".main-content");
-  mainContent.style.marginLeft = sidebar.classList.contains("collapsed")
-    ? "0"
-    : "250px";
-  mainContent.style.width = sidebar.classList.contains("collapsed")
-    ? "100%"
-    : "calc(100% - 250px)";
+// Service management variablesAdd commentMore actions
+let currentEditId = null;
+let isLoading = false;
+
+// Open edit modal for a service
+function openEditModal(serviceId) {
+  if (isLoading) return;
+
+  if (!serviceId || isNaN(serviceId)) {
+    console.error("Invalid service ID:", serviceId);
+    alert("ID dịch vụ không hợp lệ!");
+    return;
+  }
+
+  currentEditId = serviceId;
+  isLoading = true;
+
+  // Show loading state
+  const modal = document.getElementById("editModal");
+  if (modal) {
+    modal.style.display = "block";
+  }
 }
 
 // Smooth scroll to sections
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener("click", function (e) {
-    e.preventDefault();
-    document.querySelector(this.getAttribute("href")).scrollIntoView({
-      behavior: "smooth",
+fetch(`/manager/quanlydichvu/${serviceId}`) // Cần thêm endpoint này trong ManagerControllerAdd commentMore actions
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((service) => {
+    // Populate form fields
+    const fields = {
+      editServiceName: service.serviceName || "",
+      editPrice: service.price || "",
+      editDescription: service.description || "",
+      editCategory: service.category || "",
+    };
+
+    Object.entries(fields).forEach(([fieldId, value]) => {
+      const field = document.getElementById(fieldId);
+      if (field) {
+        field.value = value;
+      } else {
+        console.warn(`Field ${fieldId} not found`);
+      }
     });
+  })
+  .catch((error) => {
+    console.error("Error fetching service:", error);
+    alert("Lỗi khi tải thông tin dịch vụ: " + error.message);
+    closeEditModal();
+  })
+  .finally(() => {
+    isLoading = false;
   });
-});
 
 // Initialize tooltips for buttons
 document.querySelectorAll(".btn").forEach((btn) => {

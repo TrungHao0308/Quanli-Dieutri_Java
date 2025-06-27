@@ -132,10 +132,11 @@ người bệnh có thể điều chỉnh bác sĩ-->
                 <label for="serviceType">Loại dịch vụ</label>
                 <select id="serviceType" name="dichVu" required>
                   <option value="">Chọn dịch vụ</option>
-                  <option value="IUI">IUI</option>
-                  <option value="IVF">IVF</option>
-                  <option value="consultation">Tư vấn</option>
-                  <option value="examination">Khám tổng quát</option>
+                  <option
+                    th:each="dv : ${dichVuList}"
+                    th:value="${dv.tenDichVu}"
+                    th:text="${dv.tenDichVu}"
+                  ></option>
                 </select>
               </div>
 

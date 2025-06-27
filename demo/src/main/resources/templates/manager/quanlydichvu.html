@@ -68,44 +68,54 @@
             <h1>Quản lý Dịch vụ</h1>
           </div>
           <!-- Form Thêm dịch vụ -->
+          <!-- BẮT ĐẦU FORM THÊM DỊCH VỤ -->
           <section class="form-container">
-            <h2>Thêm dịch vụ mới</h2>
-            <form action="#" method="post">
+            <h2
+              th:text="${dichVu.id != null} ? 'Cập nhật dịch vụ' : 'Thêm dịch vụ mới'"
+            >
+              Thêm dịch vụ mới
+            </h2>
+
+            <form
+              th:action="${dichVu.id != null} ? @{/manager/quanlydichvu/update} : @{/manager/quanlydichvu/add}"
+              method="post"
+              th:object="${dichVu}"
+            >
+              <input type="hidden" th:field="*{id}" />
               <div class="form-group">
-                <label for="serviceName">Tên dịch vụ:</label>
+                <label for="tenDichVu">Tên dịch vụ:</label>
+                <input type="text" th:field="*{tenDichVu}" required />
+              </div>
+              <div class="form-group">
+                <label for="giaKham">Giá dịch vụ (VND):</label>
                 <input
-                  type="text"
-                  id="serviceName"
-                  name="serviceName"
+                  type="number"
+                  th:field="*{giaKham}"
+                  step="any"
                   required
                 />
               </div>
               <div class="form-group">
-                <label for="price">Giá dịch vụ (VND):</label>
-                <input type="number" id="price" name="price" required />
-              </div>
-              <div class="form-group">
-                <label for="description">Mô tả:</label>
+                <label for="moTa">Mô tả:</label>
                 <textarea
-                  id="description"
-                  name="description"
+                  th:field="*{moTa}"
                   rows="3"
                   placeholder="Mô tả chi tiết dịch vụ"
                 ></textarea>
               </div>
-              <div class="form-group">
-                <label for="category">Danh mục:</label>
-                <select id="category" name="category">
-                  <option value="kham">Khám bệnh</option>
-                  <option value="xetnghiem">Xét nghiệm</option>
-                  <option value="chupct">Chụp CT</option>
-                  <option value="sieumam">Siêu âm</option>
-                </select>
-              </div>
-              <button type="submit" class="form-submit">Thêm dịch vụ</button>
+
+              <button
+                type="submit"
+                class="form-submit"
+                th:text="${dichVu.id != null} ? 'Cập nhật' : 'Thêm dịch vụ'"
+              >
+                Thêm dịch vụ
+              </button>
             </form>
           </section>
-          <!-- Danh sách dịch vụ -->
+          <!-- KẾT THÚC FORM -->
+
+          <!-- DANH SÁCH DỊCH VỤ -->
           <section class="service-table">
             <h2>Danh sách dịch vụ</h2>
             <table>
@@ -114,26 +124,39 @@
                   <th>ID</th>
                   <th>Tên dịch vụ</th>
                   <th>Giá (VND)</th>
-                  <th>Danh mục</th>
                   <th>Mô tả</th>
                   <th>Hành động</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Khám nội tổng quát</td>
-                  <td>500,000</td>
-                  <td>Khám bệnh</td>
-                  <td>Khám và tư vấn sức khỏe tổng quát</td>
+                <tr th:each="dv : ${dichVuList}">
+                  <td th:text="${dv.id}">1</td>
+                  <td th:text="${dv.tenDichVu}">Khám nội tổng quát</td>
+                  <td
+                    th:text="${#numbers.formatDecimal(dv.giaKham, 0, 0)}"
+                  ></td>
+
+                  <td th:text="${dv.moTa}">Mô tả...</td>
                   <td class="action-buttons">
-                    <button class="btn btn-edit">Sửa</button>
-                    <button
-                      class="btn btn-delete"
-                      onclick="return confirm('Xóa dịch vụ này?')"
+                    <a
+                      th:href="@{/manager/quanlydichvu/edit/{id}(id=${dv.id})}"
+                      class="btn btn-edit"
+                      >Sửa</a
                     >
-                      Xóa
-                    </button>
+
+                    <form
+                      th:action="@{/manager/quanlydichvu/delete/{id}(id=${dv.id})}"
+                      method="post"
+                      style="display: inline"
+                    >
+                      <button
+                        type="submit"
+                        class="btn btn-delete"
+                        onclick="return confirm('Xóa dịch vụ này?')"
+                      >
+                        Xóa
+                      </button>
+                    </form>
                   </td>
                 </tr>
               </tbody>
