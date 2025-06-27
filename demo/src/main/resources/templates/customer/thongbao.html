@@ -81,36 +81,26 @@
             </button>
           </form>
         </div>
-        <!-- <div class="content-page active">
-          <div class="page-header">
-            <h1>Thông báo</h1>
-          </div>
-          <div class="notifications-container">
-            <ul class="notifications-list">
-              <li th:each="notification : ${notifications}">
-                <div class="notification-item">
-                  <h3 th:text="${notification.title}"></h3>
-                  <p th:text="${notification.message}"></p>
-                  <span th:text="${notification.date}"></span>
-                </div>
-              </li>
-              <li th:if="${#lists.isEmpty(notifications)}">
-                <p>Không có thông báo nào để hiển thị.</p>
-              </li>
-            </ul>
-          </div>
-        </div> -->
         <div class="alert alert-success">
-          Bạn đã được phân công lịch khám thành công!
+          Bạn đã đăng kí lịch khám thành công!
         </div>
 
         <ul class="thong-bao-list">
-          <li th:each="lich : ${lichKhams}">
-            <span
-              th:text="'Lịch khám ngày ' + ${lich.ngayKham} + ' với bác sĩ ' + ${lich.tenBacSi}"
-            ></span>
-            <a href="#lich-[[${lich.id}]]" class="xem-link">Xem</a>
-          </li>
+          <th:block
+            th:if="${lichKhams != null and not #lists.isEmpty(lichKhams)}"
+          >
+            <li th:each="lich : ${lichKhams}">
+              <span
+                th:text="'Lịch khám ngày ' + ${lich.ngayKham} + ' với bác sĩ ' + ${lich.tenBacSi}"
+              ></span>
+              <a th:href="@{'#lich-' + ${lich.id}}" class="xem-link">Xem</a>
+            </li>
+          </th:block>
+          <th:block
+            th:unless="${lichKhams != null and not #lists.isEmpty(lichKhams)}"
+          >
+            <li>Chưa có lịch khám nào.</li>
+          </th:block>
         </ul>
 
         <hr />

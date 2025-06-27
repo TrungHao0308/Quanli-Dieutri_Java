@@ -52,3 +52,41 @@ function setEmailBacSi() {
   const email = select.options[select.selectedIndex].getAttribute("data-email");
   document.getElementById("emailBacSi").value = email || "";
 }
+document.addEventListener("DOMContentLoaded", function () {
+  const serviceSelect = document.getElementById("serviceType");
+  const doctorSelect = document.getElementById("doctor");
+
+  serviceSelect.addEventListener("change", function () {
+    const chuyenMon = this.value;
+    doctorSelect.innerHTML = `<option value="">Đang tải...</option>`;
+
+    if (!chuyenMon) {
+      doctorSelect.innerHTML = `<option value="">Chọn bác sĩ</option>`;
+      return;
+    }
+
+    fetch(`/customer/api/bacsi?chuyenMon=${chuyenMon}`)
+      .then((res) => res.json())
+      .then((doctors) => {
+        doctorSelect.innerHTML = `<option value="">Chọn bác sĩ</option>`;
+        doctors.forEach((doc) => {
+          const opt = document.createElement("option");
+          opt.value = doc.ten;
+          opt.textContent = `BS. ${doc.ten}`;
+          opt.setAttribute("data-email", doc.email);
+          doctorSelect.appendChild(opt);
+        });
+      })
+      .catch((err) => {
+        console.error("Lỗi khi tải bác sĩ:", err);
+        doctorSelect.innerHTML = `<option value="">Không tải được bác sĩ</option>`;
+      });
+  });
+});
+
+function setEmailBacSi() {
+  const select = document.getElementById("doctor");
+  const emailField = document.getElementById("emailBacSi");
+  const selectedOption = select.options[select.selectedIndex];
+  emailField.value = selectedOption.getAttribute("data-email") || "";
+}

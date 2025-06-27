@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -21,4 +21,6 @@ public interface BacsiChuyenmonRepository extends JpaRepository<BacsiChuyenmon, 
     @Transactional
     @Query("DELETE FROM BacsiChuyenmon b WHERE b.customer.id = :customerId")
     void deleteByCustomerId(@Param("customerId") Long customerId);
+    
+List<BacsiChuyenmon> findByChuyenMonIgnoreCase(String chuyenMon);
 }

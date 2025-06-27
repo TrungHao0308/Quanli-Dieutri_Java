@@ -1,10 +1,12 @@
 package com.hao.demo.controller;
 
+import com.hao.demo.model.BacsiChuyenmon;
 import com.hao.demo.model.Customer;
 import com.hao.demo.model.DangkiDichvu;
 import com.hao.demo.model.PhancongLichkham;
 import com.hao.demo.repository.DangkiDichvuRepository;
 import com.hao.demo.repository.PhancongLichkhamRepository;
+import com.hao.demo.service.BacsiChuyenmonService;
 import com.hao.demo.service.CustomerService;
 import java.util.List;
 import java.time.LocalDate;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/customer")
@@ -78,6 +81,17 @@ public String showDanhGia(Model model) {
 public String showHoSoCaNhan(Model model) {
     return loadCustomerPage(model, "customer/hosocanhan");
 }
+
+
+@Autowired
+private BacsiChuyenmonService bacsiChuyenmonService;
+
+@GetMapping("/api/bacsi")
+@ResponseBody
+public List<BacsiChuyenmon> getDoctorsByChuyenMon(@RequestParam("chuyenMon") String chuyenMon) {
+    return bacsiChuyenmonService.getDoctorsBySpeciality(chuyenMon);
+}
+
 
 @Autowired
 private DangkiDichvuRepository dangkiDichvuRepository;

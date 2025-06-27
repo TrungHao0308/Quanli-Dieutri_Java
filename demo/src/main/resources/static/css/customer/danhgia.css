@@ -9,6 +9,9 @@
 .form-group {
   margin-bottom: 20px;
 }
+main {
+  padding-left: 30px;
+}
 
 .form-group label {
   display: block;

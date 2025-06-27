@@ -102,6 +102,14 @@
 .nav-item.active a {
   background-color: #6ec1b6;
 }
+.main-content {
+  margin-left: 250px;
+  padding: 30px;
+  background-color: #f3f4f6;
+  min-height: 100vh;
+  width: calc(100% - 250px); /* Cực kỳ quan trọng để không bị dính */
+  box-sizing: border-box; /* Đảm bảo padding không làm tràn khối */
+}
 
 /* Responsive */
 @media (max-width: 768px) {

@@ -55,7 +55,6 @@
               ><span>Kết quả điều trị</span>
             </a>
           </li>
-
           <li class="nav-item">
             <a th:href="@{/customer/danhgia}">
               <i class="fas fa-star"></i><span>Đánh giá</span>
@@ -80,10 +79,15 @@
         </div>
         <div class="content-page active">
           <div class="page-header">
-            <h1>Chào mừng bạn</h1>
+            <h1
+              th:text="'Chào mừng ' + ${customerName != null} ? ${customerName} : 'bạn'"
+            >
+              Chào mừng bạn
+            </h1>
           </div>
-          <p>
-            Đây là trang chủ của bạn. Các thông báo sẽ được hiển thị tại đây.
+          <p class="welcome-message">
+            Chào mừng bạn đến với hệ thống Hy Vọng Mới. Hãy khám phá các dịch vụ
+            và lịch trình điều trị của bạn!
           </p>
         </div>
       </main>

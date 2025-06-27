@@ -141,14 +141,14 @@ người bệnh có thể điều chỉnh bác sĩ-->
 
               <div class="form-group">
                 <label for="doctor">Bác sĩ</label>
-                <select id="doctor" name="tenBacSi" onchange="setEmailBacSi()">
+                <select
+                  id="doctor"
+                  name="tenBacSi"
+                  onchange="setEmailBacSi()"
+                  required
+                >
                   <option value="">Chọn bác sĩ</option>
-                  <option value="Nguyễn Văn A" data-email="bs1@example.com">
-                    BS. Nguyễn Văn A
-                  </option>
-                  <option value="Trần Thị B" data-email="bs2@example.com">
-                    BS. Trần Thị B
-                  </option>
+                  <!-- Các option sẽ được thêm tự động bằng JavaScript -->
                 </select>
                 <input type="hidden" id="emailBacSi" name="emailBacSi" />
               </div>

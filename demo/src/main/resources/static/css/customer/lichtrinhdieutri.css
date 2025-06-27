@@ -6,6 +6,14 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   border-collapse: collapse;
 }
+.main-content {
+  margin-left: 250px;
+  padding: 30px;
+  background-color: #f3f4f6;
+  min-height: 100vh;
+  width: calc(100% - 250px); /* Cực kỳ quan trọng để không bị dính */
+  box-sizing: border-box; /* Đảm bảo padding không làm tràn khối */
+}
 
 .schedule-table th {
   background: #3f8fd1;
