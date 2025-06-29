@@ -7,6 +7,14 @@
   </head>
   <body>
     <p>Đang đăng nhập với role: <span th:text="${role}"></span></p>
+    <div style="margin-top: 20px">
+      <a th:if="${role == 'ROLE_DOCTOR'}" th:href="@{/doctor/dashboard}">
+        <button>Quay lại trang bác sĩ</button>
+      </a>
+      <a th:if="${role == 'ROLE_CUSTOMER'}" th:href="@{/customer}">
+        <button>Quay lại trang bệnh nhân</button>
+      </a>
+    </div>
 
     <h1>Lập kết hoạch điều trị</h1>
 
