@@ -179,17 +179,20 @@ public String hienThiDangKy(Model model) {
     model.addAttribute("customer", customer);
     model.addAttribute("customerName", customer.getFullName());
     model.addAttribute("danhSachDangKy", danhSach);
-    // Tạo map email+ngày -> lịch đã phân công
-Map<String, PhancongLichkham> lichPhanCongMap = new HashMap<>();
-for (PhancongLichkham lich : phancongLichkhamRepository.findAll()) {
-    String key = lich.getEmailBenhNhan() + "_" + lich.getNgayKham();
-    lichPhanCongMap.put(key, lich);
+
+    // Khớp chính xác với key ở Thymeleaf (toLowerCase + trim)
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    Map<String, PhancongLichkham> lichPhanCongMap = new HashMap<>();
+    for (PhancongLichkham lich : phancongLichkhamRepository.findAll()) {
+        String key = lich.getEmailBenhNhan().trim().toLowerCase() + "_" + lich.getNgayKham().format(formatter);
+        lichPhanCongMap.put(key, lich);
+    }
+
+    model.addAttribute("lichPhanCongMap", lichPhanCongMap);
+    return "manager/quanlylichkham";
 }
-model.addAttribute("lichPhanCongMap", lichPhanCongMap);
 
 
-    return "manager/quanlylichkham"; // Giao diện hiển thị danh sách
-}
 
 @GetMapping("/phancong")
 public String hienThiFormPhanCong(@RequestParam("id") Long id, Model model) {

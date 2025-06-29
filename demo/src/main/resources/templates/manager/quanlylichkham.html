@@ -20,7 +20,7 @@
         <div class="sidebar-header">
           <h2>Hy Vọng Mới</h2>
           <div class="user-info">
-            <div class="user-avatar">A</div>
+            <div class="user-avatar">M</div>
             <div class="user-details">
               <h3 th:text="${customerName}">Tên Người Dùng</h3>
             </div>
@@ -39,7 +39,7 @@
           </li>
           <li class="nav-item">
             <a th:href="@{/manager/quanlydichvu}">
-              <i class="fas fa-concierge-bell"></i><span>QUẢN LÝ DỊCH VỤ</span>
+              <i class="fas fa-heartbeat"></i><span>QUẢN LÝ DỊCH VỤ</span>
             </a>
           </li>
           <li class="nav-item">
@@ -49,7 +49,7 @@
           </li>
           <li class="nav-item">
             <a th:href="@{/manager/quanlylichkham}">
-              <i class="fas fa-calendar"></i><span>QUẢN LÝ LỊCH KHÁM</span>
+              <i class="fas fa-calendar-check"></i><span>QUẢN LÝ LỊCH KHÁM</span>
             </a>
           </li>
         </ul>
@@ -66,10 +66,11 @@
         </div>
         <div class="content-page active">
           <div class="page-header">
-            <h1>Phân công lịch khám</h1>
+            <h1>Quản lý lịch khám</h1>
+            
           </div>
           
-            <h2>Quản lý lịch khám</h2>
+            
            
 <!-- Ô thông báo -->
 <div th:if="${error}" class="center-alert alert-danger" th:text="${error}"></div>
@@ -112,19 +113,22 @@
     <td th:with="key=${dk.emailBenhNhan + '_' + #temporals.format(dk.ngayKham, 'yyyy-MM-dd')}, 
              lichPhanCong=${lichPhanCongMap[key]}">
 
-  <div th:if="${lichPhanCong == null}">
-    <input type="text" name="lichKham" placeholder="VD: 9:00 - Phòng 3" required />
-    <button type="submit">Xác nhận</button>
-  </div>
-  <div th:if="${lichPhanCong != null}">
-    <span th:text="'Lịch: ' + ${lichPhanCong.lichKham}"></span>
-    <form th:action="@{'/manager/huylich/' + ${lichPhanCong.id}}" method="post" style="display:inline">
-      <button type="submit" class="btn-cancel">Hủy</button>
-    </form>
-  </div>
+<div th:if="${lichPhanCong == null}">
+  <input type="text" name="lichKham" placeholder="VD: 9:00 - Phòng 3" required />
+  <button type="submit">Xác nhận</button>
+   </form>
+</div>
+
+<div th:if="${lichPhanCong != null}">
+  <input type="text" th:value="${lichPhanCong.lichKham}" readonly />
+  <form th:action="@{'/manager/huylich/' + ${lichPhanCong.id}}" method="post" style="display:inline">
+    <button type="submit" class="btn-cancel">Hủy</button>
+  </form>
+</div>
+
 </td>
 
-  </form>
+ 
 </tr>
 
   </tbody>
