@@ -16,5 +16,5 @@ public interface PhancongLichkhamRepository extends JpaRepository<PhancongLichkh
 
     List<PhancongLichkham> findByEmailBacSiAndNgayKhamOrderByLichKhamAsc(String emailBacSi, LocalDate ngayKham);
 List<PhancongLichkham> findByEmailBacSiOrderByNgayKhamAscLichKhamAsc(String emailBacSi);
-
+PhancongLichkham findFirstByEmailBenhNhan(String email);
 }

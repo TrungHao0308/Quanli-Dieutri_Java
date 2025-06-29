@@ -3,9 +3,11 @@ package com.hao.demo.controller;
 import com.hao.demo.model.BacsiChuyenmon;
 import com.hao.demo.model.Customer;
 import com.hao.demo.model.DangkiDichvu;
+import com.hao.demo.model.LichTrungGian;
 import com.hao.demo.model.PhancongLichkham;
 import com.hao.demo.repository.DangkiDichvuRepository;
 import com.hao.demo.repository.DichvuRepository;
+import com.hao.demo.repository.LichTrungGianRepository;
 import com.hao.demo.repository.PhancongLichkhamRepository;
 import com.hao.demo.service.BacsiChuyenmonService;
 import com.hao.demo.service.CustomerService;
@@ -66,10 +68,31 @@ public String showDangKiDichVu(Model model) {
     return "customer/dangkidichvu";
 }
 
-@GetMapping("/lichtrinhdieutri")
-public String showLichTrinhDieuTri(Model model) {
-    return loadCustomerPage(model, "customer/lichtrinhdieutri");
-}
+// @GetMapping("/lichtrinhdieutri")
+// public String showLichTrinhDieuTri(Model model) {
+//     return loadCustomerPage(model, "customer/lichtrinhdieutri");
+// }
+
+@Autowired
+private LichTrungGianRepository lichTrungGianRepository;
+
+
+   
+
+    @GetMapping("/lichtrinhdieutri")
+    public String lichCustomer(Model model) {
+        Customer customer = getLoggedInCustomer();
+        if (customer == null) return "redirect:/auth/login";
+
+        List<LichTrungGian> lichKhams = lichTrungGianRepository.findByEmailBenhNhan(customer.getEmail());
+
+        model.addAttribute("role", "ROLE_CUSTOMER");
+        model.addAttribute("lichKhams", lichKhams);
+        model.addAttribute("customerName", customer.getFullName());
+
+        return "chung/lichtrunggian";
+    }
+
 
 @GetMapping("/ketquadieutri")
 public String showKetQuaDieuTri(Model model) {

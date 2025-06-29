@@ -28,32 +28,35 @@
         </div>
         <ul class="sidebar-nav">
           <li class="nav-item">
-            <a th:href="@{/manager/baocao}">
-              <i class="fas fa-file-alt"></i><span>TẠO BÁO CÁO</span>
-            </a>
+            <a th:href="@{/manager/baocao}"
+              ><i class="fas fa-file-alt"></i><span>TẠO BÁO CÁO</span></a
+            >
           </li>
           <li class="nav-item">
-            <a th:href="@{/manager/quanlybacsi}">
-              <i class="fas fa-user-md"></i><span>QUẢN LÝ BÁC SĨ</span>
-            </a>
+            <a th:href="@{/manager/quanlybacsi}"
+              ><i class="fas fa-user-md"></i><span>QUẢN LÝ BÁC SĨ</span></a
+            >
+          </li>
+          <li class="nav-item active">
+            <a th:href="@{/manager/quanlydichvu}"
+              ><i class="fas fa-concierge-bell"></i
+              ><span>QUẢN LÝ DỊCH VỤ</span></a
+            >
           </li>
           <li class="nav-item">
-            <a th:href="@{/manager/quanlydichvu}">
-              <i class="fas fa-concierge-bell"></i><span>QUẢN LÝ DỊCH VỤ</span>
-            </a>
+            <a th:href="@{/manager/quanlydanhgia}"
+              ><i class="fas fa-star-half-alt"></i
+              ><span>QUẢN LÝ ĐÁNH GIÁ</span></a
+            >
           </li>
           <li class="nav-item">
-            <a th:href="@{/manager/quanlydanhgia}">
-              <i class="fas fa-star-half-alt"></i><span>QUẢN LÝ ĐÁNH GIÁ</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a th:href="@{/manager/quanlylichkham}">
-              <i class="fas fa-calendar"></i><span>QUẢN LÝ LỊCH KHÁM</span>
-            </a>
+            <a th:href="@{/manager/quanlylichkham}"
+              ><i class="fas fa-calendar"></i><span>QUẢN LÝ LỊCH KHÁM</span></a
+            >
           </li>
         </ul>
       </nav>
+
       <!-- Main Content -->
       <main class="main-content">
         <div class="top-right">
@@ -63,19 +66,19 @@
             </button>
           </form>
         </div>
+
         <div class="content-page active">
           <div class="page-header">
             <h1>Quản lý Dịch vụ</h1>
           </div>
-          <!-- Form Thêm dịch vụ -->
-          <!-- BẮT ĐẦU FORM THÊM DỊCH VỤ -->
+
+          <!-- Form Thêm/Cập nhật dịch vụ -->
           <section class="form-container">
             <h2
               th:text="${dichVu.id != null} ? 'Cập nhật dịch vụ' : 'Thêm dịch vụ mới'"
             >
               Thêm dịch vụ mới
             </h2>
-
             <form
               th:action="${dichVu.id != null} ? @{/manager/quanlydichvu/update} : @{/manager/quanlydichvu/add}"
               method="post"
@@ -103,7 +106,6 @@
                   placeholder="Mô tả chi tiết dịch vụ"
                 ></textarea>
               </div>
-
               <button
                 type="submit"
                 class="form-submit"
@@ -113,9 +115,8 @@
               </button>
             </form>
           </section>
-          <!-- KẾT THÚC FORM -->
 
-          <!-- DANH SÁCH DỊCH VỤ -->
+          <!-- Danh sách dịch vụ -->
           <section class="service-table">
             <h2>Danh sách dịch vụ</h2>
             <table>
@@ -132,10 +133,9 @@
                 <tr th:each="dv : ${dichVuList}">
                   <td th:text="${dv.id}">1</td>
                   <td th:text="${dv.tenDichVu}">Khám nội tổng quát</td>
-                  <td
-                    th:text="${#numbers.formatDecimal(dv.giaKham, 0, 0)}"
-                  ></td>
-
+                  <td th:text="${#numbers.formatDecimal(dv.giaKham, 0, 0)}">
+                    500000
+                  </td>
                   <td th:text="${dv.moTa}">Mô tả...</td>
                   <td class="action-buttons">
                     <a
@@ -143,7 +143,6 @@
                       class="btn btn-edit"
                       >Sửa</a
                     >
-
                     <form
                       th:action="@{/manager/quanlydichvu/delete/{id}(id=${dv.id})}"
                       method="post"
@@ -165,6 +164,7 @@
         </div>
       </main>
     </div>
+
     <script th:src="@{/js/manager/quanlydichvu.js}" defer></script>
   </body>
 </html>
