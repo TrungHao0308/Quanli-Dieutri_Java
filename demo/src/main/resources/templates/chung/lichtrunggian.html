@@ -7,7 +7,7 @@
   </head>
   <body>
     <p>Đang đăng nhập với role: <span th:text="${role}"></span></p>
-    <div style="margin-top: 20px">
+    <div class="quay-lai-container">
       <a th:if="${role == 'ROLE_DOCTOR'}" th:href="@{/doctor/dashboard}">
         <button>Quay lại trang bác sĩ</button>
       </a>
@@ -15,11 +15,11 @@
         <button>Quay lại trang bệnh nhân</button>
       </a>
     </div>
-
-    <h1>Lập kết hoạch điều trị</h1>
-
-    <!-- Chỉ bác sĩ mới được thấy form thêm -->
     <div th:if="${role == 'ROLE_DOCTOR'}">
+      <h1>Lập kết hoạch điều trị</h1>
+
+      <!-- Chỉ bác sĩ mới được thấy form thêm -->
+
       <h2>Thêm lịch điều trị mới</h2>
       <form th:action="@{/doctor/lichtrunggian/them}" method="post">
         <label>Email bệnh nhân:</label>
@@ -60,7 +60,13 @@
       </form>
     </div>
 
-    <h3>Danh sách lịch điều trị đã lập</h3>
+    <div th:if="${role == 'ROLE_DOCTOR'}">
+      <h3>Danh sách lịch điều trị đã lập</h3>
+    </div>
+    <div th:if="${role == 'ROLE_CUSTOMER'}">
+      <h3>Danh sách lịch điều trị của bạn</h3>
+    </div>
+
     <table>
       <thead>
         <tr>
@@ -71,9 +77,10 @@
           <th>Lịch xét nghiệm</th>
           <th>Lịch tiêm thuốc</th>
           <th>Lịch tái khám</th>
-          <th>Hành động</th>
+
           <th th:if="${role == 'ROLE_CUSTOMER'}">Email bác sĩ</th>
           <th th:if="${role == 'ROLE_CUSTOMER'}">Tên bác sĩ</th>
+          <th>Hành động</th>
         </tr>
       </thead>
       <tbody>
@@ -85,7 +92,14 @@
           <td th:text="${lich.lichXetNghiem}"></td>
           <td th:text="${lich.lichTiemThuoc}"></td>
           <td th:text="${lich.lichTaiKham}"></td>
-
+          <td
+            th:if="${role == 'ROLE_CUSTOMER'}"
+            th:text="${lich.emailBacSi}"
+          ></td>
+          <td
+            th:if="${role == 'ROLE_CUSTOMER'}"
+            th:text="${lich.tenBacSi}"
+          ></td>
           <!-- Bác sĩ được xóa -->
           <td th:if="${role == 'ROLE_DOCTOR'}">
             <form
@@ -99,14 +113,6 @@
 
           <!-- Khách thì không có nút xóa -->
           <td th:if="${role != 'ROLE_DOCTOR'}">—</td>
-          <td
-            th:if="${role == 'ROLE_CUSTOMER'}"
-            th:text="${lich.emailBacSi}"
-          ></td>
-          <td
-            th:if="${role == 'ROLE_CUSTOMER'}"
-            th:text="${lich.tenBacSi}"
-          ></td>
         </tr>
       </tbody>
     </table>

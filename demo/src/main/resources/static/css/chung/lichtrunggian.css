@@ -109,3 +109,7 @@ form[method="post"] button {
 form[method="post"] button:hover {
   background-color: #a71d2a;
 }
+.quay-lai-container {
+  text-align: right;
+  margin-top: 20px;
+}
