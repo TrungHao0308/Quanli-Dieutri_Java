@@ -8,11 +8,11 @@
   <body>
     <p>Đang đăng nhập với role: <span th:text="${role}"></span></p>
 
-    <h2>Lập kế hoạch điều trị trung gian</h2>
+    <h1>Lập kết hoạch điều trị</h1>
 
     <!-- Chỉ bác sĩ mới được thấy form thêm -->
     <div th:if="${role == 'ROLE_DOCTOR'}">
-      <h3>Thêm lịch điều trị mới</h3>
+      <h2>Thêm lịch điều trị mới</h2>
       <form th:action="@{/doctor/lichtrunggian/them}" method="post">
         <label>Email bệnh nhân:</label>
         <select name="emailBenhNhan">
@@ -48,7 +48,7 @@
         <label>Lịch tái khám:</label>
         <input type="date" name="lichTaiKham" /><br />
 
-        <button type="submit">Thêm vào lịch trung gian</button>
+        <button type="submit">Tạo lịch trình khám</button>
       </form>
     </div>
 
