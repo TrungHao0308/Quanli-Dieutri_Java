@@ -64,6 +64,8 @@
           <th>Lịch tiêm thuốc</th>
           <th>Lịch tái khám</th>
           <th>Hành động</th>
+          <th th:if="${role == 'ROLE_CUSTOMER'}">Email bác sĩ</th>
+          <th th:if="${role == 'ROLE_CUSTOMER'}">Tên bác sĩ</th>
         </tr>
       </thead>
       <tbody>
@@ -89,6 +91,14 @@
 
           <!-- Khách thì không có nút xóa -->
           <td th:if="${role != 'ROLE_DOCTOR'}">—</td>
+          <td
+            th:if="${role == 'ROLE_CUSTOMER'}"
+            th:text="${lich.emailBacSi}"
+          ></td>
+          <td
+            th:if="${role == 'ROLE_CUSTOMER'}"
+            th:text="${lich.tenBacSi}"
+          ></td>
         </tr>
       </tbody>
     </table>
