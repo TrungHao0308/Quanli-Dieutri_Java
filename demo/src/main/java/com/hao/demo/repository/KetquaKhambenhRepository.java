@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface KetquaKhambenhRepository extends JpaRepository<KetquaKhambenh, Long> {
     List<KetquaKhambenh> findByEmailBenhNhanOrderByNgayKhamDesc(String emailBenhNhan);
+    List<KetquaKhambenh> findByEmailBacSiIgnoreCase(String emailBacSi);
+
 }

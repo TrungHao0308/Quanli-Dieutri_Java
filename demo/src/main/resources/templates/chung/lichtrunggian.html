@@ -23,14 +23,19 @@
       <h2>Thêm lịch điều trị mới</h2>
       <form th:action="@{/doctor/lichtrunggian/them}" method="post">
         <label>Email bệnh nhân:</label>
-        <select name="emailBenhNhan">
+        <select
+          name="emailBenhNhan"
+          id="emailBenhNhan"
+          onchange="fetchLichKham(this.value)"
+        >
           <option value="">-- Chọn --</option>
           <option
-            th:each="lich : ${phanCongList}"
-            th:value="${lich.emailBenhNhan}"
-            th:text="${lich.emailBenhNhan}"
+            th:each="email : ${emailList}"
+            th:value="${email}"
+            th:text="${email}"
           ></option>
         </select>
+
         <br />
 
         <label>Tên bệnh nhân:</label>

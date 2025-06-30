@@ -119,6 +119,9 @@
             for (PhancongLichkham lich : all) {
                 uniqueEmails.putIfAbsent(lich.getEmailBenhNhan(), lich);
             }
+            List<String> emailList = new ArrayList<>(uniqueEmails.keySet());
+model.addAttribute("emailList", emailList);
+
 
             model.addAttribute("phanCongList", new ArrayList<>(uniqueEmails.values()));
 
