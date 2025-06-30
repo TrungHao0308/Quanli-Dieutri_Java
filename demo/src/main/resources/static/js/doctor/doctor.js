@@ -60,3 +60,35 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const emailSelect = document.getElementById("patientEmail");
+  const nameInput = document.getElementById("patientName");
+  const examDate = document.getElementById("examDate");
+  const examNotes = document.getElementById("examNotes");
+  const examType = document.getElementById("examType");
+
+  emailSelect.addEventListener("change", function () {
+    const email = this.value;
+    if (!email) return;
+
+    fetch(`/doctor/api/lichkham/${email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        nameInput.value = data.tenBenhNhan || "";
+        examDate.value = data.ngayKham || "";
+        examNotes.value = data.chiTiet || "";
+
+        // Gán dịch vụ vào select nếu tồn tại
+        if (data.tenDichVu) {
+          const option = Array.from(examType.options).find(
+            (opt) => opt.text.trim() === data.tenDichVu.trim()
+          );
+          if (option) examType.value = option.value;
+        }
+      })
+      .catch((err) => {
+        console.error("Lỗi khi lấy thông tin:", err);
+      });
+  });
+});

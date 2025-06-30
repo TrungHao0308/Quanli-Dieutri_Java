@@ -38,7 +38,7 @@ import java.util.List;
 public class DoctorController {
 
     private final CustomerService customerService;
-
+    
     @Autowired
     public DoctorController(CustomerService customerService) {
         this.customerService = customerService;
@@ -197,9 +197,28 @@ public String xoaLichTrungGian(@PathVariable Long id, Principal principal) {
         return bacsiChuyenmonRepository.findByEmail(email);
     }
 
-    @GetMapping("/examination")
-    public String showExamination(Model model) {
-        return loadDoctorPage(model, "doctor/doctor", "examination");
-    }
+    @Autowired
+private com.hao.demo.repository.DichvuRepository dichvuRepository;
+
+@GetMapping("/examination")
+public String showExamination(Model model) {
+    BacsiChuyenmon bacsi = getLoggedInDoctor();
+    if (bacsi == null) return "redirect:/auth/login";
+
+    // Lấy danh sách email bệnh nhân duy nhất từ lịch khám của bác sĩ này
+    List<String> emailBenhNhans = phancongLichkhamRepository.findDistinctEmailBenhNhanByEmailBacSi(bacsi.getEmail());
+
+    // Lấy danh sách dịch vụ từ bảng `dich_vu`
+    List<com.hao.demo.model.Dichvu> dichvuList = dichvuRepository.findAll();
+
+    model.addAttribute("emailBenhNhans", emailBenhNhans);
+    model.addAttribute("dichvuList", dichvuList);
+    model.addAttribute("customer", bacsi);
+    model.addAttribute("activePage", "examination");
+
+    return "doctor/doctor"; 
+}
+
+
 
 }

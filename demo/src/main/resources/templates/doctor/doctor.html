@@ -207,14 +207,15 @@
             <div class="form-grid">
               <div class="form-group">
                 <label for="patientEmail">Email bệnh nhân</label>
-                <input
-                  type="email"
-                  id="patientEmail"
-                  name="patientEmail"
-                  th:value="${patientEmail}"
-                  placeholder="example@email.com"
-                  required
-                />
+                <select id="patientEmail" name="patientEmail" required>
+                  <option value="">-- Chọn email bệnh nhân --</option>
+                  <option
+                    th:each="email : ${emailBenhNhans}"
+                    th:value="${email}"
+                    th:text="${email}"
+                    th:selected="${patientEmail == email}"
+                  ></option>
+                </select>
               </div>
               <div class="form-group">
                 <label for="patientName">Tên bệnh nhân</label>
@@ -245,29 +246,11 @@
                 <select id="examType" name="examType" required>
                   <option value="">Chọn loại khám</option>
                   <option
-                    value="ultrasound"
-                    th:selected="${examType == 'ultrasound'}"
-                  >
-                    Siêu âm
-                  </option>
-                  <option
-                    value="blood_test"
-                    th:selected="${examType == 'blood_test'}"
-                  >
-                    Xét nghiệm máu
-                  </option>
-                  <option
-                    value="hormone"
-                    th:selected="${examType == 'hormone'}"
-                  >
-                    Xét nghiệm hormone
-                  </option>
-                  <option
-                    value="consultation"
-                    th:selected="${examType == 'consultation'}"
-                  >
-                    Tư vấn
-                  </option>
+                    th:each="dv : ${dichvuList}"
+                    th:value="${dv.tenDichVu}"
+                    th:text="${dv.tenDichVu}"
+                    th:selected="${examType == dv.tenDichVu}"
+                  ></option>
                 </select>
               </div>
             </div>
