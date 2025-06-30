@@ -70,7 +70,22 @@
             </button>
           </form>
         </div>
-        <!-- trang doctor chỗ xuất báo cáocáo -->
+        <!-- Trang chào bác sĩ -->
+        <section
+          id="welcome"
+          class="page"
+          th:classappend="${activePage == 'home' ? 'active' : ''}"
+        >
+          <div class="page-header">
+            <h1 class="page-title">Chào mừng bác sĩ</h1>
+          </div>
+          <div class="welcome-content">
+            <p>Xin chào, <strong th:text="${customerName}"></strong> 👨‍⚕️</p>
+            <p>Chào mừng bạn đến với hệ thống quản lý "Hy Vọng Mới".</p>
+            <p>Vui lòng chọn chức năng ở menu bên trái để bắt đầu làm việc.</p>
+          </div>
+        </section>
+
         <!-- Dashboard -->
         <section
           id="dashboard"

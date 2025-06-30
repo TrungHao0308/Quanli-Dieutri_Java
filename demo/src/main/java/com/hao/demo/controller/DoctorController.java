@@ -69,9 +69,17 @@
         }
 
         @GetMapping("")
-        public String loadDoctorPage(Model model) {
-            return loadDoctorPage(model, "doctor/doctor", "dashboard");
-        }
+public String loadDoctorPage(Model model) {
+    BacsiChuyenmon bacsi = getLoggedInDoctor();
+    if (bacsi == null) return "redirect:/auth/login";
+
+    model.addAttribute("customer", bacsi);
+    model.addAttribute("customerName", bacsi.getFullName());
+    model.addAttribute("activePage", "home"); // <-- đây là điểm khác biệt
+
+    return "doctor/doctor";
+}
+
 
     @GetMapping("/dashboard")
     public String showDashboard(
