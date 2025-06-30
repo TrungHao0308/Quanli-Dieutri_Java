@@ -5,27 +5,33 @@ document.addEventListener("DOMContentLoaded", () => {
     searchInput.addEventListener("input", (e) => {
       const searchTerm = e.target.value.toLowerCase();
       console.log(`Tìm kiếm: ${searchTerm}`);
-      // Có thể thêm API call tại đây nếu muốn tìm kiếm real-time
     });
   }
 
-  // ✅ Xử lý submit form khám
+  // ✅ Xử lý submit form khám qua AJAX
   const examForm = document.getElementById("examinationForm");
   if (examForm) {
-    examForm.addEventListener("submit", (e) => {
-      e.preventDefault(); // Ngăn gửi form mặc định nếu muốn xử lý AJAX
-      const formData = {
-        examDate: document.getElementById("examDate").value,
-        examType: document.getElementById("examType").value,
-        examResults: document.getElementById("examResults").value,
-        importantValues: document.getElementById("importantValues").value,
-        examNotes: document.getElementById("examNotes").value,
-      };
-      console.log("Dữ liệu form:", formData);
+    examForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-      // Gửi AJAX hoặc xử lý client-side tại đây nếu muốn
-      alert("Kết quả khám đã được lưu!");
-      examForm.reset();
+      const formData = new FormData(examForm);
+
+      try {
+        const response = await fetch("/doctor/examination/submit", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (response.ok) {
+          alert("Kết quả đã được lưu!");
+          examForm.reset();
+        } else {
+          alert("Gửi thất bại");
+        }
+      } catch (err) {
+        console.error("Lỗi gửi:", err);
+        alert("Có lỗi xảy ra");
+      }
     });
   }
 
@@ -45,12 +51,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ✅ Xử lý click vào thẻ bệnh nhân để mở modal
+  // ✅ Mở modal chi tiết bệnh nhân (giả lập)
   document.querySelectorAll(".patient-card").forEach((card) => {
     card.addEventListener("click", () => {
       modal.style.display = "block";
-
-      // TODO: Có thể thêm gọi API hoặc lấy dữ liệu động ở đây
       document.querySelector(".modal-body").innerHTML = `
         <p><strong>Họ tên:</strong> Nguyễn Thị Lan</p>
         <p><strong>Tuổi:</strong> 32</p>
@@ -59,36 +63,36 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     });
   });
-});
 
-document.addEventListener("DOMContentLoaded", function () {
+  // ✅ Tự động gán thông tin khi chọn email bệnh nhân
   const emailSelect = document.getElementById("patientEmail");
   const nameInput = document.getElementById("patientName");
   const examDate = document.getElementById("examDate");
   const examNotes = document.getElementById("examNotes");
   const examType = document.getElementById("examType");
 
-  emailSelect.addEventListener("change", function () {
-    const email = this.value;
-    if (!email) return;
+  if (emailSelect) {
+    emailSelect.addEventListener("change", function () {
+      const email = this.value;
+      if (!email) return;
 
-    fetch(`/doctor/api/lichkham/${email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        nameInput.value = data.tenBenhNhan || "";
-        examDate.value = data.ngayKham || "";
-        examNotes.value = data.chiTiet || "";
+      fetch(`/doctor/api/lichkham/${email}`)
+        .then((res) => res.json())
+        .then((data) => {
+          nameInput.value = data.tenBenhNhan || "";
+          examDate.value = data.ngayKham || "";
+          examNotes.value = data.chiTiet || "";
 
-        // Gán dịch vụ vào select nếu tồn tại
-        if (data.tenDichVu) {
-          const option = Array.from(examType.options).find(
-            (opt) => opt.text.trim() === data.tenDichVu.trim()
-          );
-          if (option) examType.value = option.value;
-        }
-      })
-      .catch((err) => {
-        console.error("Lỗi khi lấy thông tin:", err);
-      });
-  });
+          if (data.tenDichVu) {
+            const option = Array.from(examType.options).find(
+              (opt) => opt.text.trim() === data.tenDichVu.trim()
+            );
+            if (option) examType.value = option.value;
+          }
+        })
+        .catch((err) => {
+          console.error("Lỗi khi lấy thông tin:", err);
+        });
+    });
+  }
 });
