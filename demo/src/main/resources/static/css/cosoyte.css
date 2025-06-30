@@ -64,7 +64,7 @@ nav ul {
 }
 
 nav ul li {
-  margin-left: 25px;
+  margin-left: 28px;
 }
 
 nav ul li a {
@@ -100,7 +100,7 @@ nav ul li a:hover::after {
 
 .auth-buttons a {
   text-decoration: none;
-  padding: 8px 15px;
+  padding: 10px 15px;
   border-radius: 5px;
   font-weight: 500;
   transition: all 0.3s ease;
@@ -126,8 +126,8 @@ nav ul li a:hover::after {
 
 /* Page Banner */
 .page-banner {
-  padding-top: 120px;
-  padding-bottom: 40px;
+  padding-top: 122px;
+  padding-bottom: 42px;
   background-image: url("backcsvc.jpg"); /* Hoặc đổi thành tên file bạn đã tải */
   background-size: cover;
   background-position: center;
@@ -308,7 +308,7 @@ nav ul li a:hover::after {
 .facilities-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  gap: 28px;
 }
 
 .facility-item {
@@ -340,7 +340,7 @@ nav ul li a:hover::after {
 }
 
 .facility-info {
-  padding: 20px;
+  padding: 18px;
 }
 
 .facility-info h3 {

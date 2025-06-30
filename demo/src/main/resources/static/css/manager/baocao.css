@@ -6,7 +6,7 @@
   --text-dark: #333;
   --white: #ffffff;
   --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  --hover-shadow: 0 6px 20px rgba(6, 6, 6, 0.15);
+  --hover-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 * {
@@ -133,7 +133,7 @@ body {
 }
 
 .main-content {
-  margin-left: 255px;
+  margin-left: 250px;
   padding: 30px;
   width: calc(100% - 250px);
   transition: margin-left 0.3s ease, width 0.3s ease;
@@ -189,7 +189,7 @@ table {
   border-collapse: collapse;
   background-color: var(--white);
   box-shadow: var(--shadow);
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
   margin-bottom: 30px;
   animation: fadeIn 0.5s ease;
@@ -268,7 +268,7 @@ table tr:hover {
   background-color: var(--primary-blue);
   color: white;
   border: none;
-  padding: 13px 18px;
+  padding: 12px 20px;
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
@@ -312,7 +312,7 @@ table tr:hover {
     display: block;
     position: fixed;
     top: 18px;
-    left: 18px;
+    left: 15px;
     background-color: var(--primary-blue);
     color: white;
     border: none;
