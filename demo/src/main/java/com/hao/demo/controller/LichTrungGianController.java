@@ -206,23 +206,5 @@ emailList.forEach(email -> System.out.println("   - Bệnh nhân: " + email));
 
         return "redirect:/doctor/lichtrinh";
     }
-//     @GetMapping("/doctor/api/lichkham/{email}")
-// @ResponseBody
-// public Map<String, Object> layThongTinBenhNhan(@PathVariable("email") String email) {
-//     Map<String, Object> result = new HashMap<>();
-
-//     List<KetquaKhambenh> ketquas = ketquaKhambenhRepository
-//         .findByEmailBenhNhanOrderByNgayKhamDesc(email);
-
-//     if (!ketquas.isEmpty()) {
-//         KetquaKhambenh latest = ketquas.get(0);
-//         result.put("tenBenhNhan", latest.getTenBenhNhan());
-//         result.put("tenDichVu", latest.getDichVu());
-//         result.put("ngayKham", latest.getNgayKham());
-//         result.put("chiTiet", latest.getChiTiet());
-//     }
-
-//     return result;
-// }
 
 }
