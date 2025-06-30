@@ -121,43 +121,6 @@
 //         this.address = address;
 //     }
 
-//     public String getDateOfBirth() {
-//         return dateOfBirth;
-//     }
-
-//     public void setDateOfBirth(String dateOfBirth) {
-//         this.dateOfBirth = dateOfBirth;
-//     }
-
-//     public String getGender() {
-//         return gender;
-//     }
-
-//     public void setGender(String gender) {
-//         this.gender = gender;
-//     }
-
-//     public LocalDateTime getCreatedAt() {
-//         return createdAt;
-//     }
-
-//     // No setter for createdAt to prevent modification
-
-//     public LocalDateTime getUpdatedAt() {
-//         return updatedAt;
-//     }
-
-//     // updatedAt is set via preUpdate
-
-//     public Boolean getIsActive() {
-//         return isActive;
-//     }
-
-//     public void setIsActive(Boolean isActive) {
-//         this.isActive = isActive;
-//     }
-// }
-
 package com.hao.demo.model;
 
 import jakarta.persistence.*;

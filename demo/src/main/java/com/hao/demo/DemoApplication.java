@@ -32,22 +32,5 @@ public class DemoApplication {
 			System.out.println("✅ Đã kiểm tra/khởi tạo các vai trò cần thiết trong CSDL.");
 		};
 	}
-
-	// @Bean
-	// public CommandLineRunner initDangkiDichvu(DangkiDichvuRepository repo) {
-	// 	return args -> {
-	// 		DangkiDichvu dk = new DangkiDichvu();
-	// 		dk.setEmailBenhNhan("abc@gmail.com");
-	// 		dk.setTenBenhNhan("Nguyễn Văn A");
-	// 		dk.setNgayKham(LocalDate.now());
-	// 		dk.setDichVu("Khám tổng quát");
-	// 		dk.setChiTiet("Phòng 101 lúc 9h");
-	// 		dk.setEmailBacSi("doctor@example.com");
-	// 		dk.setTenBacSi("Bác sĩ B");
-
-	// 		repo.save(dk); // Hibernate sẽ tự tạo bảng nếu chưa có
-	// 		System.out.println("✅ Dữ liệu mẫu đã được thêm vào bảng dang_ki_dich_vu.");
-	// 	};
-	// }
 	
 }

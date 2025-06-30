@@ -137,24 +137,3 @@ public Optional<Customer> loginCustomer(CustomerLoginDto loginDto) {
         return passwordEncoder;
     }
 }
-// @Override
-// public Customer addCustomer(Customer customer) {
-//     // Mã hóa mật khẩu nếu chưa mã hóa
-//     if (!customer.getPassword().startsWith("$2a$")) {
-//         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
-//     }
-
-//     // ✅ CHUẨN HÓA tên role (thêm ROLE_ nếu thiếu)
-//     Set<Role> roles = customer.getRoles().stream()
-//         .map(role -> {
-//             String rawName = role.getName();
-//             String finalName = rawName.startsWith("ROLE_") ? rawName : "ROLE_" + rawName.toUpperCase();
-//             return roleRepository.findByName(finalName)
-//                 .orElseThrow(() -> new RuntimeException("Không tìm thấy vai trò: " + finalName));
-//         })
-//         .collect(Collectors.toSet());
-
-//     customer.setRoles(roles);
-//     customer.setIsActive(true);
-//     return customerRepository.save(customer);
-// }

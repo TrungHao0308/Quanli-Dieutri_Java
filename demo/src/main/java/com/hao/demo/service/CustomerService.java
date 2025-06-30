@@ -1,11 +1,3 @@
-// package com.hao.demo.service;
-// import java.util.List;
-// import com.hao.demo.dto.CustomerLoginDto;
-// import com.hao.demo.dto.CustomerRegistrationDto;
-// import com.hao.demo.model.Customer;
-// import java.util.Optional;
-
-
 
 package com.hao.demo.service;
 
