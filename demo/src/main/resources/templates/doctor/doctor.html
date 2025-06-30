@@ -183,8 +183,7 @@
           </table>
         </section>
 
-        <!-- Examination -->
-        <!-- lịch trình điều trị -->
+        <!-- Kết quả khám -->
         <section
           id="examination"
           class="page"
@@ -202,6 +201,32 @@
           >
             <div class="form-title">
               <i class="fas fa-clipboard-list"></i> Nhập kết quả khám
+            </div>
+
+            <!-- Ô nhập email và tên bệnh nhân -->
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="patientEmail">Email bệnh nhân</label>
+                <input
+                  type="email"
+                  id="patientEmail"
+                  name="patientEmail"
+                  th:value="${patientEmail}"
+                  placeholder="example@email.com"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="patientName">Tên bệnh nhân</label>
+                <input
+                  type="text"
+                  id="patientName"
+                  name="patientName"
+                  th:value="${patientName}"
+                  placeholder="Nhập tên bệnh nhân"
+                  required
+                />
+              </div>
             </div>
 
             <div class="form-grid">
@@ -258,27 +283,15 @@
               ></textarea>
             </div>
 
-            <div class="form-grid">
-              <div class="form-group">
-                <label for="importantValues">Chỉ số quan trọng</label>
-                <input
-                  type="text"
-                  id="importantValues"
-                  name="importantValues"
-                  th:value="${importantValues}"
-                  placeholder="VD: FSH: 8.5, LH: 12.3"
-                />
-              </div>
-              <div class="form-group">
-                <label for="examNotes">Ghi chú</label>
-                <input
-                  type="text"
-                  id="examNotes"
-                  name="examNotes"
-                  th:value="${examNotes}"
-                  placeholder="Ghi chú thêm..."
-                />
-              </div>
+            <div class="form-group">
+              <label for="examNotes">Ghi chú</label>
+              <input
+                type="text"
+                id="examNotes"
+                name="examNotes"
+                th:value="${examNotes}"
+                placeholder="Ghi chú thêm..."
+              />
             </div>
 
             <div class="form-actions">
