@@ -3,6 +3,7 @@ package com.hao.demo.controller;
 import com.hao.demo.model.BacsiChuyenmon;
 import com.hao.demo.model.Customer;
 import com.hao.demo.model.DangkiDichvu;
+import com.hao.demo.model.KetquaKhambenh;
 import com.hao.demo.model.LichTrungGian;
 import com.hao.demo.model.PhancongLichkham;
 import com.hao.demo.repository.DangkiDichvuRepository;
@@ -94,10 +95,26 @@ private LichTrungGianRepository lichTrungGianRepository;
     }
 
 
+@Autowired
+private com.hao.demo.repository.KetquaKhambenhRepository ketquaKhambenhRepository;
+
 @GetMapping("/ketquadieutri")
 public String showKetQuaDieuTri(Model model) {
-    return loadCustomerPage(model, "customer/ketquadieutri");
+    Customer customer = getLoggedInCustomer();
+    if (customer == null) return "redirect:/auth/login";
+
+    List<KetquaKhambenh> treatmentResults = ketquaKhambenhRepository
+        .findByEmailBenhNhanOrderByNgayKhamDesc(customer.getEmail());
+
+    model.addAttribute("customer", customer);
+    model.addAttribute("customerName", customer.getFullName());
+    model.addAttribute("treatmentResults", treatmentResults);
+
+    return "customer/ketquadieutri";
 }
+
+
+
 
 @GetMapping("/lichsudondat")
 public String showLichSuDonDat(Model model) {
@@ -180,5 +197,5 @@ public String xuLyDangKiDichVu(
     @Autowired
 private PhancongLichkhamRepository phancongLichkhamRepository;
 
-    
+
 }

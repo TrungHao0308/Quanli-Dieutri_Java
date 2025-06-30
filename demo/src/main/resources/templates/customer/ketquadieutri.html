@@ -89,21 +89,27 @@
             <table class="results-table">
               <thead>
                 <tr>
-                  <th>Ngày</th>
-                  <th>Loại xét nghiệm</th>
-                  <th>Kết quả</th>
-                  <th>Kết luận bác sĩ</th>
+                  <th>Email bác sĩ</th>
+                  <th>Tên bác sĩ</th>
+                  <th>Ngày khám</th>
+                  <th>Dịch vụ</th>
+                  <th>Kết quả khám</th>
+                  <th>Chi tiết</th>
                 </tr>
               </thead>
               <tbody>
                 <tr th:each="result : ${treatmentResults}">
-                  <td th:text="${result.date}"></td>
-                  <td th:text="${result.testType}"></td>
-                  <td th:text="${result.result}"></td>
-                  <td th:text="${result.doctorComment}"></td>
+                  <td th:text="${result.emailBacSi}">bs@example.com</td>
+                  <td th:text="${result.tenBacSi}">BS. Nguyễn Văn A</td>
+                  <td th:text="${result.ngayKham}">2025-07-01</td>
+                  <td th:text="${result.dichVu}">Xét nghiệm nội tiết</td>
+                  <td th:text="${result.ketQua}">Bình thường</td>
+                  <td th:text="${result.chiTiet}">
+                    Không có dấu hiệu bất thường
+                  </td>
                 </tr>
                 <tr th:if="${#lists.isEmpty(treatmentResults)}">
-                  <td colspan="4">Không có kết quả nào để hiển thị.</td>
+                  <td colspan="6">Không có kết quả nào để hiển thị.</td>
                 </tr>
               </tbody>
             </table>

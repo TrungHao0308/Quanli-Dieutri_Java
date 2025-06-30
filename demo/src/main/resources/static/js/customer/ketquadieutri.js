@@ -65,7 +65,7 @@ function attachSortEvents() {
 }
 
 // Khi trang load
-document.addEventListener("DOMContentLoaded", () => {
-  loadTreatmentResults();
-  setInterval(loadTreatmentResults, 5000); // cập nhật mỗi 5 giây
-});
+// document.addEventListener("DOMContentLoaded", () => {
+//   loadTreatmentResults();
+//   setInterval(loadTreatmentResults, 5000); // cập nhật mỗi 5 giây
+// });
