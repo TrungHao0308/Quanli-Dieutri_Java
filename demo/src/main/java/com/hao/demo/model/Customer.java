@@ -194,24 +194,6 @@ public class Customer {
     @Column(name = "password", nullable = false)
     private String password;
 
-    // @Column(name = "phone")
-    // private String phone;
-
-    // @Column(name = "address")
-    // private String address;
-
-    // @Column(name = "date_of_birth")
-    // private String dateOfBirth;
-
-    // @Column(name = "gender")
-    // private String gender;
-
-   // @Column(name = "created_at", nullable = false, updatable = false)
-   // private LocalDateTime createdAt;
-
-    // @Column(name = "updated_at")
-    // private LocalDateTime updatedAt;
-
         @Column(name = "is_active")
         private Boolean isActive = true;
 
@@ -224,8 +206,6 @@ public class Customer {
         private Set<Role> roles = new HashSet<>();
 
         public Customer() {
-        // this.createdAt = LocalDateTime.now();
-            // this.updatedAt = LocalDateTime.now();
             this.isActive = true;
         }
 
@@ -244,11 +224,6 @@ public String getChuyenMon() {
 public String getCaLam() {
     return bacsiChuyenmon != null ? bacsiChuyenmon.getCaLam() : null;
 }
-
-        // @PreUpdate
-        // public void preUpdate() {
-        //     this.updatedAt = LocalDateTime.now();
-        // }
 
         // Getters and Setters
         public Long getId() { return id; }

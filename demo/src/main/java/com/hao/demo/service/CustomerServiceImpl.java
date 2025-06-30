@@ -115,12 +115,6 @@ System.out.println(">>> Role được gán: " + customer.getRoles().stream().map
 }
 
 
-
-// @Override
-// public Customer updateCustomer(Customer customer) {
-//     return customerRepository.save(customer); // hoặc custom xử lý logic nếu cần
-// }
-
 @Override
 public void deleteCustomer(Long id) {
     customerRepository.findById(id).ifPresent(customer -> {
