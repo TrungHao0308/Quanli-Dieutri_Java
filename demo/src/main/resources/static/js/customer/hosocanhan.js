@@ -39,21 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      // Kiểm tra định dạng số điện thoại
-      if (phone && phone.value) {
-        const phoneRegex = /^[0-9]{10}$/;
-        if (!phoneRegex.test(phone.value)) {
-          isValid = false;
-          phone.style.borderColor = "#ef4444";
-          phone.nextElementSibling?.remove();
-          const error = document.createElement("span");
-          error.style.color = "#ef4444";
-          error.style.fontSize = "0.8rem";
-          error.textContent = "Số điện thoại phải có 10 chữ số";
-          phone.parentElement.appendChild(error);
-        }
-      }
-
       if (!isValid) {
         e.preventDefault();
         alert("Vui lòng kiểm tra lại các trường thông tin.");
