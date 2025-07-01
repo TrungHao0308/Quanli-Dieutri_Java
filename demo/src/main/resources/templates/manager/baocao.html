@@ -70,46 +70,93 @@
           </div>
           <section class="report-filter">
             <h2>Lọc báo cáo</h2>
-            <form action="#" method="get">
-              <div class="form-group">
-                <label for="reportType">Loại báo cáo:</label>
-                <select id="reportType" name="reportType">
-                  <option value="dichvu">Dịch vụ</option>
-                  <option value="benhnhan">Bệnh nhân</option>
-                  <option value="danhgia">Đánh giá</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="dateRange">Khoảng thời gian:</label>
-                <input type="date" id="dateRangeStart" name="dateRangeStart" />
-                <input type="date" id="dateRangeEnd" name="dateRangeEnd" />
-              </div>
-              <button type="submit" class="form-submit">Tạo báo cáo</button>
-            </form>
+            <!-- Cập nhật form lọc -->
+<form th:action="@{/manager/baocao/loc}" method="get">
+  <div class="form-group">
+    <label for="reportType">Loại báo cáo:</label>
+    <select id="reportType" name="reportType" required>
+      <option disabled selected>-- Chọn dịch vụ --</option>
+      <th:block th:each="dv : ${danhSachDichVu}">
+        <option th:value="${dv.id}" th:text="${dv.tenDichVu}"></option>
+      </th:block>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="dateRange">Khoảng thời gian:</label>
+    <input type="date" id="dateRangeStart" name="dateRangeStart" required />
+    <input type="date" id="dateRangeEnd" name="dateRangeEnd" required />
+  </div>
+  <button type="submit" class="form-submit">Lọc báo cáo</button>
+</form>
+
+<!-- Kết quả lọc từ bảng lich_trung_gian -->
+
           </section>
-          <section class="report-table">
-            <h2>Báo cáo dịch vụ</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Dịch vụ</th>
-                  <th>Số lượng</th>
-                  <th>Doanh thu (VND)</th>
-                  <th>Thời gian</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Khám nội tổng quát</td>
-                  <td>50</td>
-                  <td>25,000,000</td>
-                  <td>Tháng 6/2025</td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
+
+          <!-- Kết quả lọc từ bảng lich_trung_gian -->
+<section class="report-result" th:if="${ketQuaBaoCao != null}">
+  <h2>Kết quả lọc</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Email Bác sĩ</th>
+        <th>Tên Bác sĩ</th>
+        <th>Email Bệnh nhân</th>
+        <th>Tên Bệnh nhân</th>
+        <th>Dịch vụ</th>
+        <th>Ngày khám</th>
+        <th>Chi tiết</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="lich : ${ketQuaBaoCao}">
+        <td th:text="${lich.id}">1</td>
+        <td th:text="${lich.emailBacSi}">emailBacSi</td>
+        <td th:text="${lich.tenBacSi}">tenBacSi</td>
+        <td th:text="${lich.emailBenhNhan}">emailBenhNhan</td>
+        <td th:text="${lich.tenBenhNhan}">tenBenhNhan</td>
+        <td th:text="${lich.tenDichVu}">tenDichVu</td>
+        <td th:text="${lich.ngayKham}">2025-07-01</td>
+        <td th:text="${lich.chiTiet}">Chi tiết</td>
+      </tr>
+    </tbody>
+  </table>
+  <form th:action="@{/manager/baocao/tao}" method="post" th:if="${ketQuaBaoCao != null}">
+  <input type="hidden" name="dichvuId" th:value="${param.reportType}" />
+  <input type="hidden" name="dateStart" th:value="${param.dateRangeStart}" />
+  <input type="hidden" name="dateEnd" th:value="${param.dateRangeEnd}" />
+  <div style="margin-top: 20px; text-align: right;">
+    <button type="submit" class="form-submit">Tạo báo cáo</button>
+  </div>
+</form>
+</section>
+
+
+<section class="report-table">
+  <h2>Báo cáo dịch vụ</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Dịch vụ</th>
+        <th>Số lượng</th>
+        <th>Doanh thu (VND)</th>
+        <th>Thời gian</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="bc : ${baoCaoList}">
+        <td th:text="${bc.id}">1</td>
+        <td th:text="${bc.tenDichVu}">Tên DV</td>
+        <td th:text="${bc.soLuong}">0</td>
+        <td th:text="${#numbers.formatDecimal(bc.doanhThu, 0, 'COMMA', 0, 'POINT')}">0</td>
+        <td th:text="${bc.thoiGian}">Tháng/Năm</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
         </div>
       </main>
     </div>

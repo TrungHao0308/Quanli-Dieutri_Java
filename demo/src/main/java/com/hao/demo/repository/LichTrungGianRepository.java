@@ -10,4 +10,6 @@ import java.util.List;
 public interface LichTrungGianRepository extends JpaRepository<LichTrungGian, Long> {
     List<LichTrungGian> findByEmailBenhNhan(String email);
     List<LichTrungGian> findByEmailBacSi(String email);
+    List<LichTrungGian> findByTenDichVuAndNgayKhamBetween(String tenDichVu, java.time.LocalDate startDate, java.time.LocalDate endDate);
+
 }

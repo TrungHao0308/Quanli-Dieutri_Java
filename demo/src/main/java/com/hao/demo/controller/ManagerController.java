@@ -1,6 +1,7 @@
 package com.hao.demo.controller;
 import com.hao.demo.service.BacsiChuyenmonService;
 import com.hao.demo.model.BacsiChuyenmon;
+import com.hao.demo.model.Baocao;
 import com.hao.demo.model.Customer;
 import com.hao.demo.model.DangkiDichvu;
 import com.hao.demo.model.PhancongLichkham;
@@ -56,17 +57,100 @@ private BacsiChuyenmonRepository bacsiChuyenmonRepository;
     }
     @GetMapping("")
 public String indexPage(Model model) {
+    return loadManagerPage(model, "manager/dashboard");
+}
+
+
+
+@Autowired
+private com.hao.demo.repository.LichTrungGianRepository lichTrungGianRepository;
+
+@GetMapping("/baocao")
+public String showBaoCao(Model model) {
+    List<Dichvu> danhSachDichVu = dichvuRepository.findAll();
+    model.addAttribute("danhSachDichVu", danhSachDichVu);
+
+    // ✅ Thêm dòng này để load bảng báo cáo:
+    List<Baocao> baoCaoList = baocaoRepository.findAll();
+    model.addAttribute("baoCaoList", baoCaoList);
+
+    return loadManagerPage(model, "manager/baocao");
+}
+
+@GetMapping("/baocao/loc")
+public String locBaoCao(
+        @RequestParam("reportType") Long dichvuId,
+        @RequestParam("dateRangeStart") String dateStart,
+        @RequestParam("dateRangeEnd") String dateEnd,
+        Model model) {
+
+    Optional<Dichvu> opt = dichvuRepository.findById(dichvuId);
+    if (opt.isEmpty()) {
+        model.addAttribute("error", "Không tìm thấy dịch vụ.");
+        return loadManagerPage(model, "manager/baocao");
+    }
+
+    String tenDichVu = opt.get().getTenDichVu();
+
+    LocalDate startDate = LocalDate.parse(dateStart);
+    LocalDate endDate = LocalDate.parse(dateEnd);
+
+    List<com.hao.demo.model.LichTrungGian> ketQua =
+        lichTrungGianRepository.findByTenDichVuAndNgayKhamBetween(tenDichVu, startDate, endDate);
+
+    List<Dichvu> danhSachDichVu = dichvuRepository.findAll();
+    model.addAttribute("danhSachDichVu", danhSachDichVu);
+    model.addAttribute("ketQuaBaoCao", ketQua);
+
+    // ✅ THÊM DÒNG NÀY để luôn hiển thị bảng báo cáo dưới:
+    List<Baocao> baoCaoList = baocaoRepository.findAll();
+    model.addAttribute("baoCaoList", baoCaoList);
+
     return loadManagerPage(model, "manager/baocao");
 }
 
 
-    @GetMapping("/baocao")
-    public String showBaoCao(Model model) {
-        return loadManagerPage(model, "manager/baocao");
+    @Autowired
+private com.hao.demo.repository.BaocaoRepository baocaoRepository;
+
+@PostMapping("/baocao/tao")
+public String taoBaoCao(
+        @RequestParam("dichvuId") Long dichvuId,
+    @RequestParam("dateStart") String dateStart,
+    @RequestParam("dateEnd") String dateEnd,
+    RedirectAttributes redirectAttributes) {
+
+    Optional<Dichvu> opt = dichvuRepository.findById(dichvuId);
+    if (opt.isEmpty()) {
+        redirectAttributes.addFlashAttribute("error", "Không tìm thấy dịch vụ.");
+        return "redirect:/manager/baocao";
     }
 
+    Dichvu dichvu = opt.get();
+    String tenDichVu = dichvu.getTenDichVu();
+    double giaKham = dichvu.getGiaKham();
 
-    
+    LocalDate startDate = LocalDate.parse(dateStart);
+    LocalDate endDate = LocalDate.parse(dateEnd);
+
+    List<com.hao.demo.model.LichTrungGian> ketQua =
+        lichTrungGianRepository.findByTenDichVuAndNgayKhamBetween(tenDichVu, startDate, endDate);
+
+    int soLuong = ketQua.size();
+    double doanhThu = giaKham * soLuong;
+
+    com.hao.demo.model.Baocao baoCao = new com.hao.demo.model.Baocao();
+    baoCao.setTenDichVu(tenDichVu);
+    baoCao.setSoLuong(soLuong);
+    baoCao.setDoanhThu(doanhThu);
+    baoCao.setThoiGian(dateStart + " đến " + dateEnd);
+
+    baocaoRepository.save(baoCao);
+
+    redirectAttributes.addFlashAttribute("success", "Đã tạo báo cáo thành công!");
+    return "redirect:/manager/baocao";
+}
+
 
 @Autowired
 private DichvuRepository dichvuRepository;

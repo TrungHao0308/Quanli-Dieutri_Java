@@ -334,3 +334,37 @@ table tr:hover {
     padding: 15px;
   }
 }
+/* Trong baocao.css */
+
+.report-result {
+  margin-top: 40px;
+  padding: 20px;
+  border: 2px dashed #007bff;
+  border-radius: 12px;
+  background-color: #f0f8ff;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.1);
+}
+
+.report-result h2 {
+  margin-bottom: 20px;
+  color: #007bff;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 5px;
+}
+
+.report-result table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+}
+
+.report-result th,
+.report-result td {
+  border: 1px solid #ccc;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.report-result tr:nth-child(even) {
+  background-color: #f9f9f9;
+}

@@ -11,6 +11,7 @@ public class Baocao {
     private String tenDichVu;
     private int soLuong;
     private double doanhThu;
+        private String thoiGian;
     // getters and setters
     public Long getId() {
         return id;
@@ -36,13 +37,24 @@ public class Baocao {
     public void setDoanhThu(double doanhThu) {
         this.doanhThu = doanhThu;
     }
+
+
+public String getThoiGian() {
+    return thoiGian;
+}
+
+public void setThoiGian(String thoiGian) {
+    this.thoiGian = thoiGian;
+}
     @Override
-    public String toString() {  
-        return "Baocao{" +
-                "id=" + id +
-                ", tenDichVu='" + tenDichVu + '\'' +
-                ", soLuong=" + soLuong +
-                ", doanhThu=" + doanhThu +
-                '}';
-    }
+public String toString() {
+    return "Baocao{" +
+            "id=" + id +
+            ", tenDichVu='" + tenDichVu + '\'' +
+            ", soLuong=" + soLuong +
+            ", doanhThu=" + doanhThu +
+            ", thoiGian='" + thoiGian + '\'' +
+            '}';
+}
+
 }
