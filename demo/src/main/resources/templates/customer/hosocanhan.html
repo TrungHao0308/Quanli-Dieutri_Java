@@ -82,30 +82,54 @@
         <div class="content-page active">
           <div class="page-header">
             <h1>Hồ sơ Cá nhân</h1>
+            <div
+              th:if="${message}"
+              class="alert alert-success"
+              th:text="${message}"
+            ></div>
           </div>
           <div class="form-container">
-            <form th:action="@{/customer/hosocanhan}" method="post">
+            <form
+              th:action="@{/customer/hosocanhan}"
+              method="post"
+              class="profile-form"
+              onsubmit="return confirmUpdate()"
+            >
+              <!-- <div
+                th:if="${message}"
+                class="alert alert-success"
+                th:text="${message}"
+              ></div> -->
+
               <div class="form-group">
-                <label for="fullName">Họ và tên</label>
+                <label for="fullName"
+                  ><i class="fas fa-user"></i> Họ và tên</label
+                >
                 <input
                   type="text"
                   id="fullName"
                   name="fullName"
                   th:value="${customerName}"
+                  placeholder="Nhập họ tên"
                   required
                 />
               </div>
+
               <div class="form-group">
-                <label for="email">Email</label>
+                <label for="email"><i class="fas fa-envelope"></i> Email</label>
                 <input
                   type="email"
                   id="email"
                   name="email"
                   th:value="${customerEmail}"
+                  placeholder="Nhập email"
                   required
                 />
               </div>
-              <button type="submit" class="btn-submit">Cập nhật</button>
+
+              <button type="submit" class="btn-submit">
+                <i class="fas fa-save"></i> Cập nhật
+              </button>
             </form>
           </div>
         </div>

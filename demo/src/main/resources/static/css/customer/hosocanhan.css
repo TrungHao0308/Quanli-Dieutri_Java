@@ -115,3 +115,78 @@ input[type="email"] {
 .btn-submit:hover {
   background-color: #0056b3;
 }
+.alert {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 12px 20px;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  border: 1px solid #c3e6cb;
+  font-weight: 500;
+}
+.profile-form {
+  background-color: #fefefe;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 30px 25px;
+  max-width: 500px;
+  margin: 0 auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.profile-form .form-group {
+  margin-bottom: 20px;
+}
+
+.profile-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+.profile-form label i {
+  margin-right: 6px;
+  color: #4a90e2;
+}
+
+.profile-form input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s;
+  font-size: 15px;
+}
+
+.profile-form input:focus {
+  border-color: #4a90e2;
+  outline: none;
+}
+
+.profile-form .btn-submit {
+  background-color: #4a90e2;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+.profile-form .btn-submit:hover {
+  background-color: #357ab8;
+}
+
+.alert {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  border: 1px solid #c3e6cb;
+  font-weight: 500;
+}

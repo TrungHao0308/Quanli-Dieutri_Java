@@ -57,3 +57,6 @@ document.querySelectorAll(".sidebar-nav .nav-item").forEach((item) => {
     this.classList.add("active");
   });
 });
+function confirmUpdate() {
+  return confirm("Bạn có chắc chắn thay đổi thông tin không?");
+}
