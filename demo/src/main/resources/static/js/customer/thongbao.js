@@ -49,40 +49,7 @@
 //         setTimeout(() => {
 //           targetElement.classList.remove("highlight");
 //         }, 2000);
-//       }
-//     });
-//   });
-// });
 
-// document.addEventListener("DOMContentLoaded", () => {
-//   const links = document.querySelectorAll(".xem-link");
-
-//   links.forEach((link) => {
-//     link.addEventListener("click", (e) => {
-//       e.preventDefault();
-
-//       const targetId = link.getAttribute("href").substring(1);
-//       const target = document.getElementById(targetId);
-
-//       if (target) {
-//         // Scroll đến phần chi tiết
-//         target.scrollIntoView({ behavior: "smooth", block: "center" });
-
-//         // Bỏ highlight cũ
-//         document.querySelectorAll(".lich-item").forEach((el) => {
-//           el.classList.remove("highlight");
-//         });
-
-//         // Thêm highlight mới
-//         target.classList.add("highlight");
-
-//         // Xóa sau 2 giây
-//         setTimeout(() => {
-//           target.classList.remove("highlight");
-//         }, 2000);
-//       }
-//     });
-//   });
 // });
 
 document.addEventListener("DOMContentLoaded", () => {

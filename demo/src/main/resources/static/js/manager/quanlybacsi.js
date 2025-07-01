@@ -68,26 +68,6 @@
 //   } else if (action === "Hủy") {
 //     fetch(`/manager/huyBacSi/${id}`, {
 //       method: "DELETE",
-//     })
-//       .then((res) => {
-//         if (res.ok) {
-//           specialtySelect.disabled = false;
-//           shiftSelect.disabled = false;
-//           specialtySelect.value = "";
-//           shiftSelect.value = "";
-//           button.innerText = "Cập nhật";
-//         } else {
-//           alert("Lỗi khi hủy thông tin bác sĩ. Vui lòng thử lại.");
-//         }
-//       })
-//       .catch((error) => {
-//         console.error("Error:", error);
-//         alert(
-//           "Đã xảy ra lỗi. Vui lòng kiểm tra kết nối mạng hoặc liên hệ quản trị viên."
-//         );
-//       });
-//   }
-// }
 function toggleSidebar() {
   const sidebar = document.querySelector(".sidebar");
   sidebar.classList.toggle("collapsed");

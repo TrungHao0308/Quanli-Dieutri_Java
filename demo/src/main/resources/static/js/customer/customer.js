@@ -18,43 +18,6 @@
 //   document.getElementById(pageId).classList.add("active");
 // }
 
-// function toggleSidebar() {
-//   const sidebar = document.querySelector(".sidebar");
-//   const main = document.querySelector(".main-content");
-//   sidebar.classList.toggle("hidden");
-//   main.classList.toggle("full");
-// }
-
-// function logout() {
-//   // Redirect hoặc xử lý đăng xuất tại đây
-//   alert("Bạn đã đăng xuất!");
-//   window.location.href = "login.html"; // Chuyển đến trang đăng nhập
-// }
-
-// function showPage(pageId) {
-//   document.querySelectorAll(".content-page").forEach((page) => {
-//     page.classList.remove("active");
-//   });
-//   document.getElementById(pageId).classList.add("active");
-// }
-
-// // Xóa lớp active khỏi tất cả các mục sidebar khi tải trang
-// document.addEventListener("DOMContentLoaded", () => {
-//   document.querySelectorAll(".sidebar-nav .nav-item").forEach((item) => {
-//     item.classList.remove("active");
-//   });
-// });
-
-// // Quản lý trạng thái active khi bấm vào mục sidebar
-// document.querySelectorAll(".sidebar-nav .nav-item").forEach((item) => {
-//   item.addEventListener("click", function () {
-//     document.querySelectorAll(".sidebar-nav .nav-item").forEach((el) => {
-//       el.classList.remove("active");
-//     });
-//     this.classList.add("active");
-//   });
-// });
-
 function toggleSidebar() {
   const sidebar = document.querySelector(".sidebar");
   const main = document.querySelector(".main-content");
