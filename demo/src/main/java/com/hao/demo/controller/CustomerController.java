@@ -128,8 +128,37 @@ public String showDanhGia(Model model) {
 
 @GetMapping("/hosocanhan")
 public String showHoSoCaNhan(Model model) {
-    return loadCustomerPage(model, "customer/hosocanhan");
+    Customer customer = getLoggedInCustomer();
+    if (customer == null) return "redirect:/auth/login";
+
+    model.addAttribute("customerName", customer.getFullName());
+    model.addAttribute("customerEmail", customer.getEmail());
+
+    return "customer/hosocanhan";
 }
+@PostMapping("/hosocanhan")
+public String capNhatHoSoCaNhan(
+    @RequestParam("fullName") String fullName,
+    @RequestParam("email") String email,
+    Model model
+) {
+    Customer customer = getLoggedInCustomer();
+    if (customer == null) return "redirect:/auth/login";
+
+    // Cập nhật dữ liệu từ form
+    customer.setFullName(fullName);
+    customer.setEmail(email);
+
+    // Lưu vào database
+    customerService.saveCustomer(customer); 
+
+    model.addAttribute("customerName", customer.getFullName());
+    model.addAttribute("customerEmail", customer.getEmail());
+    model.addAttribute("message", "Cập nhật thành công!");
+
+    return "customer/hosocanhan";
+}
+
 
 
 @Autowired
