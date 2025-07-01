@@ -70,6 +70,8 @@
 
       <!-- Main Content -->
       <main class="main-content">
+        <div class="floating-icons-container"></div>
+
         <div class="top-right">
           <form th:action="@{/auth/logout}" method="post">
             <button type="submit" class="logout-btn">
@@ -80,7 +82,7 @@
         <div class="content-page active">
           <div class="page-header">
             <h1
-              th:text="'Chào mừng ' + ${customerName != null} ? ${customerName} : 'bạn'"
+              th:text="'✨ Chào mừng, ' + (${customerName} != null ? ${customerName} : 'bạn') + '! ✨'"
             >
               Chào mừng bạn
             </h1>
@@ -89,6 +91,48 @@
             Chào mừng bạn đến với hệ thống Hy Vọng Mới. Hãy khám phá các dịch vụ
             và lịch trình điều trị của bạn!
           </p>
+          <section class="guide-section">
+            <h2 class="guide-title">🌟 Hướng Dẫn Đặt Lịch Khám Bệnh</h2>
+            <div class="steps-container">
+              <div class="step-card">
+                <div class="step-icon">
+                  <i class="fas fa-notes-medical"></i>
+                </div>
+                <h3>1. Đăng ký dịch vụ</h3>
+                <p>
+                  Chọn loại dịch vụ, bác sĩ và ngày khám. Bạn có thể mô tả thêm
+                  triệu chứng.
+                </p>
+              </div>
+
+              <div class="step-card">
+                <div class="step-icon"><i class="fas fa-bell"></i></div>
+                <h3>2. Nhận lịch khám</h3>
+                <p>
+                  Sau khi đăng ký thành công, lịch khám sẽ xuất hiện ở mục
+                  <strong>Thông báo</strong>.
+                </p>
+              </div>
+
+              <div class="step-card">
+                <div class="step-icon"><i class="fas fa-stethoscope"></i></div>
+                <h3>3. Khám & Nhận kết quả</h3>
+                <p>
+                  Sau buổi khám, kết quả sẽ được cập nhật tại mục
+                  <strong>Kết quả điều trị</strong>.
+                </p>
+              </div>
+
+              <div class="step-card">
+                <div class="step-icon"><i class="fas fa-heartbeat"></i></div>
+                <h3>4. Theo dõi điều trị</h3>
+                <p>
+                  Lịch trình điều trị chi tiết sẽ được cập nhật trong mục
+                  <strong>Lịch trình điều trị</strong>.
+                </p>
+              </div>
+            </div>
+          </section>
         </div>
       </main>
     </div>

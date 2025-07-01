@@ -197,7 +197,7 @@ public String xuLyDangKiDichVu(
 
     dangkiDichvuRepository.save(dk);
 
-    return "redirect:/customer/dangkidichvu"; // hoặc thông báo thành công
+    return "redirect:/customer"; // hoặc thông báo thành công
 }
 
     // Helper methods

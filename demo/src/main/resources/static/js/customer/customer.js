@@ -60,3 +60,27 @@ document.querySelectorAll(".sidebar-nav .nav-item").forEach((item) => {
 function confirmUpdate() {
   return confirm("Bạn có chắc chắn thay đổi thông tin không?");
 }
+
+const container = document.querySelector(".floating-icons-container");
+const icons = ["⭐", "❤️"];
+
+function createFloatingIcon() {
+  const icon = document.createElement("div");
+  icon.classList.add("floating-icon");
+  const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+  icon.textContent = randomIcon;
+
+  if (randomIcon === "❤️") icon.classList.add("heart");
+
+  icon.style.left = Math.random() * 100 + "vw";
+  icon.style.animationDuration = 4 + Math.random() * 4 + "s";
+  icon.style.fontSize = 12 + Math.random() * 18 + "px";
+
+  container.appendChild(icon);
+
+  setTimeout(() => {
+    icon.remove();
+  }, 8000);
+}
+
+setInterval(createFloatingIcon, 1000);
