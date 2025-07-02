@@ -96,40 +96,62 @@ public String locBaoCao(
     }
 
     String tenDichVu = opt.get().getTenDichVu();
-
     LocalDate startDate = LocalDate.parse(dateStart);
     LocalDate endDate = LocalDate.parse(dateEnd);
 
-    List<com.hao.demo.model.LichTrungGian> ketQua =
-        lichTrungGianRepository.findByTenDichVuAndNgayKhamBetween(tenDichVu, startDate, endDate);
+    // ✅ DÙNG ket_qua_kham THAY VÌ lich_trung_gian
+    List<KetquaKhambenh> ketQua =
+    ketquaKhambenhRepository.findByDichVuAndNgayKhamBetween(tenDichVu, startDate, endDate);
 
-    List<Dichvu> danhSachDichVu = dichvuRepository.findAll();
-    model.addAttribute("danhSachDichVu", danhSachDichVu);
+
+
+
     model.addAttribute("ketQuaBaoCao", ketQua);
-
-    // ✅ THÊM DÒNG NÀY để luôn hiển thị bảng báo cáo dưới:
-    List<Baocao> baoCaoList = baocaoRepository.findAll();
-    model.addAttribute("baoCaoList", baoCaoList);
+    model.addAttribute("danhSachDichVu", dichvuRepository.findAll());
+    model.addAttribute("baoCaoList", baocaoRepository.findAll());
 
     return loadManagerPage(model, "manager/baocao");
 }
 
 
-    @Autowired
-private com.hao.demo.repository.BaocaoRepository baocaoRepository;
-
 @PostMapping("/baocao/tao")
 public String taoBaoCao(
         @RequestParam("dichvuId") Long dichvuId,
-    @RequestParam("dateStart") String dateStart,
-    @RequestParam("dateEnd") String dateEnd,
-    RedirectAttributes redirectAttributes) {
+        @RequestParam("dateStart") String dateStart,
+        @RequestParam("dateEnd") String dateEnd,
+        RedirectAttributes redirectAttributes) {
 
     Optional<Dichvu> opt = dichvuRepository.findById(dichvuId);
     if (opt.isEmpty()) {
         redirectAttributes.addFlashAttribute("error", "Không tìm thấy dịch vụ.");
         return "redirect:/manager/baocao";
     }
+
+    Dichvu dichvu = opt.get();
+    String tenDichVu = dichvu.getTenDichVu();
+    double giaKham = dichvu.getGiaKham();
+
+    LocalDate startDate = LocalDate.parse(dateStart);
+    LocalDate endDate = LocalDate.parse(dateEnd);
+
+    // Lấy dữ liệu từ ket_qua_kham
+    List<KetquaKhambenh> ketQua = ketquaKhambenhRepository
+            .findByDichVuAndNgayKhamBetween(tenDichVu, startDate, endDate);
+
+    int soLuong = ketQua.size();
+    double doanhThu = giaKham * soLuong;
+
+    Baocao baoCao = new Baocao();
+    baoCao.setTenDichVu(tenDichVu);
+    baoCao.setSoLuong(soLuong);
+    baoCao.setDoanhThu(doanhThu);
+    baoCao.setThoiGian(dateStart + " đến " + dateEnd);
+
+    baocaoRepository.save(baoCao);
+
+    redirectAttributes.addFlashAttribute("success", "Đã tạo báo cáo thành công!");
+    return "redirect:/manager/baocao";
+}
 
     Dichvu dichvu = opt.get();
     String tenDichVu = dichvu.getTenDichVu();
