@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quản lý Dịch vụ - Hy Vọng Mới</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/manager/quanlydichvu.css}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- <button class="btn-toggle-sidebar" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button> -->
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h2>Hy Vọng Mới</h2>
+          <div class="user-info">
+            <div class="user-avatar">M</div>
+            <div class="user-details">
+              <h3 th:text="${customerName}">Tên Người Dùng</h3>
+            </div>
+          </div>
+        </div>
+        <ul class="sidebar-nav">
+          <li class="nav-item">
+            <a th:href="@{/manager/baocao}"
+              ><i class="fas fa-file-alt"></i><span>TẠO BÁO CÁO</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/manager/quanlybacsi}"
+              ><i class="fas fa-user-md"></i><span>QUẢN LÝ BÁC SĨ</span></a
+            >
+          </li>
+          <li class="nav-item active">
+            <a th:href="@{/manager/quanlydichvu}"
+              ><i class="fas fa-heartbeat"></i><span>QUẢN LÝ DỊCH VỤ</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/manager/quanlydanhgia}"
+              ><i class="fas fa-star-half-alt"></i
+              ><span>QUẢN LÝ ĐÁNH GIÁ</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/manager/quanlylichkham}"
+              ><i class="fas fa-calendar-check"></i
+              ><span>QUẢN LÝ LỊCH KHÁM</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="top-right">
+          <form th:action="@{/auth/logout}" method="post">
+            <button type="submit" class="logout-btn">
+              <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </button>
+          </form>
+        </div>
+
+        <div class="content-page active">
+          <div class="page-header">
+            <h1>Quản lý Dịch vụ</h1>
+          </div>
+
+          <!-- Form Thêm/Cập nhật dịch vụ -->
+          <section class="form-container">
+            <h2
+              th:text="${dichVu.id != null} ? 'Cập nhật dịch vụ' : 'Thêm dịch vụ mới'"
+            >
+              Thêm dịch vụ mới
+            </h2>
+            <form
+              th:action="${dichVu.id != null} ? @{/manager/quanlydichvu/update} : @{/manager/quanlydichvu/add}"
+              method="post"
+              th:object="${dichVu}"
+            >
+              <input type="hidden" th:field="*{id}" />
+              <div class="form-group">
+                <label for="tenDichVu">Tên dịch vụ:</label>
+                <input type="text" th:field="*{tenDichVu}" required />
+              </div>
+              <div class="form-group">
+                <label for="giaKham">Giá dịch vụ (VND):</label>
+                <input
+                  type="number"
+                  th:field="*{giaKham}"
+                  step="any"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="moTa">Mô tả:</label>
+                <textarea
+                  th:field="*{moTa}"
+                  rows="3"
+                  placeholder="Mô tả chi tiết dịch vụ"
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                class="form-submit"
+                th:text="${dichVu.id != null} ? 'Cập nhật' : 'Thêm dịch vụ'"
+              >
+                Thêm dịch vụ
+              </button>
+            </form>
+          </section>
+
+          <!-- Danh sách dịch vụ -->
+          <section class="service-table">
+            <h2>Danh sách dịch vụ</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Tên dịch vụ</th>
+                  <th>Giá (VND)</th>
+                  <th>Mô tả</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="dv : ${dichVuList}">
+                  <td th:text="${dv.id}">1</td>
+                  <td th:text="${dv.tenDichVu}">Khám nội tổng quát</td>
+                  <td th:text="${#numbers.formatDecimal(dv.giaKham, 0, 0)}">
+                    500000
+                  </td>
+                  <td th:text="${dv.moTa}">Mô tả...</td>
+                  <td class="action-buttons">
+                    <a
+                      th:href="@{/manager/quanlydichvu/edit/{id}(id=${dv.id})}"
+                      class="btn btn-edit"
+                      >Sửa</a
+                    >
+                    <form
+                      th:action="@{/manager/quanlydichvu/delete/{id}(id=${dv.id})}"
+                      method="post"
+                      style="display: inline"
+                    >
+                      <button
+                        type="submit"
+                        class="btn btn-delete"
+                        onclick="return confirm('Xóa dịch vụ này?')"
+                      >
+                        Xóa
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script th:src="@{/js/manager/quanlydichvu.js}" defer></script>
+  </body>
+</html>

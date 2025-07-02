@@ -1,0 +1,123 @@
+<!--Bác sĩ nhập trông tin về tình trang sức khỏe của bệnh nhân, các phương pháp điều trị đã thực hiện, kết quả thụ thai, và các thông tin liên quan khác. -->
+
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kết quả Điều trị - Hy Vọng Mới</title>
+    <link rel="stylesheet" th:href="@{/css/customer/ketquadieutri.css}" />
+    <link rel="stylesheet" th:href="@{/css/customer/customer.css}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <button class="btn-toggle-sidebar" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <nav class="sidebar" th:fragment="sidebar">
+        <div class="sidebar-header">
+          <h2>Hy Vọng Mới</h2>
+          <div class="user-info">
+            <div
+              class="user-avatar"
+              th:text="${customerName != null} ? ${customerName.substring(0,1)} : 'H'"
+            >
+              H
+            </div>
+            <div class="user-details">
+              <h3 th:text="${customerName}">Customer</h3>
+            </div>
+          </div>
+        </div>
+        <ul class="sidebar-nav">
+          <li class="nav-item">
+            <a th:href="@{/customer/thongbao}">
+              <i class="fas fa-home"></i><span>Thông báo</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/customer/dangkidichvu}">
+              <i class="fas fa-plus-circle"></i><span>Đăng ký dịch vụ</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/customer/lichtrinhdieutri}">
+              <i class="fas fa-calendar-check"></i
+              ><span>Lịch trình điều trị</span>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a th:href="@{/customer/ketquadieutri}">
+              <i class="fas fa-file-medical-alt"></i
+              ><span>Kết quả điều trị</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a th:href="@{/customer/danhgia}">
+              <i class="fas fa-star"></i><span>Đánh giá</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/customer/hosocanhan}">
+              <i class="fas fa-user-cog"></i><span>Hồ sơ cá nhân</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="top-right">
+          <form th:action="@{/auth/logout}" method="post">
+            <button type="submit" class="logout-btn">
+              <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </button>
+          </form>
+        </div>
+        <div class="content-page active">
+          <div class="page-header">
+            <h1>Kết quả Điều trị</h1>
+          </div>
+          <div class="results-container">
+            <table class="results-table">
+              <thead>
+                <tr>
+                  <th>Email bác sĩ</th>
+                  <th>Tên bác sĩ</th>
+                  <th>Ngày khám</th>
+                  <th>Dịch vụ</th>
+                  <th>Kết quả khám</th>
+                  <th>Chi tiết</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="result : ${treatmentResults}">
+                  <td th:text="${result.emailBacSi}">bs@example.com</td>
+                  <td th:text="${result.tenBacSi}">BS. Nguyễn Văn A</td>
+                  <td th:text="${result.ngayKham}">2025-07-01</td>
+                  <td th:text="${result.dichVu}">Xét nghiệm nội tiết</td>
+                  <td th:text="${result.ketQua}">Bình thường</td>
+                  <td th:text="${result.chiTiet}">
+                    Không có dấu hiệu bất thường
+                  </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(treatmentResults)}">
+                  <td colspan="6">Không có kết quả nào để hiển thị.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script th:src="@{/js/customer/customer.js}" defer></script>
+    <script th:src="@{/js/customer/ketquadieutri.js}" defer></script>
+  </body>
+</html>

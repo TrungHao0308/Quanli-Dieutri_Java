@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Xem Báo cáo - Hy Vọng Mới</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/manager/baocao.css}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- <button class="btn-toggle-sidebar" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button> -->
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h2>Hy Vọng Mới</h2>
+          <div class="user-info">
+            <div class="user-avatar">M</div>
+            <div class="user-details">
+              <h3 th:text="${customerName}">Tên Người Dùng</h3>
+            </div>
+          </div>
+        </div>
+        <ul class="sidebar-nav">
+          <li class="nav-item">
+            <a th:href="@{/manager/baocao}">
+              <i class="fas fa-file-alt"></i><span>TẠO BÁO CÁO</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/manager/quanlybacsi}">
+              <i class="fas fa-user-md"></i><span>QUẢN LÝ BÁC SĨ</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/manager/quanlydichvu}">
+              <i class="fas fa-heartbeat"></i><span>QUẢN LÝ DỊCH VỤ</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/manager/quanlydanhgia}">
+              <i class="fas fa-star-half-alt"></i><span>QUẢN LÝ ĐÁNH GIÁ</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/manager/quanlylichkham}">
+              <i class="fas fa-calendar-check"></i><span>QUẢN LÝ LỊCH KHÁM</span>
+            </a>
+          </li>
+        </ul>
+        </ul>
+      </nav>
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="top-right">
+          <form th:action="@{/auth/logout}" method="post">
+            <button type="submit" class="logout-btn">
+              <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </button>
+          </form>
+        </div>
+        <div class="content-page active">
+          <div class="page-header">
+            <h1>Xem Báo cáo</h1>
+          </div>
+          <section class="report-filter">
+            <h2>Lọc báo cáo</h2>
+            <!-- Cập nhật form lọc -->
+<form th:action="@{/manager/baocao/loc}" method="get">
+  <div class="form-group">
+    <label for="reportType">Loại báo cáo:</label>
+    <select id="reportType" name="reportType" required>
+      <option disabled selected>-- Chọn dịch vụ --</option>
+      <th:block th:each="dv : ${danhSachDichVu}">
+        <option th:value="${dv.id}" th:text="${dv.tenDichVu}"></option>
+      </th:block>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="dateRange">Khoảng thời gian:</label>
+    <input type="date" id="dateRangeStart" name="dateRangeStart" required />
+    <input type="date" id="dateRangeEnd" name="dateRangeEnd" required />
+  </div>
+  <button type="submit" class="form-submit">Lọc báo cáo</button>
+</form>
+
+<!-- Kết quả lọc từ bảng lich_trung_gian -->
+
+          </section>
+
+          <!-- Kết quả lọc từ bảng lich_trung_gian -->
+<section class="report-result" th:if="${ketQuaBaoCao != null}">
+  <h2>Kết quả lọc</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Email Bác sĩ</th>
+        <th>Tên Bác sĩ</th>
+        <th>Email Bệnh nhân</th>
+        <th>Tên Bệnh nhân</th>
+        <th>Dịch vụ</th>
+        <th>Ngày khám</th>
+        <th>Chi tiết</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="lich : ${ketQuaBaoCao}">
+        <td th:text="${lich.id}">1</td>
+        <td th:text="${lich.emailBacSi}">emailBacSi</td>
+        <td th:text="${lich.tenBacSi}">tenBacSi</td>
+        <td th:text="${lich.emailBenhNhan}">emailBenhNhan</td>
+        <td th:text="${lich.tenBenhNhan}">tenBenhNhan</td>
+        <td th:text="${lich.tenDichVu}">tenDichVu</td>
+        <td th:text="${lich.ngayKham}">2025-07-01</td>
+        <td th:text="${lich.chiTiet}">Chi tiết</td>
+      </tr>
+    </tbody>
+  </table>
+  <form th:action="@{/manager/baocao/tao}" method="post" th:if="${ketQuaBaoCao != null}">
+  <input type="hidden" name="dichvuId" th:value="${param.reportType}" />
+  <input type="hidden" name="dateStart" th:value="${param.dateRangeStart}" />
+  <input type="hidden" name="dateEnd" th:value="${param.dateRangeEnd}" />
+  <div style="margin-top: 20px; text-align: right;">
+    <button type="submit" class="form-submit">Tạo báo cáo</button>
+  </div>
+</form>
+</section>
+
+
+<section class="report-table">
+  <h2>Báo cáo dịch vụ</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Dịch vụ</th>
+        <th>Số lượng</th>
+        <th>Doanh thu (VND)</th>
+        <th>Thời gian</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="bc : ${baoCaoList}">
+        <td th:text="${bc.id}">1</td>
+        <td th:text="${bc.tenDichVu}">Tên DV</td>
+        <td th:text="${bc.soLuong}">0</td>
+        <td th:text="${#numbers.formatDecimal(bc.doanhThu, 0, 'COMMA', 0, 'POINT')}">0</td>
+        <td th:text="${bc.thoiGian}">Tháng/Năm</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+        </div>
+      </main>
+    </div>
+    <script th:src="@{/js/manager/baocao.js}" defer></script>
+  </body>
+</html>

@@ -1,0 +1,139 @@
+<!--cho phép người dùng đăng kí các dịch vụ điều trị hiếm muộn như IUI(thụ tinh trong tử cung), IVF(thụ tinh trong ống nghiệm), 
+người bệnh có thể điều chỉnh bác sĩ-->
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng ký Dịch vụ - Hy Vọng Mới</title>
+    <link rel="stylesheet" th:href="@{/css/customer/dangkidichvu.css}" />
+    <link rel="stylesheet" th:href="@{/css/customer/customer.css}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <button class="btn-toggle-sidebar" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <nav class="sidebar" th:fragment="sidebar">
+        <div class="sidebar-header">
+          <h2>Hy Vọng Mới</h2>
+          <div class="user-info">
+            <div
+              class="user-avatar"
+              th:text="${customerName != null} ? ${customerName.substring(0,1)} : 'H'"
+            >
+              H
+            </div>
+            <div class="user-details">
+              <h3 th:text="${customerName}">Customer</h3>
+            </div>
+          </div>
+        </div>
+        <ul class="sidebar-nav">
+          <li class="nav-item">
+            <a th:href="@{/customer/thongbao}">
+              <i class="fas fa-home"></i><span>Thông báo</span>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a th:href="@{/customer/dangkidichvu}">
+              <i class="fas fa-plus-circle"></i><span>Đăng ký dịch vụ</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/customer/lichtrinhdieutri}">
+              <i class="fas fa-calendar-check"></i
+              ><span>Lịch trình điều trị</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/customer/ketquadieutri}">
+              <i class="fas fa-file-medical-alt"></i
+              ><span>Kết quả điều trị</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/customer/danhgia}">
+              <i class="fas fa-star"></i><span>Đánh giá</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/customer/hosocanhan}">
+              <i class="fas fa-user-cog"></i><span>Hồ sơ cá nhân</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="top-right">
+          <form th:action="@{/auth/logout}" method="post">
+            <button type="submit" class="logout-btn">
+              <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </button>
+          </form>
+        </div>
+        <div class="content-page active">
+          <div class="page-header">
+            <h1>Đăng ký Dịch vụ</h1>
+          </div>
+          <div class="form-container">
+            <form th:action="@{/customer/dangkidichvu}" method="post">
+              <div class="form-group">
+                <label for="serviceType">Loại dịch vụ</label>
+                <select id="serviceType" name="dichVu" required>
+                  <option value="">Chọn dịch vụ</option>
+                  <option
+                    th:each="dv : ${dichVuList}"
+                    th:value="${dv.tenDichVu}"
+                    th:text="${dv.tenDichVu}"
+                  ></option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="doctor">Bác sĩ</label>
+                <select
+                  id="doctor"
+                  name="tenBacSi"
+                  onchange="setEmailBacSi()"
+                  required
+                >
+                  <option value="">Chọn bác sĩ</option>
+                  <!-- Các option sẽ được thêm tự động bằng JavaScript -->
+                </select>
+                <input type="hidden" id="emailBacSi" name="emailBacSi" />
+              </div>
+
+              <div class="form-group">
+                <label for="appointmentDate">Ngày khám</label>
+                <input
+                  type="date"
+                  id="appointmentDate"
+                  name="ngayKham"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="notes">Ghi chú</label>
+                <textarea id="notes" name="chiTiet"></textarea>
+              </div>
+
+              <button type="submit" class="btn-submit">Đăng ký</button>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script th:src="@{/js/customer/customer.js}" defer></script>
+    <script th:src="@{/js/customer/dangkidichvu.js}" defer></script>
+  </body>
+</html>

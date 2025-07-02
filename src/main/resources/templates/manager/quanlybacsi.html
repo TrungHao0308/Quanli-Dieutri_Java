@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý bác sĩ</title>
+    <link rel="stylesheet" th:href="@{/css/manager/quanlybacsi.css}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+</head>
+<body>
+      <!-- <button class="btn-toggle-sidebar" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button> -->
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h2>Hy Vọng Mới</h2>
+          <div class="user-info">
+            <div class="user-avatar">M</div>
+            <div class="user-details">
+              <h3 th:text="${customerName}">Tên Người Dùng</h3>
+            </div>
+          </div>
+        </div>
+        <ul class="sidebar-nav">
+          <li class="nav-item">
+            <a th:href="@{/manager/baocao}">
+              <i class="fas fa-file-alt"></i><span>TẠO BÁO CÁO</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/manager/quanlybacsi}">
+              <i class="fas fa-user-md"></i><span>QUẢN LÝ BÁC SĨ</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/manager/quanlydichvu}">
+              <i class="fas fa-heartbeat"></i><span>QUẢN LÝ DỊCH VỤ</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/manager/quanlydanhgia}">
+              <i class="fas fa-star-half-alt"></i><span>QUẢN LÝ ĐÁNH GIÁ</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/manager/quanlylichkham}">
+              <i class="fas fa-calendar-check"></i><span>QUẢN LÝ LỊCH KHÁM</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="top-right">
+          <form th:action="@{/auth/logout}" method="post">
+            <button type="submit" class="logout-btn">
+              <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </button>
+          </form>
+        </div>
+        <div class="content-page active">
+          <div class="page-header">
+            <h1>Quản lý bác sĩ</h1>
+          </div>
+<section class="doctor-table">
+    <h2>Danh sách bác sĩ</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Họ tên</th>
+                <th>Chuyên môn</th>
+                <th>Ca làm</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="doctor : ${doctors}">
+                <td th:text="${doctor.id}"></td>
+                <td th:text="${doctor.email}"></td>
+                <td th:text="${doctor.fullName}"></td>
+
+                <!-- Chuyên môn -->
+                <td>
+  <select th:id="'specialty-' + ${doctor.id}" class="form-select"
+          th:disabled="${doctorUpdatedMap.containsKey(doctor.id)}">
+    <option value="" disabled th:selected="${doctorUpdatedMap.get(doctor.id) == null}">
+      Chọn chuyên môn
+    </option>
+
+    <option th:each="dv : ${dichVus}"
+            th:value="${dv.tenDichVu}"
+            th:text="${dv.tenDichVu}"
+            th:selected="${doctorUpdatedMap.get(doctor.id)?.chuyenMon == dv.tenDichVu}">
+    </option>
+  </select>
+</td>
+
+
+                <!-- Ca làm -->
+                <td>
+                    <select th:id="'shift-' + ${doctor.id}" class="form-select"
+                            th:disabled="${doctorUpdatedMap.containsKey(doctor.id)}">
+                       <option value="" disabled 
+  th:selected="${doctorUpdatedMap.get(doctor.id) == null}">Chọn ca làm</option>
+
+                        <option value="Sáng" th:selected="${doctorUpdatedMap.get(doctor.id)?.caLam == 'Sáng'}">Ca sáng</option>
+<option value="Chiều" th:selected="${doctorUpdatedMap.get(doctor.id)?.caLam == 'Chiều'}">Ca chiều</option>
+
+                    </select>
+                </td>
+
+                <!-- Nút thao tác -->
+                
+                   
+<td>
+  <button
+    th:id="'btn-' + ${doctor.id}"
+    th:class="'btn ' + (${doctorUpdatedMap.containsKey(doctor.id)} ? 'btn-cancel' : 'btn-update')"
+    th:data-id="${doctor.id}"
+    th:text="${doctorUpdatedMap.containsKey(doctor.id)} ? 'Hủy' : 'Cập nhật'"
+    onclick="handleDoctorAction(this)">
+  </button>
+</td>
+
+
+
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<script th:src="@{/js/manager/quanlybacsi.js}" defer></script>
+</body>
+</html>
+  
