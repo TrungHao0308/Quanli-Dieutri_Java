@@ -1,21 +1,27 @@
 package com.hao.demo.controller;
 import com.hao.demo.service.BacsiChuyenmonService;
+import com.hao.demo.dto.LichTrungGianDTO;
 import com.hao.demo.model.BacsiChuyenmon;
 import com.hao.demo.model.Baocao;
 import com.hao.demo.model.Customer;
 import com.hao.demo.model.DangkiDichvu;
+import com.hao.demo.model.Danhgia;
 import com.hao.demo.model.PhancongLichkham;
 import com.hao.demo.repository.BacsiChuyenmonRepository;
+import com.hao.demo.repository.DanhgiaRepository;
 import com.hao.demo.repository.CustomerRepository;
 import com.hao.demo.repository.DangkiDichvuRepository;
 import com.hao.demo.repository.PhancongLichkhamRepository;
 import com.hao.demo.service.CustomerService;
 import com.hao.demo.model.Dichvu;
+import com.hao.demo.model.LichTrungGian;
 import com.hao.demo.repository.DichvuRepository;
+import com.hao.demo.repository.LichTrungGianRepository;
 
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -76,7 +82,6 @@ public String showBaoCao(Model model) {
 
     return loadManagerPage(model, "manager/baocao");
 }
-
 @GetMapping("/baocao/loc")
 public String locBaoCao(
         @RequestParam("reportType") Long dichvuId,
@@ -173,12 +178,44 @@ model.addAttribute("dichVus", dichVus);
     return loadManagerPage(model, "manager/quanlybacsi");
 }
 
+@Autowired
+private DanhgiaRepository danhgiaRepository;
 
+@GetMapping("/quanlydanhgia")
+public String showDanhGiaPage(Model model, Principal principal) {
+    List<Danhgia> danhGiaList = danhgiaRepository.findAll();
+    model.addAttribute("danhGiaList", danhGiaList);
 
-    @GetMapping("/quanlydanhgia")
-    public String showDanhGia(Model model) {
-        return loadManagerPage(model, "manager/quanlydanhgia");
+    String email = principal.getName();
+    List<LichTrungGian> lichList = lichTrungGianRepository.findByEmailBenhNhan(email);
+
+    List<LichTrungGianDTO> dtoList = lichList.stream()
+        .map(lich -> new LichTrungGianDTO(
+            lich.getId(),
+            lich.getTenDichVu(),
+            lich.getTenBacSi(),
+            lich.getNgayKham()
+        )).toList();
+
+    model.addAttribute("lichDTOList", dtoList);
+    return "manager/quanlydanhgia";
+}
+   
+@PostMapping("/quanlydanhgia/delete/{id}")
+public String deleteDanhGia(@PathVariable Long id) {
+    danhgiaRepository.deleteById(id);
+    return "redirect:/manager/quanlydanhgia";
+}
+
+@PostMapping("/quanlydanhgia/mark-read/{id}")
+public String markDanhGiaAsRead(@PathVariable Long id) {
+    Danhgia dg = danhgiaRepository.findById(id).orElse(null);
+    if (dg != null) {
+        dg.setDaXem(true);
+        danhgiaRepository.save(dg);
     }
+    return "redirect:/manager/quanlydanhgia";
+}
 
    @Autowired
 private DichvuRepository dichVuRepository;
