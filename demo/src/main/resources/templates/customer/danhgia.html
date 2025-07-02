@@ -85,45 +85,34 @@
           </div>
           <div class="form-container">
             <form th:action="@{/customer/danhgia}" method="post">
-              <div class="form-group">
-                <label for="service">Dịch vụ đã sử dụng</label>
-                <select id="service" name="service" required>
-                  <option value="">Chọn dịch vụ</option>
-                  <option value="IUI">IUI</option>
-                  <option value="IVF">IVF</option>
-                  <option value="consultation">Tư vấn sinh sản</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="rating">Đánh giá (1-5 sao)</label>
-                <select id="rating" name="rating" required>
-                  <option value="5">5 sao</option>
-                  <option value="4">4 sao</option>
-                  <option value="3">3 sao</option>
-                  <option value="2">2 sao</option>
-                  <option value="1">1 sao</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="doctor">Bác sĩ (tùy chọn)</label>
-                <select id="doctor" name="doctor">
-                  <option value="">Chọn bác sĩ</option>
-                  <option value="bs1">BS. Nguyễn Văn A</option>
-                  <option value="bs2">BS. Trần Thị B</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="comment">Nhận xét</label>
-                <textarea
-                  id="comment"
-                  name="comment"
-                  rows="5"
-                  placeholder="Nhập nhận xét của bạn"
-                  required
-                ></textarea>
-              </div>
-              <button type="submit" class="btn-submit">Gửi đánh giá</button>
-            </form>
+  <div class="form-group">
+    <label for="lichId">Chọn lịch khám để đánh giá</label>
+    <select id="lichId" name="lichId" required>
+      <option th:each="lich : ${lichDTOList}" 
+              th:value="${lich.id}" 
+              th:text="${lich.tenDichVu + ' - ' + lich.tenBacSi + ' (Ngày ' + lich.ngayKham + ')'}">
+      </option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="rating">Mức độ hài lòng</label>
+    <select id="rating" name="rating" required>
+      <option value="5">5 - Rất hài lòng</option>
+      <option value="4">4 - Hài lòng</option>
+      <option value="3">3 - Bình thường</option>
+      <option value="2">2 - Không hài lòng</option>
+      <option value="1">1 - Rất tệ</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="comment">Nhận xét</label>
+    <textarea id="comment" name="comment" rows="4" placeholder="Nhận xét của bạn..."></textarea>
+  </div>
+
+  <button type="submit">Gửi đánh giá</button>
+</form>
           </div>
         </div>
       </main>
