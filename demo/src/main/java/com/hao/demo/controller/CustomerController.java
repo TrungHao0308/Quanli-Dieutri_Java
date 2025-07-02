@@ -3,16 +3,21 @@ package com.hao.demo.controller;
 import com.hao.demo.model.BacsiChuyenmon;
 import com.hao.demo.model.Customer;
 import com.hao.demo.model.DangkiDichvu;
+import com.hao.demo.model.Danhgia;
 import com.hao.demo.model.KetquaKhambenh;
 import com.hao.demo.model.LichTrungGian;
+import com.hao.demo.dto.LichTrungGianDTO;
 import com.hao.demo.model.PhancongLichkham;
 import com.hao.demo.repository.DangkiDichvuRepository;
+import com.hao.demo.repository.DanhgiaRepository;
 import com.hao.demo.repository.DichvuRepository;
 import com.hao.demo.repository.LichTrungGianRepository;
 import com.hao.demo.repository.PhancongLichkhamRepository;
 import com.hao.demo.service.BacsiChuyenmonService;
 import com.hao.demo.service.CustomerService;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.security.Principal;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +31,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/customer")
@@ -121,11 +127,56 @@ public String showLichSuDonDat(Model model) {
     return loadCustomerPage(model, "customer/lichsudondat");
 }
 
+@Autowired
+private DanhgiaRepository danhgiaRepository;
+
 @GetMapping("/danhgia")
-public String showDanhGia(Model model) {
-    return loadCustomerPage(model, "customer/danhgia");
+public String showDanhGiaForm(Model model, Principal principal) {
+    String email = principal.getName();
+    List<LichTrungGian> lichList = lichTrungGianRepository.findByEmailBenhNhan(email);
+
+    List<LichTrungGianDTO> dtoList = lichList.stream()
+        .map(lich -> new LichTrungGianDTO(
+            lich.getId(),
+            lich.getTenDichVu(),
+            lich.getTenBacSi(),
+            lich.getNgayKham()
+        ))
+        .collect(Collectors.toList());
+
+    model.addAttribute("lichDTOList", dtoList);
+    return "customer/danhgia";
 }
 
+@PostMapping("/danhgia")
+public String xuLyDanhGia(
+        @RequestParam("lichId") Long lichId,
+        @RequestParam("rating") int mucDoHaiLong,
+        @RequestParam("comment") String nhanXet,
+        Principal principal,
+        RedirectAttributes redirectAttributes) {
+
+    String emailBenhNhan = principal.getName();
+
+    LichTrungGian lich = lichTrungGianRepository.findById(lichId).orElse(null);
+    if (lich == null || !lich.getEmailBenhNhan().equals(emailBenhNhan)) {
+        redirectAttributes.addFlashAttribute("errorMessage", "Lịch khám không hợp lệ.");
+        return "redirect:/customer/danhgia";
+    }
+
+    Danhgia danhgia = new Danhgia();
+    danhgia.setTenBacSi(lich.getTenBacSi());
+    danhgia.setDichVu(lich.getTenDichVu());
+    danhgia.setMucDoHaiLong(mucDoHaiLong);
+    danhgia.setNhanXet(nhanXet);
+    danhgia.setEmailBenhNhan(emailBenhNhan);
+    danhgia.setDaXem(false);
+
+    danhgiaRepository.save(danhgia);
+
+    redirectAttributes.addFlashAttribute("successMessage", "Đánh giá đã được gửi thành công.");
+    return "redirect:/customer/danhgia";
+}
 @GetMapping("/hosocanhan")
 public String showHoSoCaNhan(Model model) {
     Customer customer = getLoggedInCustomer();
