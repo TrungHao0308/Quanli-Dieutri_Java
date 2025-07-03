@@ -75,13 +75,20 @@ private com.hao.demo.repository.LichTrungGianRepository lichTrungGianRepository;
 public String showBaoCao(Model model) {
     List<Dichvu> danhSachDichVu = dichvuRepository.findAll();
     model.addAttribute("danhSachDichVu", danhSachDichVu);
-
-    // ✅ Thêm dòng này để load bảng báo cáo:
-    List<Baocao> baoCaoList = baocaoRepository.findAll();
-    model.addAttribute("baoCaoList", baoCaoList);
-
     return loadManagerPage(model, "manager/baocao");
 }
+    @Autowired
+private BaocaoRepository baocaoRepository;
+
+  @GetMapping("/manager/baocao")
+public String viewBaocaoPage(Model model) {
+    List<Baocao> baoCaoList = baocaoRepository.findAll(); // lấy danh sách báo cáo từ DB
+    model.addAttribute("baoCaoList", baoCaoList);         // đẩy danh sách vào view
+    return loadManagerPage(model, "manager/baocao");      // trả về trang hiển thị báo cáo
+}
+@Autowired
+private KetquaKhambenhRepository ketquaKhambenhRepository;
+
 @GetMapping("/baocao/loc")
 public String locBaoCao(
         @RequestParam("reportType") Long dichvuId,
@@ -152,32 +159,6 @@ public String taoBaoCao(
     redirectAttributes.addFlashAttribute("success", "Đã tạo báo cáo thành công!");
     return "redirect:/manager/baocao";
 }
-
-    Dichvu dichvu = opt.get();
-    String tenDichVu = dichvu.getTenDichVu();
-    double giaKham = dichvu.getGiaKham();
-
-    LocalDate startDate = LocalDate.parse(dateStart);
-    LocalDate endDate = LocalDate.parse(dateEnd);
-
-    List<com.hao.demo.model.LichTrungGian> ketQua =
-        lichTrungGianRepository.findByTenDichVuAndNgayKhamBetween(tenDichVu, startDate, endDate);
-
-    int soLuong = ketQua.size();
-    double doanhThu = giaKham * soLuong;
-
-    com.hao.demo.model.Baocao baoCao = new com.hao.demo.model.Baocao();
-    baoCao.setTenDichVu(tenDichVu);
-    baoCao.setSoLuong(soLuong);
-    baoCao.setDoanhThu(doanhThu);
-    baoCao.setThoiGian(dateStart + " đến " + dateEnd);
-
-    baocaoRepository.save(baoCao);
-
-    redirectAttributes.addFlashAttribute("success", "Đã tạo báo cáo thành công!");
-    return "redirect:/manager/baocao";
-}
-
 
 @Autowired
 private DichvuRepository dichvuRepository;
