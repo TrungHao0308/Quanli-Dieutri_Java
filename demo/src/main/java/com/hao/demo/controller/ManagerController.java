@@ -8,14 +8,17 @@ import com.hao.demo.model.DangkiDichvu;
 import com.hao.demo.model.Danhgia;
 import com.hao.demo.model.PhancongLichkham;
 import com.hao.demo.repository.BacsiChuyenmonRepository;
+import com.hao.demo.repository.BaocaoRepository;
 import com.hao.demo.repository.DanhgiaRepository;
 import com.hao.demo.repository.CustomerRepository;
 import com.hao.demo.repository.DangkiDichvuRepository;
 import com.hao.demo.repository.PhancongLichkhamRepository;
 import com.hao.demo.service.CustomerService;
 import com.hao.demo.model.Dichvu;
+import com.hao.demo.model.KetquaKhambenh;
 import com.hao.demo.model.LichTrungGian;
 import com.hao.demo.repository.DichvuRepository;
+import com.hao.demo.repository.KetquaKhambenhRepository;
 import com.hao.demo.repository.LichTrungGianRepository;
 
 import jakarta.persistence.JoinColumn;
