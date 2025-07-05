@@ -1,5 +1,5 @@
 package com.hao.demo.model;
-
+import java.time.LocalDate;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,9 +11,11 @@ public class Danhgia {
 
     private String emailBacSi;
     private String tenBacSi;
+    private String tenKhachHang;
     private String dichVu;
-    private int mucDoHaiLong; // 1 đến 5
+    private int mucDoHaiLong;
     private String nhanXet;
+    private LocalDate ngayDanhGia;
 
     // Getters and Setters
     public Long getId() {
@@ -29,12 +31,14 @@ public class Danhgia {
     public void setEmailBacSi(String emailBacSi) {
         this.emailBacSi = emailBacSi;
     }
+
     public String getTenBacSi() {
         return tenBacSi;
     }
     public void setTenBacSi(String tenBacSi) {
         this.tenBacSi = tenBacSi;
     }
+
     public String getDichVu() {
         return dichVu;
     }
@@ -48,12 +52,28 @@ public class Danhgia {
     public void setMucDoHaiLong(int mucDoHaiLong) {
         this.mucDoHaiLong = mucDoHaiLong;
     }
+
     public String getNhanXet() {
         return nhanXet;
     }
     public void setNhanXet(String nhanXet) {
         this.nhanXet = nhanXet;
     }
+
+    public String getTenKhachHang() {
+        return tenKhachHang;
+    }
+    public void setTenKhachHang(String tenKhachHang) {
+        this.tenKhachHang = tenKhachHang;
+    }
+
+    public LocalDate getNgayDanhGia() {
+        return ngayDanhGia;
+    }
+    public void setNgayDanhGia(LocalDate ngayDanhGia) {
+        this.ngayDanhGia = ngayDanhGia;
+    }
+
     @Override
     public String toString() {
         return "Danhgia{" +
@@ -63,6 +83,8 @@ public class Danhgia {
                 ", dichVu='" + dichVu + '\'' +
                 ", mucDoHaiLong=" + mucDoHaiLong +
                 ", nhanXet='" + nhanXet + '\'' +
+                ", tenKhachHang='" + tenKhachHang + '\'' +
+                ", ngayDanhGia=" + ngayDanhGia +
                 '}';
     }
 }

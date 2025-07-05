@@ -2,6 +2,10 @@ package com.hao.demo.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import org.hibernate.annotations.CreationTimestamp;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "phan_cong_lich_kham")
@@ -18,6 +22,17 @@ public class PhancongLichkham {
     private String emailBacSi;
     private String tenBacSi;
     private String lichKham; // ví dụ: "10:00 - Phòng 3"
+@CreationTimestamp
+@Column(name = "created_at", updatable = false)
+private LocalDateTime createdAt;
+
+public LocalDateTime getCreatedAt() {
+    return createdAt;
+}
+
+public void setCreatedAt(LocalDateTime createdAt) {
+    this.createdAt = createdAt;
+}
 
     // Getters and Setters
     public Long getId() {

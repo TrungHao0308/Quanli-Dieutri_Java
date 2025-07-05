@@ -6,7 +6,8 @@
 
     import com.hao.demo.model.BacsiChuyenmon;
     import com.hao.demo.model.Customer;
-    import com.hao.demo.model.LichTrungGian;
+import com.hao.demo.model.KetquaKhambenh;
+import com.hao.demo.model.LichTrungGian;
     import com.hao.demo.model.PhancongLichkham;
     import com.hao.demo.repository.BacsiChuyenmonRepository;
     import com.hao.demo.repository.LichTrungGianRepository;
@@ -116,54 +117,102 @@ public String loadDoctorPage(Model model) {
         private LichTrungGianRepository lichTrungGianRepository;
             @Autowired
             private DoctorService doctorService;
-        @GetMapping("/tao-lichtrunggian")
-        public String formTaoLichTrungGian(Model model, Principal principal) {
-            BacsiChuyenmon doctor = doctorService.findByEmail(principal.getName()).orElse(null);
-            if (doctor == null) return "redirect:/auth/login";
 
-            // Lấy các phân công khám để đổ vào select bệnh nhân
-            List<PhancongLichkham> all = phancongLichkhamRepository.findAll();
-            Map<String, PhancongLichkham> uniqueEmails = new LinkedHashMap<>();
-            for (PhancongLichkham lich : all) {
-                uniqueEmails.putIfAbsent(lich.getEmailBenhNhan(), lich);
-            }
-            List<String> emailList = new ArrayList<>(uniqueEmails.keySet());
-model.addAttribute("emailList", emailList);
+            // chỗ này vừa sửa
+//         @GetMapping("/tao-lichtrunggian")
+// public String formTaoLichTrungGian(Model model, Principal principal) {
+//     BacsiChuyenmon doctor = doctorService.findByEmail(principal.getName()).orElse(null);
+//     if (doctor == null) return "redirect:/auth/login";
+
+//     // ✅ Lọc đúng lịch khám của bác sĩ hiện tại
+//     List<PhancongLichkham> all = phancongLichkhamRepository.findByEmailBacSi(doctor.getEmail());
+
+//     Map<String, PhancongLichkham> uniqueEmails = new LinkedHashMap<>();
+//     for (PhancongLichkham lich : all) {
+//         uniqueEmails.putIfAbsent(lich.getEmailBenhNhan(), lich);
+//     }
+//     List<String> emailList = new ArrayList<>(uniqueEmails.keySet());
+
+//     model.addAttribute("emailList", emailList);
+//     model.addAttribute("phanCongList", new ArrayList<>(uniqueEmails.values()));
+
+//     // Lịch đã tạo của bác sĩ này
+//     List<LichTrungGian> lichKhams = lichTrungGianRepository.findByEmailBacSi(doctor.getEmail());
+//     model.addAttribute("lichKhams", lichKhams);
+
+//     model.addAttribute("role", "ROLE_DOCTOR");
+//     model.addAttribute("customerName", doctor.getFullName());
+
+//     return "chung/lichtrunggian";
+// }
+
+@GetMapping("/tao-lichtrunggian")
+public String formTaoLichTrungGian(Model model, Principal principal) {
+    BacsiChuyenmon doctor = doctorService.findByEmail(principal.getName()).orElse(null);
+    if (doctor == null) return "redirect:/auth/login";
+
+    // ✅ Lọc email bệnh nhân từ bảng kết quả khám
+    List<String> emailList = ketquaKhambenhRepository.findByEmailBacSiIgnoreCase(doctor.getEmail())
+        .stream()
+        .map(k -> k.getEmailBenhNhan())
+        .distinct()
+        .toList();
+
+    model.addAttribute("emailList", emailList);
+
+    // ✅ Lịch đã tạo của bác sĩ này
+    List<LichTrungGian> lichKhams = lichTrungGianRepository.findByEmailBacSi(doctor.getEmail());
+    model.addAttribute("lichKhams", lichKhams);
+
+    model.addAttribute("role", "ROLE_DOCTOR");
+    model.addAttribute("customerName", doctor.getFullName());
+
+    return "chung/lichtrunggian";
+}
 
 
-            model.addAttribute("phanCongList", new ArrayList<>(uniqueEmails.values()));
-
-            // Lấy danh sách lịch đã tạo của bác sĩ này
-            List<LichTrungGian> lichKhams = lichTrungGianRepository.findByEmailBacSi(doctor.getEmail());
-            model.addAttribute("lichKhams", lichKhams);
-
-            // Truyền thêm role để view hiện form
-            model.addAttribute("role", "ROLE_DOCTOR");
-            model.addAttribute("customerName", doctor.getFullName());
-
-            return "chung/lichtrunggian";
-        }
 
 
+    // @GetMapping("/doctor/api/lichkham/{email}")
+    // @ResponseBody
+    // public Map<String, String> getLichKhamTheoEmail(@PathVariable String email) {
+    //     Map<String, String> result = new HashMap<>();
+    //     PhancongLichkham lich = phancongLichkhamRepository.findFirstByEmailBenhNhan(email);
 
+    //     if (lich != null) {
+    //         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    @GetMapping("/doctor/api/lichkham/{email}")
-    @ResponseBody
-    public Map<String, String> getLichKhamTheoEmail(@PathVariable String email) {
-        Map<String, String> result = new HashMap<>();
-        PhancongLichkham lich = phancongLichkhamRepository.findFirstByEmailBenhNhan(email);
+    //         result.put("tenBenhNhan", lich.getTenBenhNhan());
+    //         result.put("tenDichVu", lich.getDichVu());
+    //         result.put("ngayKham", lich.getNgayKham() != null ? lich.getNgayKham().format(formatter) : "");
+    //         result.put("chiTiet", lich.getChiTiet());
+    //     }
 
-        if (lich != null) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    //     return result;
+    // }
 
-            result.put("tenBenhNhan", lich.getTenBenhNhan());
-            result.put("tenDichVu", lich.getDichVu());
-            result.put("ngayKham", lich.getNgayKham() != null ? lich.getNgayKham().format(formatter) : "");
-            result.put("chiTiet", lich.getChiTiet());
-        }
+    @GetMapping("/api/lichkham/{email}")
+@ResponseBody
+public Map<String, String> getLichKhamTheoEmail(@PathVariable String email) {
+    Map<String, String> result = new HashMap<>();
+    KetquaKhambenh lich = ketquaKhambenhRepository
+        .findByEmailBenhNhanOrderByNgayKhamDesc(email)
+        .stream()
+        .findFirst()
+        .orElse(null);
 
-        return result;
+    if (lich != null) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        result.put("tenBenhNhan", lich.getTenBenhNhan());
+        result.put("tenDichVu", lich.getDichVu());
+        result.put("ngayKham", lich.getNgayKham() != null ? lich.getNgayKham().format(formatter) : "");
+        result.put("chiTiet", lich.getChiTiet());
     }
+
+    return result;
+}
+
     @PostMapping("/lichtrunggian/xoa/{id}")
     public String xoaLichTrungGian(@PathVariable Long id, Principal principal) {
         BacsiChuyenmon doctor = doctorService.findByEmail(principal.getName()).orElse(null);
@@ -188,18 +237,31 @@ model.addAttribute("emailList", emailList);
         private PhancongLichkhamRepository phancongLichkhamRepository;
 
         @GetMapping("/patients")
-        public String hienThiDanhSachBenhNhan(Model model) {
-            BacsiChuyenmon bacsi = getLoggedInDoctor();
-            if (bacsi == null) return "redirect:/auth/login";
+public String hienThiDanhSachBenhNhan(
+        @RequestParam(value = "keyword", required = false) String keyword,
+        Model model) {
 
-            List<PhancongLichkham> danhSachLichKham = phancongLichkhamRepository.findByEmailBacSi(bacsi.getEmail());
+    BacsiChuyenmon bacsi = getLoggedInDoctor();
+    if (bacsi == null) return "redirect:/auth/login";
 
-            model.addAttribute("customer", bacsi);
-            model.addAttribute("patients", danhSachLichKham);
-            model.addAttribute("activePage", "patients");
+    List<PhancongLichkham> danhSachLichKham = phancongLichkhamRepository.findByEmailBacSi(bacsi.getEmail());
 
-            return "doctor/doctor";
-        }
+    if (keyword != null && !keyword.trim().isEmpty()) {
+        String lowerKeyword = keyword.toLowerCase();
+        danhSachLichKham = danhSachLichKham.stream()
+            .filter(p -> p.getTenBenhNhan().toLowerCase().contains(lowerKeyword)
+                      || p.getEmailBenhNhan().toLowerCase().contains(lowerKeyword))
+            .toList();
+    }
+
+    model.addAttribute("keyword", keyword);
+    model.addAttribute("customer", bacsi);
+    model.addAttribute("patients", danhSachLichKham);
+    model.addAttribute("activePage", "patients");
+
+    return "doctor/doctor";
+}
+
 
         // ✅ Sửa: method trả về BacsiChuyenmon
         private BacsiChuyenmon getLoggedInDoctor() {
@@ -240,26 +302,40 @@ public String luuKetQuaKham(
         @RequestParam("examDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate ngayKham,
         @RequestParam("examType") String dichVu,
         @RequestParam("examNotes") String chiTiet,
-        @RequestParam("examResults") String ketQua,
+        @RequestParam("tenChong") String tenChong,
+        @RequestParam("ketQuaChong") String ketQuaChong,
+        @RequestParam("chiTietChong") String chiTietChong,
+        @RequestParam("tenVo") String tenVo,
+        @RequestParam("ketQuaVo") String ketQuaVo,
+        @RequestParam("chiTietVo") String chiTietVo,
         Model model) {
 
     BacsiChuyenmon bacsi = getLoggedInDoctor();
     if (bacsi == null) return "redirect:/auth/login";
 
-    com.hao.demo.model.KetquaKhambenh ketqua = new com.hao.demo.model.KetquaKhambenh();
+    KetquaKhambenh ketqua = new KetquaKhambenh();
     ketqua.setEmailBenhNhan(emailBenhNhan);
     ketqua.setTenBenhNhan(tenBenhNhan);
     ketqua.setNgayKham(ngayKham);
     ketqua.setDichVu(dichVu);
-    ketqua.setChiTiet(chiTiet);
-    ketqua.setKetQua(ketQua);
+    ketqua.setChiTiet(chiTiet); // Nếu không cần chiTiet tổng quát thì bỏ
     ketqua.setEmailBacSi(bacsi.getEmail());
     ketqua.setTenBacSi(bacsi.getFullName());
+
+    ketqua.setTenChong(tenChong);
+    ketqua.setKetQuaChong(ketQuaChong);
+    ketqua.setChiTietChong(chiTietChong);
+
+    ketqua.setTenVo(tenVo);
+    ketqua.setKetQuaVo(ketQuaVo);
+    ketqua.setChiTietVo(chiTietVo);
 
     ketquaKhambenhRepository.save(ketqua);
 
     return "redirect:/doctor/examination";
 }
+
+
 
 
     }

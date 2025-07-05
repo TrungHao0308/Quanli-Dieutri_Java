@@ -69,50 +69,123 @@
               <i class="fas fa-user-cog"></i><span>Hồ sơ cá nhân</span>
             </a>
           </li>
+          <li class="nav-item">
+            <a th:href="@{/customer/lichsudondat}">
+              <i class="fas fa-history"></i><span>Lịch sử khám</span>
+            </a>
+          </li>
         </ul>
       </nav>
 
       <!-- Main Content -->
       <main class="main-content">
         <div class="top-right">
+          <!-- Icon chuông -->
+          <div class="notification-wrapper">
+            <button
+              class="notification-btn"
+              onclick="toggleNotificationDropdown()"
+            >
+              <i class="fas fa-bell" id="notificationIcon"></i>
+              <span
+                class="notification-badge"
+                id="notificationCount"
+                style="display: none"
+                >0</span
+              >
+            </button>
+            <div
+              class="notification-dropdown"
+              id="notificationDropdown"
+              style="display: none"
+            >
+              <div class="notification-title">🔔 Thông báo mới</div>
+              <ul class="notification-list" id="notificationList">
+                <!-- Nội dung thông báo sẽ được JS đổ vào -->
+              </ul>
+            </div>
+          </div>
+
+          <!-- Nút đăng xuất -->
           <form th:action="@{/auth/logout}" method="post">
             <button type="submit" class="logout-btn">
               <i class="fas fa-sign-out-alt"></i> Đăng xuất
             </button>
           </form>
         </div>
+
         <div class="content-page active">
           <div class="page-header">
             <h1>Kết quả Điều trị</h1>
           </div>
           <div class="results-container">
-            <table class="results-table">
-              <thead>
-                <tr>
-                  <th>Email bác sĩ</th>
-                  <th>Tên bác sĩ</th>
-                  <th>Ngày khám</th>
-                  <th>Dịch vụ</th>
-                  <th>Kết quả khám</th>
-                  <th>Chi tiết</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr th:each="result : ${treatmentResults}">
-                  <td th:text="${result.emailBacSi}">bs@example.com</td>
-                  <td th:text="${result.tenBacSi}">BS. Nguyễn Văn A</td>
-                  <td th:text="${result.ngayKham}">2025-07-01</td>
-                  <td th:text="${result.dichVu}">Xét nghiệm nội tiết</td>
-                  <td th:text="${result.ketQua}">Bình thường</td>
-                  <td th:text="${result.chiTiet}">
-                    Không có dấu hiệu bất thường
-                  </td>
-                </tr>
-                <tr th:if="${#lists.isEmpty(treatmentResults)}">
-                  <td colspan="6">Không có kết quả nào để hiển thị.</td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="result-card" th:each="result : ${treatmentResults}">
+              <!-- Form bên trái -->
+              <div class="form-column">
+                <!-- <h3>Thông tin chồng</h3> -->
+                <div>
+                  <strong>Email bác sĩ:</strong>
+                  <span th:text="${result.emailBacSi}">email</span>
+                </div>
+                <div>
+                  <strong>Tên bác sĩ:</strong>
+                  <span th:text="${result.tenBacSi}">tên</span>
+                </div>
+                <div>
+                  <strong>Ngày khám:</strong>
+                  <span th:text="${result.ngayKham}">2025-07-01</span>
+                </div>
+                <div>
+                  <strong>Dịch vụ:</strong>
+                  <span th:text="${result.dichVu}">dịch vụ</span>
+                </div>
+                <div class="highlight-section">
+                  <h4><i class="fas fa-mars"></i> Tên chồng:</h4>
+                  <p th:text="${result.tenChong}">Tên chồng</p>
+
+                  <h4><i class="fas fa-stethoscope"></i> Kết quả chồng:</h4>
+                  <p th:text="${result.ketQuaChong}">Kết quả chồng</p>
+
+                  <h4><i class="fas fa-notes-medical"></i> Chi tiết chồng:</h4>
+                  <p th:text="${result.chiTietChong}">Chi tiết chồng</p>
+                </div>
+              </div>
+
+              <!-- Form bên phải -->
+              <div class="form-column">
+                <!-- <h3>Thông tin vợ</h3> -->
+                <div>
+                  <strong>Email bác sĩ:</strong>
+                  <span th:text="${result.emailBacSi}">email</span>
+                </div>
+                <div>
+                  <strong>Tên bác sĩ:</strong>
+                  <span th:text="${result.tenBacSi}">tên</span>
+                </div>
+                <div>
+                  <strong>Ngày khám:</strong>
+                  <span th:text="${result.ngayKham}">2025-07-01</span>
+                </div>
+                <div>
+                  <strong>Dịch vụ:</strong>
+                  <span th:text="${result.dichVu}">dịch vụ</span>
+                </div>
+                <div class="highlight-section">
+                  <h4><i class="fas fa-venus"></i> Tên vợ:</h4>
+                  <p th:text="${result.tenVo}">Tên vợ</p>
+
+                  <h4><i class="fas fa-stethoscope"></i> Kết quả vợ:</h4>
+                  <p th:text="${result.ketQuaVo}">Kết quả vợ</p>
+
+                  <h4><i class="fas fa-notes-medical"></i> Chi tiết vợ:</h4>
+                  <p th:text="${result.chiTietVo}">Chi tiết vợ</p>
+                </div>
+              </div>
+            </div>
+
+            <div th:if="${#lists.isEmpty(treatmentResults)}" class="no-result">
+              Không có kết quả nào để hiển thị.
+            </div>
           </div>
         </div>
       </main>

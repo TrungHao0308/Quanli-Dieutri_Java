@@ -67,33 +67,83 @@
               <i class="fas fa-user-cog"></i><span>Hồ sơ cá nhân</span>
             </a>
           </li>
+          <li class="nav-item">
+            <a th:href="@{/customer/lichsudondat}">
+              <i class="fas fa-history"></i><span>Lịch sử khám</span>
+            </a>
+          </li>
         </ul>
       </nav>
 
       <!-- Main Content -->
       <main class="main-content">
         <div class="top-right">
+          <!-- Icon chuông -->
+          <div class="notification-wrapper">
+            <button
+              class="notification-btn"
+              onclick="toggleNotificationDropdown()"
+            >
+              <i class="fas fa-bell" id="notificationIcon"></i>
+              <span
+                class="notification-badge"
+                id="notificationCount"
+                style="display: none"
+                >0</span
+              >
+            </button>
+            <div
+              class="notification-dropdown"
+              id="notificationDropdown"
+              style="display: none"
+            >
+              <div class="notification-title">🔔 Thông báo mới</div>
+              <ul class="notification-list" id="notificationList">
+                <!-- Nội dung thông báo sẽ được JS đổ vào -->
+              </ul>
+            </div>
+          </div>
+
+          <!-- Nút đăng xuất -->
           <form th:action="@{/auth/logout}" method="post">
             <button type="submit" class="logout-btn">
               <i class="fas fa-sign-out-alt"></i> Đăng xuất
             </button>
           </form>
         </div>
+
         <div class="content-page active">
           <div class="page-header">
             <h1>Đánh giá Dịch vụ</h1>
           </div>
           <div class="form-container">
+            <div th:if="${message}" class="alert-success">
+              <p th:text="${message}"></p>
+            </div>
+
             <form th:action="@{/customer/danhgia}" method="post">
+              <!-- Dịch vụ -->
               <div class="form-group">
                 <label for="service">Dịch vụ đã sử dụng</label>
                 <select id="service" name="service" required>
-                  <option value="">Chọn dịch vụ</option>
-                  <option value="IUI">IUI</option>
-                  <option value="IVF">IVF</option>
-                  <option value="consultation">Tư vấn sinh sản</option>
+                  <option value="" disabled selected hidden>
+                    Chọn dịch vụ
+                  </option>
+                  <th:block th:each="dv : ${dichVuList}">
+                    <option th:value="${dv}" th:text="${dv}"></option>
+                  </th:block>
                 </select>
               </div>
+
+              <!-- Bác sĩ -->
+              <div class="form-group">
+                <label for="doctor">Bác sĩ (tùy chọn)</label>
+                <select id="doctor" name="doctor" disabled>
+                  <option value="" disabled selected hidden>Chọn bác sĩ</option>
+                </select>
+              </div>
+
+              <!-- Đánh giá -->
               <div class="form-group">
                 <label for="rating">Đánh giá (1-5 sao)</label>
                 <select id="rating" name="rating" required>
@@ -104,14 +154,8 @@
                   <option value="1">1 sao</option>
                 </select>
               </div>
-              <div class="form-group">
-                <label for="doctor">Bác sĩ (tùy chọn)</label>
-                <select id="doctor" name="doctor">
-                  <option value="">Chọn bác sĩ</option>
-                  <option value="bs1">BS. Nguyễn Văn A</option>
-                  <option value="bs2">BS. Trần Thị B</option>
-                </select>
-              </div>
+
+              <!-- Nhận xét -->
               <div class="form-group">
                 <label for="comment">Nhận xét</label>
                 <textarea
@@ -122,6 +166,7 @@
                   required
                 ></textarea>
               </div>
+
               <button type="submit" class="btn-submit">Gửi đánh giá</button>
             </form>
           </div>

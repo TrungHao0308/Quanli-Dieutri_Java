@@ -410,3 +410,21 @@ tr:hover {
   color: green;
   border: 1px solid #badbcc;
 }
+/* Nút phân công */
+.btn-assign {
+  display: block; /* Để dễ căn giữa */
+  margin: 0 auto; /* Căn giữa ngang */
+  padding: 8px 16px;
+  background-color: #28a745; /* Màu xanh lá cây */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-assign:hover {
+  background-color: #218838; /* Màu xanh đậm khi hover */
+  transform: scale(1.05);
+}

@@ -164,14 +164,6 @@
         >
           <div class="page-header">
             <h1 class="page-title">Quản lý bệnh nhân</h1>
-            <div class="header-actions">
-              <input
-                type="text"
-                class="search-input"
-                placeholder="Tìm kiếm bệnh nhân..."
-                th:value="${searchTerm}"
-              />
-            </div>
           </div>
 
           <table class="table-patient">
@@ -270,26 +262,92 @@
               </div>
             </div>
 
-            <div class="form-group">
-              <label for="examResults">Kết quả khám</label>
-              <textarea
-                id="examResults"
-                name="examResults"
-                rows="5"
-                th:text="${examResults}"
-                placeholder="Nhập kết quả chi tiết..."
-              ></textarea>
-            </div>
-
-            <div class="form-group">
+            <div class="form-group" style="display: none">
               <label for="examNotes">Ghi chú</label>
               <input
                 type="text"
                 id="examNotes"
                 name="examNotes"
                 th:value="${examNotes}"
-                placeholder="Ghi chú thêm..."
               />
+            </div>
+
+            <div class="form-grid">
+              <!-- Cột: Chồng -->
+              <fieldset class="form-column">
+                <legend>👨 Chồng</legend>
+
+                <div class="form-group">
+                  <label for="tenChong">Tên chồng</label>
+                  <input
+                    type="text"
+                    id="tenChong"
+                    name="tenChong"
+                    placeholder="Nhập tên chồng"
+                    th:value="${tenChong}"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="ketQuaChong">Kết quả khám chồng</label>
+                  <textarea
+                    id="ketQuaChong"
+                    name="ketQuaChong"
+                    rows="4"
+                    placeholder="Nhập kết quả khám chồng"
+                    th:text="${ketQuaChong}"
+                  ></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="chiTietChong">Chi tiết chồng</label>
+                  <textarea
+                    id="chiTietChong"
+                    name="chiTietChong"
+                    rows="3"
+                    placeholder="Nhập chi tiết khám cho chồng"
+                    th:text="${chiTietChong}"
+                  ></textarea>
+                </div>
+              </fieldset>
+
+              <!-- Cột: Vợ -->
+              <fieldset class="form-column">
+                <legend>👩 Vợ</legend>
+
+                <div class="form-group">
+                  <label for="tenVo">Tên</label>
+                  <input
+                    type="text"
+                    id="tenVo"
+                    name="tenVo"
+                    placeholder="Nhập tên vợ"
+                    th:value="${tenVo}"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="ketQuaVo">Kết quả khám</label>
+                  <textarea
+                    id="ketQuaVo"
+                    name="ketQuaVo"
+                    rows="4"
+                    placeholder="Nhập kết quả khám vợ"
+                    th:text="${ketQuaVo}"
+                  ></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="chiTietVo">Chi tiết vợ</label>
+                  <textarea
+                    id="chiTietVo"
+                    name="chiTietVo"
+                    rows="3"
+                    placeholder="Nhập chi tiết khám cho vợ"
+                    th:text="${chiTietVo}"
+                  ></textarea>
+                </div>
+              </fieldset>
             </div>
 
             <div class="form-actions">

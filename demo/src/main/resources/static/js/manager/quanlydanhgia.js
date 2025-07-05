@@ -1,4 +1,3 @@
-
 function toggleSidebar() {
   const sidebar = document.querySelector(".sidebar");
   sidebar.classList.toggle("collapsed");
@@ -22,19 +21,19 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 });
 
 // Initialize tooltips for buttons
-document.querySelectorAll(".btn").forEach((btn) => {
-  btn.addEventListener("mouseover", function () {
-    const tooltip = document.createElement("span");
-    tooltip.className = "tooltip";
-    tooltip.innerText = this.innerText;
-    this.appendChild(tooltip);
-    setTimeout(() => tooltip.classList.add("show"), 10);
-  });
-  btn.addEventListener("mouseout", function () {
-    const tooltip = this.querySelector(".tooltip");
-    if (tooltip) tooltip.remove();
-  });
-});
+// document.querySelectorAll(".btn").forEach((btn) => {
+//   btn.addEventListener("mouseover", function () {
+//     const tooltip = document.createElement("span");
+//     tooltip.className = "tooltip";
+//     tooltip.innerText = this.innerText;
+//     this.appendChild(tooltip);
+//     setTimeout(() => tooltip.classList.add("show"), 10);
+//   });
+//   btn.addEventListener("mouseout", function () {
+//     const tooltip = this.querySelector(".tooltip");
+//     if (tooltip) tooltip.remove();
+//   });
+// });
 
 // Manage active state for sidebar navigation
 document.querySelectorAll(".sidebar-nav .nav-item").forEach((item) => {

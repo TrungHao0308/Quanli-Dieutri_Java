@@ -134,31 +134,35 @@ public class LichTrungGianController {
 
     @Autowired
     private DoctorService doctorService;
+// chỗ này vừa sửa
+   @GetMapping("/doctor/lichtrinh")
+public String lichDoctor(Model model) {
+    BacsiChuyenmon bacsi = getLoggedInDoctor();
+    if (bacsi == null) return "redirect:/auth/login";
 
-    @GetMapping("/doctor/lichtrinh")
-    public String lichDoctor(Model model) {
-        BacsiChuyenmon bacsi = getLoggedInDoctor();
-        if (bacsi == null) return "redirect:/auth/login";
+    List<LichTrungGian> lichKhams = lichTrungGianRepository.findByEmailBacSi(bacsi.getEmail());
 
-        List<LichTrungGian> lichKhams = lichTrungGianRepository.findByEmailBacSi(bacsi.getEmail());
+    // ✅ Cách lọc chính xác để chỉ lấy email bệnh nhân của bác sĩ hiện tại
+    List<KetquaKhambenh> ketquas = ketquaKhambenhRepository.findAll();
 
-        // Lấy danh sách email bệnh nhân từ bảng kết quả khám
-        List<String> emailList = ketquaKhambenhRepository
-    .findByEmailBacSiIgnoreCase(bacsi.getEmail()).stream()
-    .map(KetquaKhambenh::getEmailBenhNhan)
-    .distinct()
-    .collect(Collectors.toList());
-System.out.println("=> Bác sĩ đang login: " + bacsi.getEmail());
-emailList.forEach(email -> System.out.println("   - Bệnh nhân: " + email));
+    List<String> emailList = ketquas.stream()
+        .filter(kq -> kq.getEmailBacSi() != null && kq.getEmailBacSi().equalsIgnoreCase(bacsi.getEmail()))
+        .map(KetquaKhambenh::getEmailBenhNhan)
+        .distinct()
+        .collect(Collectors.toList());
 
+    // Debug
+    System.out.println("=> Bác sĩ đang login: " + bacsi.getEmail());
+    emailList.forEach(email -> System.out.println("   - Bệnh nhân: " + email));
 
-        model.addAttribute("role", "ROLE_DOCTOR");
-        model.addAttribute("lichKhams", lichKhams);
-        model.addAttribute("emailList", emailList);  // Truyền danh sách email
-        model.addAttribute("customerName", bacsi.getFullName());
+    model.addAttribute("role", "ROLE_DOCTOR");
+    model.addAttribute("lichKhams", lichKhams);
+    model.addAttribute("emailList", emailList); // Đưa danh sách email phù hợp
+    model.addAttribute("customerName", bacsi.getFullName());
 
-        return "chung/lichtrunggian";
-    }
+    return "chung/lichtrunggian";
+}
+
 
     private Customer getLoggedInCustomer() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

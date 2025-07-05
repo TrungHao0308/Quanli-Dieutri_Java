@@ -65,6 +65,11 @@
               <i class="fas fa-user-cog"></i><span>Hồ sơ cá nhân</span>
             </a>
           </li>
+          <li class="nav-item">
+            <a th:href="@{/customer/lichsudondat}">
+              <i class="fas fa-history"></i><span>Lịch sử khám</span>
+            </a>
+          </li>
         </ul>
       </nav>
 
@@ -72,13 +77,53 @@
       <main class="main-content">
         <div class="floating-icons-container"></div>
 
+        <!-- <div class="top-right">
+          <form th:action="@{/auth/logout}" method="post">
+            <button type="submit" class="logout-btn">
+              <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </button>
+          </form>
+        </div> -->
         <div class="top-right">
+          <!-- Icon chuông -->
+          <div class="notification-wrapper">
+            <button
+              class="notification-btn"
+              onclick="toggleNotificationDropdown()"
+            >
+              <i class="fas fa-bell" id="notificationIcon"></i>
+              <span
+                class="notification-badge"
+                id="notificationCount"
+                style="display: none"
+                >0</span
+              >
+            </button>
+            <div
+              class="notification-dropdown"
+              id="notificationDropdown"
+              style="display: none"
+            >
+              <div class="notification-title">🔔 Thông báo mới</div>
+              <ul class="notification-list" id="notificationList">
+                <li class="notification-item">
+                  <div class="notification-content">
+                    📅 Bác sĩ đã phân công lịch khám cho bạn
+                  </div>
+                  <div class="notification-time">03/07/2025 09:15</div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Nút đăng xuất -->
           <form th:action="@{/auth/logout}" method="post">
             <button type="submit" class="logout-btn">
               <i class="fas fa-sign-out-alt"></i> Đăng xuất
             </button>
           </form>
         </div>
+
         <div class="content-page active">
           <div class="page-header">
             <h1

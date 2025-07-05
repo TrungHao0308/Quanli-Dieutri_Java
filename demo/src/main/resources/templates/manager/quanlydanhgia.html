@@ -76,29 +76,35 @@
                   <th>ID</th>
                   <th>Khách hàng</th>
                   <th>Dịch vụ</th>
+                  <th>Email Bác sĩ</th>
+<th>Tên Bác sĩ</th>
+
                   <th>Điểm</th>
-                  <th>Bình luận</th>
+                  <th>Nhận xét</th>
                   <th>Ngày</th>
                   <th>Hành động</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Trần Thị B</td>
-                  <td>Khám nội tổng quát</td>
-                  <td>4.5</td>
-                  <td>Dịch vụ tốt, bác sĩ nhiệt tình</td>
-                  <td>2025-06-18</td>
-                  <td class="action-buttons">
-                    <button
-                      class="btn btn-delete"
-                      onclick="return confirm('Xóa đánh giá này?')"
-                    >
-                      Xóa
-                    </button>
-                  </td>
-                </tr>
+               <tr th:each="dg : ${danhgiaList}">
+  <td th:text="${dg.id}">1</td>
+  <td th:text="${dg.tenKhachHang}">Tên KH</td>
+  <td th:text="${dg.dichVu}">Khám nội</td>
+  <td th:text="${dg.emailBacSi}">email@ok.com</td>
+<td th:text="${dg.tenBacSi}">BS. Nguyễn Văn A</td>
+
+  <td th:text="${dg.mucDoHaiLong}">4</td>
+  <td th:text="${dg.nhanXet}">Nội dung</td>
+  <td th:text="${dg.ngayDanhGia != null ? dg.ngayDanhGia.toString() : 'Chưa có'}">Chưa có</td>
+
+  <td class="action-buttons">
+    <form th:action="@{/manager/xoa-danhgia/{id}(id=${dg.id})}" method="post" onsubmit="return confirm('Xóa đánh giá này?')">
+      <button class="btn btn-delete" type="submit" title="Xóa đánh giá này">Xóa</button>
+
+    </form>
+  </td>
+</tr>
+
               </tbody>
             </table>
           </section>

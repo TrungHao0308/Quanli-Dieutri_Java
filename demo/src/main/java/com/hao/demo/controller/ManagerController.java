@@ -4,14 +4,18 @@ import com.hao.demo.model.BacsiChuyenmon;
 import com.hao.demo.model.Baocao;
 import com.hao.demo.model.Customer;
 import com.hao.demo.model.DangkiDichvu;
+import com.hao.demo.model.Danhgia;
 import com.hao.demo.model.PhancongLichkham;
 import com.hao.demo.repository.BacsiChuyenmonRepository;
 import com.hao.demo.repository.CustomerRepository;
 import com.hao.demo.repository.DangkiDichvuRepository;
+import com.hao.demo.repository.DanhgiaRepository;
 import com.hao.demo.repository.PhancongLichkhamRepository;
 import com.hao.demo.service.CustomerService;
 import com.hao.demo.model.Dichvu;
+import com.hao.demo.model.KetquaKhambenh;
 import com.hao.demo.repository.DichvuRepository;
+import com.hao.demo.repository.KetquaKhambenhRepository;
 
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -65,6 +69,12 @@ public String indexPage(Model model) {
 @Autowired
 private com.hao.demo.repository.LichTrungGianRepository lichTrungGianRepository;
 
+@Autowired
+private KetquaKhambenhRepository ketquaKhambenhRepository;
+@Autowired
+private com.hao.demo.repository.BaocaoRepository baocaoRepository;
+
+
 @GetMapping("/baocao")
 public String showBaoCao(Model model) {
     List<Dichvu> danhSachDichVu = dichvuRepository.findAll();
@@ -76,6 +86,38 @@ public String showBaoCao(Model model) {
 
     return loadManagerPage(model, "manager/baocao");
 }
+
+// @GetMapping("/baocao/loc")
+// public String locBaoCao(
+//         @RequestParam("reportType") Long dichvuId,
+//         @RequestParam("dateRangeStart") String dateStart,
+//         @RequestParam("dateRangeEnd") String dateEnd,
+//         Model model) {
+
+//     Optional<Dichvu> opt = dichvuRepository.findById(dichvuId);
+//     if (opt.isEmpty()) {
+//         model.addAttribute("error", "Không tìm thấy dịch vụ.");
+//         return loadManagerPage(model, "manager/baocao");
+//     }
+
+//     String tenDichVu = opt.get().getTenDichVu();
+
+//     LocalDate startDate = LocalDate.parse(dateStart);
+//     LocalDate endDate = LocalDate.parse(dateEnd);
+
+//     List<com.hao.demo.model.LichTrungGian> ketQua =
+//         lichTrungGianRepository.findByTenDichVuAndNgayKhamBetween(tenDichVu, startDate, endDate);
+
+//     List<Dichvu> danhSachDichVu = dichvuRepository.findAll();
+//     model.addAttribute("danhSachDichVu", danhSachDichVu);
+//     model.addAttribute("ketQuaBaoCao", ketQua);
+
+//     // ✅ THÊM DÒNG NÀY để luôn hiển thị bảng báo cáo dưới:
+//     List<Baocao> baoCaoList = baocaoRepository.findAll();
+//     model.addAttribute("baoCaoList", baoCaoList);
+
+//     return loadManagerPage(model, "manager/baocao");
+// }
 
 @GetMapping("/baocao/loc")
 public String locBaoCao(
@@ -91,34 +133,30 @@ public String locBaoCao(
     }
 
     String tenDichVu = opt.get().getTenDichVu();
-
     LocalDate startDate = LocalDate.parse(dateStart);
     LocalDate endDate = LocalDate.parse(dateEnd);
 
-    List<com.hao.demo.model.LichTrungGian> ketQua =
-        lichTrungGianRepository.findByTenDichVuAndNgayKhamBetween(tenDichVu, startDate, endDate);
+    // ✅ DÙNG ket_qua_kham THAY VÌ lich_trung_gian
+    List<KetquaKhambenh> ketQua =
+    ketquaKhambenhRepository.findByDichVuAndNgayKhamBetween(tenDichVu, startDate, endDate);
 
-    List<Dichvu> danhSachDichVu = dichvuRepository.findAll();
-    model.addAttribute("danhSachDichVu", danhSachDichVu);
+
+
+
     model.addAttribute("ketQuaBaoCao", ketQua);
-
-    // ✅ THÊM DÒNG NÀY để luôn hiển thị bảng báo cáo dưới:
-    List<Baocao> baoCaoList = baocaoRepository.findAll();
-    model.addAttribute("baoCaoList", baoCaoList);
+    model.addAttribute("danhSachDichVu", dichvuRepository.findAll());
+    model.addAttribute("baoCaoList", baocaoRepository.findAll());
 
     return loadManagerPage(model, "manager/baocao");
 }
 
 
-    @Autowired
-private com.hao.demo.repository.BaocaoRepository baocaoRepository;
-
 @PostMapping("/baocao/tao")
 public String taoBaoCao(
         @RequestParam("dichvuId") Long dichvuId,
-    @RequestParam("dateStart") String dateStart,
-    @RequestParam("dateEnd") String dateEnd,
-    RedirectAttributes redirectAttributes) {
+        @RequestParam("dateStart") String dateStart,
+        @RequestParam("dateEnd") String dateEnd,
+        RedirectAttributes redirectAttributes) {
 
     Optional<Dichvu> opt = dichvuRepository.findById(dichvuId);
     if (opt.isEmpty()) {
@@ -133,13 +171,14 @@ public String taoBaoCao(
     LocalDate startDate = LocalDate.parse(dateStart);
     LocalDate endDate = LocalDate.parse(dateEnd);
 
-    List<com.hao.demo.model.LichTrungGian> ketQua =
-        lichTrungGianRepository.findByTenDichVuAndNgayKhamBetween(tenDichVu, startDate, endDate);
+    // Lấy dữ liệu từ ket_qua_kham
+    List<KetquaKhambenh> ketQua = ketquaKhambenhRepository
+            .findByDichVuAndNgayKhamBetween(tenDichVu, startDate, endDate);
 
     int soLuong = ketQua.size();
     double doanhThu = giaKham * soLuong;
 
-    com.hao.demo.model.Baocao baoCao = new com.hao.demo.model.Baocao();
+    Baocao baoCao = new Baocao();
     baoCao.setTenDichVu(tenDichVu);
     baoCao.setSoLuong(soLuong);
     baoCao.setDoanhThu(doanhThu);
@@ -150,7 +189,6 @@ public String taoBaoCao(
     redirectAttributes.addFlashAttribute("success", "Đã tạo báo cáo thành công!");
     return "redirect:/manager/baocao";
 }
-
 
 @Autowired
 private DichvuRepository dichvuRepository;
@@ -175,10 +213,22 @@ model.addAttribute("dichVus", dichVus);
 
 
 
-    @GetMapping("/quanlydanhgia")
-    public String showDanhGia(Model model) {
-        return loadManagerPage(model, "manager/quanlydanhgia");
-    }
+@Autowired
+private DanhgiaRepository danhgiaRepository;
+
+@GetMapping("/quanlydanhgia")
+public String hienThiDanhSachDanhGia(Model model) {
+    List<Danhgia> danhgiaList = danhgiaRepository.findAll();
+    model.addAttribute("danhgiaList", danhgiaList);
+    return "manager/quanlydanhgia";
+}
+@PostMapping("/xoa-danhgia/{id}")
+public String xoaDanhGia(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+    danhgiaRepository.deleteById(id);
+    redirectAttributes.addFlashAttribute("success", "Đã xóa đánh giá thành công!");
+    return "redirect:/manager/quanlydanhgia";
+}
+
 
    @Autowired
 private DichvuRepository dichVuRepository;
@@ -273,13 +323,13 @@ public String hienThiDangKy(Model model) {
     }
 
     model.addAttribute("lichPhanCongMap", lichPhanCongMap);
+      model.addAttribute("lichDaPhanCong", phancongLichkhamRepository.findAll());
     return "manager/quanlylichkham";
 }
 
 
-
-@GetMapping("/phancong")
-public String hienThiFormPhanCong(@RequestParam("id") Long id, Model model) {
+@GetMapping("/phancong/{id}")
+public String hienThiFormPhanCong(@PathVariable("id") Long id, Model model) {
     Customer manager = getLoggedInCustomer();
     if (manager == null) return "redirect:/auth/login";
 
@@ -299,11 +349,11 @@ public String hienThiFormPhanCong(@RequestParam("id") Long id, Model model) {
     model.addAttribute("customerName", manager.getFullName());
     model.addAttribute("lich", pc);
 
-    return "manager/phanconglichkham"; // Giao diện điền lịch khám
+    return "manager/phanconglichkham";
 }
 
-@PostMapping("/phancong")
 
+@PostMapping("/phancong")
 public String luuPhanCong(
     @RequestParam String emailBenhNhan,
     @RequestParam String tenBenhNhan,
@@ -315,41 +365,10 @@ public String luuPhanCong(
     @RequestParam String lichKham,
     RedirectAttributes redirectAttributes
 ) {
-    
-    BacsiChuyenmon bacsi = bacsiChuyenmonRepository.findByEmail(emailBacSi);
-    if (bacsi == null) {
-        redirectAttributes.addFlashAttribute("error", "Không tìm thấy thông tin ca làm của bác sĩ.");
-        return "redirect:/manager/quanlylichkham";
-    }
-
-    // Kiểm tra giờ hợp lệ
-    String caLam = bacsi.getCaLam();
-    String gioPhanCong = lichKham.split("-")[0].trim();
-
-    try {
-        String[] parts = gioPhanCong.split(":");
-        int hour = Integer.parseInt(parts[0].trim());
-        int minute = Integer.parseInt(parts[1].trim());
-        int totalMinutes = hour * 60 + minute;
-
-        boolean hopLe = false;
-        if ("sáng".equalsIgnoreCase(caLam)) {
-            hopLe = (totalMinutes >= 420 && totalMinutes <= 660); // 07:00–11:00
-        } else if ("chiều".equalsIgnoreCase(caLam)) {
-            hopLe = (totalMinutes >= 780 && totalMinutes <= 1020); // 13:00–17:00
-        }
-
-        if (!hopLe) {
-            redirectAttributes.addFlashAttribute("error", "Bác sĩ có ca làm " + caLam + ", vui lòng phân công giờ phù hợp.");
-            return "redirect:/manager/quanlylichkham";
-        }
-    } catch (Exception e) {
-        redirectAttributes.addFlashAttribute("error", "Định dạng giờ không hợp lệ. VD: 09:00 - Phòng 3");
-        return "redirect:/manager/quanlylichkham";
-    }
+    // Bỏ kiểm tra ca làm và giờ
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-LocalDate ngayKhamDate = LocalDate.parse(ngayKham, formatter);
-    // Lưu lịch khám
+    LocalDate ngayKhamDate = LocalDate.parse(ngayKham, formatter);
+
     PhancongLichkham pc = new PhancongLichkham();
     pc.setEmailBenhNhan(emailBenhNhan);
     pc.setTenBenhNhan(tenBenhNhan);
@@ -361,9 +380,16 @@ LocalDate ngayKhamDate = LocalDate.parse(ngayKham, formatter);
     pc.setLichKham(lichKham);
 
     phancongLichkhamRepository.save(pc);
-    redirectAttributes.addFlashAttribute("success", "Phân công lịch khám thành công!");
-    return "redirect:/manager/quanlylichkham";
+
+// Xoá bản ghi trong bảng dang_ki_dich_vu tương ứng với email và ngày khám
+dangkiDichvuRepository.deleteByEmailAndNgayKham(emailBenhNhan, ngayKhamDate);
+
+redirectAttributes.addFlashAttribute("success", "Phân công lịch khám thành công!");
+return "redirect:/manager/quanlylichkham";
+
 }
+
+
 
 
 

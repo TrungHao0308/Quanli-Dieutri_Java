@@ -69,21 +69,54 @@
               <i class="fas fa-user-cog"></i><span>Hồ sơ cá nhân</span>
             </a>
           </li>
+          <li class="nav-item">
+            <a th:href="@{/customer/lichsudondat}">
+              <i class="fas fa-history"></i><span>Lịch sử khám</span>
+            </a>
+          </li>
         </ul>
       </nav>
 
       <!-- Main Content -->
       <main class="main-content">
         <div class="top-right">
+          <!-- Icon chuông -->
+          <div class="notification-wrapper">
+            <button
+              class="notification-btn"
+              onclick="toggleNotificationDropdown()"
+            >
+              <i class="fas fa-bell" id="notificationIcon"></i>
+              <span
+                class="notification-badge"
+                id="notificationCount"
+                style="display: none"
+                >0</span
+              >
+            </button>
+            <div
+              class="notification-dropdown"
+              id="notificationDropdown"
+              style="display: none"
+            >
+              <div class="notification-title">🔔 Thông báo mới</div>
+              <ul class="notification-list" id="notificationList">
+                <!-- Nội dung thông báo sẽ được JS đổ vào -->
+              </ul>
+            </div>
+          </div>
+
+          <!-- Nút đăng xuất -->
           <form th:action="@{/auth/logout}" method="post">
             <button type="submit" class="logout-btn">
               <i class="fas fa-sign-out-alt"></i> Đăng xuất
             </button>
           </form>
         </div>
-        <div class="alert alert-success">
+
+        <!-- <div class="alert alert-success">
           Bạn đã đăng kí lịch khám thành công!
-        </div>
+        </div> -->
 
         <ul class="thong-bao-list">
           <th:block
@@ -113,9 +146,12 @@
           >
             <h4 th:text="'Lịch khám ngày ' + ${lich.ngayKham}"></h4>
             <p>
-              <strong>Giờ & Phòng:</strong>
-              <span th:text="${lich.lichKham}"></span>
+              <strong>Giờ khám:</strong>
+              <span
+                th:text="${lich.lichKham != null ? lich.lichKham : 'Chưa có giờ'}"
+              ></span>
             </p>
+
             <p>
               <strong>Bác sĩ:</strong> <span th:text="${lich.tenBacSi}"></span>
             </p>

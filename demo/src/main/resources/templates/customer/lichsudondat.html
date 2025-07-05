@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lịch sử đơn đặt - Hy Vọng Mới</title>
+
+    <link rel="stylesheet" th:href="@{/css/customer/lichsudondat.css}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <button class="btn-toggle-sidebar" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <nav class="sidebar" th:fragment="sidebar">
+        <div class="sidebar-header">
+          <h2>Hy Vọng Mới</h2>
+          <div class="user-info">
+            <div
+              class="user-avatar"
+              th:text="${customerName != null} ? ${customerName.substring(0,1)} : 'H'"
+            >
+              H
+            </div>
+            <div class="user-details">
+              <h3 th:text="${customerName}">Customer</h3>
+            </div>
+          </div>
+        </div>
+        <ul class="sidebar-nav">
+          <li class="nav-item">
+            <a th:href="@{/customer/thongbao}"
+              ><i class="fas fa-home"></i><span>Thông báo</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/customer/dangkidichvu}"
+              ><i class="fas fa-plus-circle"></i><span>Đăng ký dịch vụ</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/customer/lichtrinhdieutri}"
+              ><i class="fas fa-calendar-check"></i
+              ><span>Lịch trình điều trị</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/customer/ketquadieutri}"
+              ><i class="fas fa-file-medical-alt"></i
+              ><span>Kết quả điều trị</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/customer/danhgia}"
+              ><i class="fas fa-star"></i><span>Đánh giá</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a th:href="@{/customer/hosocanhan}"
+              ><i class="fas fa-user-cog"></i><span>Hồ sơ cá nhân</span></a
+            >
+          </li>
+          <li class="nav-item active">
+            <a th:href="@{/customer/lichsudondat}"
+              ><i class="fas fa-history"></i><span>Lịch sử khám</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="top-right">
+          <div class="notification-wrapper">
+            <button
+              class="notification-btn"
+              onclick="toggleNotificationDropdown()"
+            >
+              <i class="fas fa-bell" id="notificationIcon"></i>
+              <span
+                class="notification-badge"
+                id="notificationCount"
+                style="display: none"
+                >0</span
+              >
+            </button>
+            <div
+              class="notification-dropdown"
+              id="notificationDropdown"
+              style="display: none"
+            >
+              <div class="notification-title">🔔 Thông báo mới</div>
+              <ul class="notification-list" id="notificationList"></ul>
+            </div>
+          </div>
+
+          <form th:action="@{/auth/logout}" method="post">
+            <button type="submit" class="logout-btn">
+              <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </button>
+          </form>
+        </div>
+
+        <div class="content-page active">
+          <div class="page-header">
+            <h1>Lịch sử đơn đặt</h1>
+          </div>
+
+          <!-- Kết quả điều trị -->
+          <div class="centered-form">
+            <div class="form-container">
+              <th:block
+                th:if="${ketQuaList != null and !#lists.isEmpty(ketQuaList)}"
+              >
+                <div class="table-wrapper">
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>Email bác sĩ</th>
+                        <th>Tên bác sĩ</th>
+                        <th>Dịch vụ</th>
+                        <th>Ngày khám</th>
+
+                        <th>Tên vợ</th>
+                        <th>Tên chồng</th>
+                        <th>Kết quả vợ</th>
+                        <th>Kết quả chồng</th>
+                        <th>Chi tiết vợ</th>
+                        <th>Chi tiết chồng</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr th:each="kq : ${ketQuaList}">
+                        <td
+                          th:text="${kq.emailBacSi != null} ? ${kq.emailBacSi} : '--'"
+                        >
+                          --
+                        </td>
+                        <td
+                          th:text="${kq.tenBacSi != null} ? ${kq.tenBacSi} : '--'"
+                        >
+                          --
+                        </td>
+                        <td
+                          th:text="${kq.dichVu != null} ? ${kq.dichVu} : '--'"
+                        >
+                          --
+                        </td>
+                        <td
+                          th:text="${kq.ngayKham != null} ? ${#temporals.format(kq.ngayKham, 'dd/MM/yyyy')} : '--'"
+                        >
+                          --
+                        </td>
+
+                        <td th:text="${kq.tenVo != null} ? ${kq.tenVo} : '--'">
+                          --
+                        </td>
+                        <td
+                          th:text="${kq.tenChong != null} ? ${kq.tenChong} : '--'"
+                        >
+                          --
+                        </td>
+                        <td
+                          th:text="${kq.ketQuaVo != null} ? ${kq.ketQuaVo} : '--'"
+                        >
+                          --
+                        </td>
+                        <td
+                          th:text="${kq.ketQuaChong != null} ? ${kq.ketQuaChong} : '--'"
+                        >
+                          --
+                        </td>
+                        <td
+                          th:text="${kq.chiTietVo != null} ? ${kq.chiTietVo} : '--'"
+                        >
+                          --
+                        </td>
+                        <td
+                          th:text="${kq.chiTietChong != null} ? ${kq.chiTietChong} : '--'"
+                        >
+                          --
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </th:block>
+              <p th:if="${ketQuaList == null or #lists.isEmpty(ketQuaList)}">
+                Không có kết quả điều trị nào.
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script th:src="@{/js/customer/customer.js}" defer></script>
+    <script th:src="@{/js/customer/lichsudondat.js}" defer></script>
+  </body>
+</html>
