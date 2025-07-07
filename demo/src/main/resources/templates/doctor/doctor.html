@@ -12,6 +12,8 @@
     />
   </head>
   <body>
+    <canvas id="bubble-canvas"></canvas>
+
     <div class="container">
       <!-- Sidebar -->
       <nav class="sidebar">
@@ -63,6 +65,8 @@
 
       <!-- Main -->
       <main class="main-content">
+        
+
         <div class="top-right">
           <form th:action="@{/auth/logout}" method="post">
             <button type="submit" class="logout-btn">
@@ -71,20 +75,38 @@
           </form>
         </div>
         <!-- Trang chào bác sĩ -->
-        <section
-          id="welcome"
-          class="page"
-          th:classappend="${activePage == 'home' ? 'active' : ''}"
-        >
-          <div class="page-header">
-            <h1 class="page-title">Chào mừng bác sĩ</h1>
-          </div>
-          <div class="welcome-content">
-            <p>Xin chào, <strong th:text="${customerName}"></strong> 👨‍⚕️</p>
-            <p>Chào mừng bạn đến với hệ thống quản lý "Hy Vọng Mới".</p>
-            <p>Vui lòng chọn chức năng ở menu bên trái để bắt đầu làm việc.</p>
-          </div>
-        </section>
+       <section
+  id="welcome"
+  class="page"
+  th:classappend="${activePage == 'home' ? 'active' : ''}"
+>
+  <div class="page-header">
+    <h1 class="page-title">Xin chào, Bác sĩ <strong th:text="${customerName}"></strong> 👨‍⚕️</h1>
+
+  </div>
+
+  
+
+  <div class="process-title">
+    <h2>🧭 Quy trình làm việc</h2>
+  </div>
+
+  <div class="process-steps">
+    <div class="step-card floating step-1">
+      <h3><span class="step-icon">📅</span> Nhận lịch khám</h3>
+      <p> Bác sĩ kiểm tra thông tin bệnh nhân, dịch vụ và thời gian.</p>
+    </div>
+    <div class="step-card floating delay1 step-2">
+      <h3><span class="step-icon">🩺</span> Khám và lưu kết quả</h3>
+      <p>Bác sĩ nhập kết quả khám bệnh, chẩn đoán và chỉ định cần thiết vào hệ thống.</p>
+    </div>
+    <div class="step-card floating delay2 step-3">
+      <h3><span class="step-icon">📈</span> Lịch trình điều trị</h3>
+      <p>Bác sĩ lên lịch trình điều trị, theo dõi tiến trình và hướng dẫn cho bệnh nhân qua hệ thống.</p>
+    </div>
+  </div>
+</section>
+
 
         <!-- Dashboard -->
         <section
@@ -370,7 +392,7 @@
           </p>
         </div>
       </div>
-    </div>
+
 
     <script th:src="@{/js/doctor/doctor.js}"></script>
   </body>

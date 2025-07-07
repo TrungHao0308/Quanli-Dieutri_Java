@@ -639,3 +639,11 @@ footer {
     flex-direction: column;
   }
 }
+
+#bubble-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1; /* phía sau nội dung */
+  pointer-events: none;
+}
