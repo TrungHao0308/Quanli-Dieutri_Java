@@ -780,3 +780,10 @@ tr:hover {
     padding: 15px;
   }
 }
+#snow-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 1001;
+}

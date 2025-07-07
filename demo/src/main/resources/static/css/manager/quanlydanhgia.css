@@ -314,3 +314,10 @@ table tr:hover {
   cursor: pointer;
   border-radius: 4px;
 }
+#snow-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 0;
+}

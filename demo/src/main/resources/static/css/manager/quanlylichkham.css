@@ -428,3 +428,10 @@ tr:hover {
   background-color: #218838; /* Màu xanh đậm khi hover */
   transform: scale(1.05);
 }
+#snow-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 1001;
+}
