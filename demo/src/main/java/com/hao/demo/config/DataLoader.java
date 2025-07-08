@@ -14,13 +14,17 @@ import java.util.Set;
 
 @Configuration
 public class DataLoader implements CommandLineRunner {
-
+// CommandLineRunner là một interface của Spring, khi chạy phương thức run() được gọi 1 lần duy nhất, chạy một số lệnh khởi tạo ngay khi app bật lên
+// khi khởi động, nếu bảng role trống, các role sẽ được tạo, cho có tk admin sẽ tạo luôn
+    // truy vấn ghi dữ liệu bảng role
     @Autowired
     private RoleRepository roleRepository;
 
+    // thêm tài khoản admin mặc định vào customer
     @Autowired
     private CustomerRepository customerRepository;
 
+    // mã hóa pass
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -45,7 +49,7 @@ public class DataLoader implements CommandLineRunner {
             System.out.println("✔️ Admin account created: admin@gmail.com / admin123");
         }
     }
-
+    // tìm role theo tên role (ROLE_ADMIN,..)
     private Role createRoleIfNotExists(String roleName) {
         return roleRepository.findByName(roleName)
                 .orElseGet(() -> roleRepository.save(new Role(roleName)));

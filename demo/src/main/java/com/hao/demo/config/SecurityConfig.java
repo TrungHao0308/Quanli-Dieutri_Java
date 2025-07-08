@@ -7,8 +7,8 @@
     import jakarta.servlet.http.HttpServletResponse;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.context.annotation.*;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
+    import org.springframework.http.HttpMethod;
+    import org.springframework.security.authentication.AuthenticationManager;
     import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
     import org.springframework.security.config.annotation.web.builders.HttpSecurity;
     import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,11 +19,14 @@ import org.springframework.security.authentication.AuthenticationManager;
     import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
     import java.io.IOException;
+    
+    import javax.swing.Spring;
 
-    @Configuration
-    @EnableWebSecurity
+    @Configuration  // lớp cấu hình
+    @EnableWebSecurity  // kích hoạt Spring security
     public class SecurityConfig {
 
+        // Spring Security lấy thông tin người dùng từ database
         private final CustomUserDetailsService customUserDetailsService;
 
         @Autowired
@@ -31,6 +34,7 @@ import org.springframework.security.authentication.AuthenticationManager;
             this.customUserDetailsService = customUserDetailsService;
         }
 
+        // Mã hóa BBrypt lưu vào db, không lưu plain text
         @Bean
         public PasswordEncoder passwordEncoder() {
             return new BCryptPasswordEncoder();
@@ -48,9 +52,11 @@ import org.springframework.security.authentication.AuthenticationManager;
         @Bean
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
             http
-                .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf.disable()) // tắt CSRF: tấn công giả mạo từ yêu cầu của web khác
+                // Cho phép truy cập tự do
                 .authorizeHttpRequests(authz -> authz
                     .requestMatchers("/", "/trangchu", "/phacdodieutri", "/doingubacsi", "/cosoyte", "/auth/**", "/css/**", "/js/**", "/images/**").permitAll()
+                // các request đúng vai trò mới thực hiện, nghĩa là đăng nhập mới xem
                     .requestMatchers(HttpMethod.POST, "/admin/save").hasRole("ADMIN")
                     .requestMatchers("/admin/**").hasRole("ADMIN")
     .requestMatchers("/doctor/**").hasRole("DOCTOR")
@@ -86,7 +92,7 @@ import org.springframework.security.authentication.AuthenticationManager;
                     var authorities = authentication.getAuthorities();
 
                     if (authorities.stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"))) {
-        response.sendRedirect("/admin");
+        response.sendRedirect("/admin");  // chuyển hướng
     } else if (authorities.stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_DOCTOR"))) {
         response.sendRedirect("/doctor");
     } else if (authorities.stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_MANAGER"))) {
@@ -99,3 +105,5 @@ import org.springframework.security.authentication.AuthenticationManager;
             };
         }
     }
+
+    // khi dùng Bean: Spring tạo ra đối tượng đó 1 lần duy nhất và tái sử dụng

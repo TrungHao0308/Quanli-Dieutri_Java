@@ -34,6 +34,7 @@ public class AdminController {
         return loadAdminPage(model, "admin/admin");
     }
 
+    
     @GetMapping(value = "/list", produces = "application/json")
     @ResponseBody
     public List<Customer> getCustomers(@RequestParam(required = false) String search,

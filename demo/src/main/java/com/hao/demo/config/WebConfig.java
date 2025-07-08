@@ -9,6 +9,12 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
+// Ánh xạ URL đến tên file HTML trong thư mục templates/ mà không cần tạo Controller riêng.
+
+// http://localhost:8080/phacdodieutri, Spring Boot sẽ render file templates/phacdodieutri.html.
+
+// Giảm bớt số lượng controller khi chỉ cần hiển thị trang tĩnh.(trang chưa đăng nhập)
+
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
