@@ -123,6 +123,7 @@ import java.util.stream.Collectors;
 @Controller
 public class LichTrungGianController {
 
+    //  Tiêm các repository và service phục vụ cho việc lấy thông tin bác sĩ, bệnh nhân, lịch điều trị và kết quả khám.
     @Autowired
     private LichTrungGianRepository lichTrungGianRepository;
 
@@ -134,7 +135,9 @@ public class LichTrungGianController {
 
     @Autowired
     private DoctorService doctorService;
-// chỗ này vừa sửa
+
+
+    // Hiển thị toàn bộ lịch mà bác sĩ đã tạo, lấy từ lich_trung_gian
    @GetMapping("/doctor/lichtrinh")
 public String lichDoctor(Model model) {
     BacsiChuyenmon bacsi = getLoggedInDoctor();
@@ -163,7 +166,7 @@ public String lichDoctor(Model model) {
     return "chung/lichtrunggian";
 }
 
-
+    // Lấy thông tin bệnh nhân đang đăng nhập
     private Customer getLoggedInCustomer() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || !auth.isAuthenticated() || auth.getPrincipal().equals("anonymousUser")) {
@@ -172,6 +175,7 @@ public String lichDoctor(Model model) {
         return customerService.findByEmail(auth.getName()).orElse(null);
     }
 
+    // Lấy thông tin bác sĩ đang đăng nhập
     private BacsiChuyenmon getLoggedInDoctor() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || !auth.isAuthenticated() || auth.getPrincipal().equals("anonymousUser")) {
@@ -180,6 +184,7 @@ public String lichDoctor(Model model) {
         return doctorService.findByEmail(auth.getName()).orElse(null);
     }
 
+    // Khi bác sĩ thêm lịch thì sẽ lưu trên lich_trung_gian
     @PostMapping("/doctor/lichtrunggian/them")
     public String themLichTrungGian(@RequestParam String emailBenhNhan,
                                     @RequestParam String tenBenhNhan,

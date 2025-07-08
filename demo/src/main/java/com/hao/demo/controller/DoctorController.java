@@ -44,7 +44,7 @@ import com.hao.demo.model.LichTrungGian;
         public DoctorController(CustomerService customerService) {
             this.customerService = customerService;
         }
-
+        // Lấy thông tin đăng nhập dựa vào email từ Spring Security
         private Customer getLoggedInCustomer() {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication == null || !authentication.isAuthenticated() ||
@@ -69,6 +69,8 @@ import com.hao.demo.model.LichTrungGian;
             return viewName;
         }
 
+
+// Trang chính, gọi /doctor để truyền vào
         @GetMapping("")
 public String loadDoctorPage(Model model) {
     BacsiChuyenmon bacsi = getLoggedInDoctor();
@@ -76,12 +78,12 @@ public String loadDoctorPage(Model model) {
 
     model.addAttribute("customer", bacsi);
     model.addAttribute("customerName", bacsi.getFullName());
-    model.addAttribute("activePage", "home"); // <-- đây là điểm khác biệt
+    model.addAttribute("activePage", "home"); // <-- xác định đang mở trang chính
 
     return "doctor/doctor";
 }
 
-
+    // Lấy từ bảng phan_cong_lich_kham các lịch khám có thông tin tài khoản bác sĩ
     @GetMapping("/dashboard")
     public String showDashboard(
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate ngay,
@@ -106,46 +108,12 @@ public String loadDoctorPage(Model model) {
     }
 
 
-
-
-        // @GetMapping("/schedule")
-        // public String showSchedule(Model model) {
-        //     return loadDoctorPage(model, "doctor/doctor", "schedule");
-        // }
-
         @Autowired
         private LichTrungGianRepository lichTrungGianRepository;
             @Autowired
             private DoctorService doctorService;
 
-            // chỗ này vừa sửa
-//         @GetMapping("/tao-lichtrunggian")
-// public String formTaoLichTrungGian(Model model, Principal principal) {
-//     BacsiChuyenmon doctor = doctorService.findByEmail(principal.getName()).orElse(null);
-//     if (doctor == null) return "redirect:/auth/login";
-
-//     // ✅ Lọc đúng lịch khám của bác sĩ hiện tại
-//     List<PhancongLichkham> all = phancongLichkhamRepository.findByEmailBacSi(doctor.getEmail());
-
-//     Map<String, PhancongLichkham> uniqueEmails = new LinkedHashMap<>();
-//     for (PhancongLichkham lich : all) {
-//         uniqueEmails.putIfAbsent(lich.getEmailBenhNhan(), lich);
-//     }
-//     List<String> emailList = new ArrayList<>(uniqueEmails.keySet());
-
-//     model.addAttribute("emailList", emailList);
-//     model.addAttribute("phanCongList", new ArrayList<>(uniqueEmails.values()));
-
-//     // Lịch đã tạo của bác sĩ này
-//     List<LichTrungGian> lichKhams = lichTrungGianRepository.findByEmailBacSi(doctor.getEmail());
-//     model.addAttribute("lichKhams", lichKhams);
-
-//     model.addAttribute("role", "ROLE_DOCTOR");
-//     model.addAttribute("customerName", doctor.getFullName());
-
-//     return "chung/lichtrunggian";
-// }
-
+// Lấy bảng ket_qua_kham các email bệnh nhân đã có kết quả để tạo lịch điều trị và lấy bảng lich_trung_gian để hiển thị
 @GetMapping("/tao-lichtrunggian")
 public String formTaoLichTrungGian(Model model, Principal principal) {
     BacsiChuyenmon doctor = doctorService.findByEmail(principal.getName()).orElse(null);
@@ -170,27 +138,23 @@ public String formTaoLichTrungGian(Model model, Principal principal) {
     return "chung/lichtrunggian";
 }
 
+    // Bấm nút xóa sẽ kiểm tra đúng thông tin bác sĩ mới xóa trên bảng lich_trung_gian
+    @PostMapping("/lichtrunggian/xoa/{id}")
+    public String xoaLichTrungGian(@PathVariable Long id, Principal principal) {
+        BacsiChuyenmon doctor = doctorService.findByEmail(principal.getName()).orElse(null);
+        if (doctor == null) return "redirect:/auth/login";
+
+        LichTrungGian lich = lichTrungGianRepository.findById(id).orElse(null);
+        if (lich != null && doctor.getEmail().equals(lich.getEmailBacSi())) {
+            lichTrungGianRepository.deleteById(id);
+        }
+
+        return "redirect:/doctor/lichtrinh";
+    }
 
 
 
-    // @GetMapping("/doctor/api/lichkham/{email}")
-    // @ResponseBody
-    // public Map<String, String> getLichKhamTheoEmail(@PathVariable String email) {
-    //     Map<String, String> result = new HashMap<>();
-    //     PhancongLichkham lich = phancongLichkhamRepository.findFirstByEmailBenhNhan(email);
-
-    //     if (lich != null) {
-    //         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-    //         result.put("tenBenhNhan", lich.getTenBenhNhan());
-    //         result.put("tenDichVu", lich.getDichVu());
-    //         result.put("ngayKham", lich.getNgayKham() != null ? lich.getNgayKham().format(formatter) : "");
-    //         result.put("chiTiet", lich.getChiTiet());
-    //     }
-
-    //     return result;
-    // }
-
+    // Tự điền form nhanh sau khi chọn bệnh nhân, lịch khám gần nhất của bệnh nhân
     @GetMapping("/api/lichkham/{email}")
 @ResponseBody
 public Map<String, String> getLichKhamTheoEmail(@PathVariable String email) {
@@ -213,20 +177,6 @@ public Map<String, String> getLichKhamTheoEmail(@PathVariable String email) {
     return result;
 }
 
-    @PostMapping("/lichtrunggian/xoa/{id}")
-    public String xoaLichTrungGian(@PathVariable Long id, Principal principal) {
-        BacsiChuyenmon doctor = doctorService.findByEmail(principal.getName()).orElse(null);
-        if (doctor == null) return "redirect:/auth/login";
-
-        LichTrungGian lich = lichTrungGianRepository.findById(id).orElse(null);
-        if (lich != null && doctor.getEmail().equals(lich.getEmailBacSi())) {
-            lichTrungGianRepository.deleteById(id);
-        }
-
-        return "redirect:/doctor/lichtrinh";
-    }
-
-
 
 
         // ✅ Sửa: Dùng đúng Repository và Model
@@ -236,6 +186,7 @@ public Map<String, String> getLichKhamTheoEmail(@PathVariable String email) {
         @Autowired
         private PhancongLichkhamRepository phancongLichkhamRepository;
 
+        // Lấy danh sách bệnh nhân trên bảng phan_cong_lich_kham
         @GetMapping("/patients")
 public String hienThiDanhSachBenhNhan(
         @RequestParam(value = "keyword", required = false) String keyword,
@@ -273,6 +224,7 @@ public String hienThiDanhSachBenhNhan(
         @Autowired
     private com.hao.demo.repository.DichvuRepository dichvuRepository;
 
+    // Lấy bảng phan_cong_lich_kham để nhập kết quả khám 
     @GetMapping("/examination")
     public String showExamination(Model model) {
         BacsiChuyenmon bacsi = getLoggedInDoctor();
@@ -295,6 +247,7 @@ public String hienThiDanhSachBenhNhan(
 @Autowired
 private com.hao.demo.repository.KetquaKhambenhRepository ketquaKhambenhRepository;
 
+// Lưu lại kết quả khám trên bảng ket_qua_kham để bệnh nhân xem
 @PostMapping("/examination/submit")
 public String luuKetQuaKham(
         @RequestParam("patientEmail") String emailBenhNhan,

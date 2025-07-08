@@ -54,11 +54,13 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
+    // trang chính của customer, hiển thị thông tin khách hàng hiện tại
     @GetMapping
     public String showCustomerPage(Model model) {
         return loadCustomerPage(model, "customer/customer");
     }
 
+    // Hiển thị các lịch khám đã được phân công cho khách hàng đang đăng nhập.
 @GetMapping("/thongbao")
 public String showThongBao(Model model) {
     Customer customer = getLoggedInCustomer();
@@ -75,16 +77,7 @@ public String showThongBao(Model model) {
 @Autowired
 private DichvuRepository dichvuRepository;
 
-// @GetMapping("/dangkidichvu")
-// public String showDangKiDichVu(Model model) {
-//     Customer customer = getLoggedInCustomer();
-//     if (customer == null) return "redirect:/auth/login";
-
-//     model.addAttribute("customerName", customer.getFullName());
-//     model.addAttribute("dichVuList", dichvuRepository.findAll()); // truyền dịch vụ
-
-//     return "customer/dangkidichvu";
-// }
+// Hiển thị form đăng kí
 @GetMapping("/dangkidichvu")
 public String showDangKiDichVu(@RequestParam(value = "dichVu", required = false) String selectedDichVu,
                                Model model) {
@@ -102,23 +95,48 @@ public String showDangKiDichVu(@RequestParam(value = "dichVu", required = false)
 
     return "customer/dangkidichvu";
 }
+// trả về danh sách các dịch vụ chuyên môn từ bảng Bac_si_chuyen_mon
 @GetMapping("/api/dichvu-tu-bacsis")
 @ResponseBody
 public List<String> getDistinctDichVuFromBacSi() {
     return bacsiChuyenmonService.getDistinctSpecialities();
 }
 
-// @GetMapping("/lichtrinhdieutri")
-// public String showLichTrinhDieuTri(Model model) {
-//     return loadCustomerPage(model, "customer/lichtrinhdieutri");
-// }
+// Khách hàng bấm nút đăng kí, dữ liệu lưu vào bảng dang_ki_dich_vu
+@PostMapping("/dangkidichvu")
+public String xuLyDangKiDichVu(
+        @RequestParam("dichVu") String dichVu,
+        @RequestParam("tenBacSi") String tenBacSi,
+        @RequestParam("emailBacSi") String emailBacSi,
+        @RequestParam("ngayKham") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate ngayKham,
+        @RequestParam("gioKham") String gioKham,
+        @RequestParam("chiTiet") String chiTiet,
+        Model model) {
+
+    // Lấy thông tin đăng nhập của tài khoản hiện tại
+    Customer customer = getLoggedInCustomer();
+    if (customer == null) return "redirect:/auth/login";
+
+    DangkiDichvu dk = new DangkiDichvu();
+    dk.setDichVu(dichVu);
+    dk.setTenBacSi(tenBacSi);
+    dk.setEmailBacSi(emailBacSi);
+    dk.setNgayKham(ngayKham);
+      dk.setGioKham(gioKham);
+    dk.setChiTiet(chiTiet);
+    dk.setEmailBenhNhan(customer.getEmail());
+    dk.setTenBenhNhan(customer.getFullName());
+
+    dangkiDichvuRepository.save(dk);
+
+    return "redirect:/customer"; // hoặc thông báo thành công
+}
+
 
 @Autowired
 private LichTrungGianRepository lichTrungGianRepository;
 
-
-   
-
+    // Lấy bảng lich_trung_gian các lịch điều trị của email tài khoản
     @GetMapping("/lichtrinhdieutri")
     public String lichCustomer(Model model) {
         Customer customer = getLoggedInCustomer();
@@ -137,6 +155,7 @@ private LichTrungGianRepository lichTrungGianRepository;
 @Autowired
 private com.hao.demo.repository.KetquaKhambenhRepository ketquaKhambenhRepository;
 
+// Lấy từ bảng ket_qua_kham các kết quả của email tài khoản, sắp xếp ngày giảm dần
 @GetMapping("/ketquadieutri")
 public String showKetQuaDieuTri(Model model) {
     Customer customer = getLoggedInCustomer();
@@ -151,6 +170,8 @@ public String showKetQuaDieuTri(Model model) {
 
     return "customer/ketquadieutri";
 }
+
+// Lấy 2 bảng ket_qua_kham và lich_trung_gian để hiển thị lịch sử khám
 @GetMapping("/lichsudondat")
 public String showLichSuDonDat(Model model) {
     Customer customer = getLoggedInCustomer();
@@ -169,7 +190,7 @@ public String showLichSuDonDat(Model model) {
     return "customer/lichsudondat";
 }
 
-
+// Lấy bảng ket_qua_kham các dịch vụ và bác sĩ đã khám để đánh giá
 @GetMapping("/danhgia")
 public String showDanhGiaForm(Model model, Principal principal) {
     String email = principal.getName();
@@ -194,7 +215,7 @@ public String showDanhGiaForm(Model model, Principal principal) {
 
 @Autowired
 private DanhgiaRepository danhgiaRepository;
-
+// Bấm nút đánh giá sẽ gửi các feedback lên bảng dang_gia
 @PostMapping("/danhgia")
 public String guiDanhGia(
     @RequestParam("service") String dichVu,
@@ -235,7 +256,7 @@ public String guiDanhGia(
 }
 
 
-
+// lấy bảng Customer về và hiện thông tin của email tài khoản
 @GetMapping("/hosocanhan")
 public String showHoSoCaNhan(Model model) {
     Customer customer = getLoggedInCustomer();
@@ -246,6 +267,8 @@ public String showHoSoCaNhan(Model model) {
 
     return "customer/hosocanhan";
 }
+
+// Sau khi thay đổi thông tin, bấm cập nhật sẽ thay đổi luôn trên bảng Customer
 @PostMapping("/hosocanhan")
 public String capNhatHoSoCaNhan(
     @RequestParam("fullName") String fullName,
@@ -273,6 +296,7 @@ public String capNhatHoSoCaNhan(
 @Autowired
 private BacsiChuyenmonService bacsiChuyenmonService;
 
+// Lấy danh sách bác sĩ theo chuyên môn
 @GetMapping("/api/bacsi")
 @ResponseBody
 public List<BacsiChuyenmon> getDoctorsByChuyenMon(@RequestParam("chuyenMon") String chuyenMon) {
@@ -283,33 +307,7 @@ public List<BacsiChuyenmon> getDoctorsByChuyenMon(@RequestParam("chuyenMon") Str
 @Autowired
 private DangkiDichvuRepository dangkiDichvuRepository;
 
-@PostMapping("/dangkidichvu")
-public String xuLyDangKiDichVu(
-        @RequestParam("dichVu") String dichVu,
-        @RequestParam("tenBacSi") String tenBacSi,
-        @RequestParam("emailBacSi") String emailBacSi,
-        @RequestParam("ngayKham") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate ngayKham,
-        @RequestParam("gioKham") String gioKham,
-        @RequestParam("chiTiet") String chiTiet,
-        Model model) {
 
-    Customer customer = getLoggedInCustomer();
-    if (customer == null) return "redirect:/auth/login";
-
-    DangkiDichvu dk = new DangkiDichvu();
-    dk.setDichVu(dichVu);
-    dk.setTenBacSi(tenBacSi);
-    dk.setEmailBacSi(emailBacSi);
-    dk.setNgayKham(ngayKham);
-      dk.setGioKham(gioKham);
-    dk.setChiTiet(chiTiet);
-    dk.setEmailBenhNhan(customer.getEmail());
-    dk.setTenBenhNhan(customer.getFullName());
-
-    dangkiDichvuRepository.save(dk);
-
-    return "redirect:/customer"; // hoặc thông báo thành công
-}
 
     // Helper methods
 
@@ -337,106 +335,7 @@ public String xuLyDangKiDichVu(
     @Autowired
 private PhancongLichkhamRepository phancongLichkhamRepository;
 
-// @GetMapping("/api/thongbao")
-// @ResponseBody
-// public List<Map<String, String>> getThongBaoData() {
-//     Customer customer = getLoggedInCustomer();
-//     List<Map<String, String>> thongBaoList = new ArrayList<>();
-
-//     if (customer == null) return thongBaoList;
-
-//     String email = customer.getEmail();
-//     DateTimeFormatter isoFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-
-//     // Lịch khám
-//     List<PhancongLichkham> lichKhams = phancongLichkhamRepository.findByEmailBenhNhan(email);
-//     for (PhancongLichkham lich : lichKhams) {
-//         Map<String, String> tb = new HashMap<>();
-//         tb.put("loai", "lichkham");
-//         tb.put("tieuDe", "📅 Bạn có lịch khám vào " + lich.getNgayKham().toString());
-//         tb.put("link", "/customer/thongbao");
-//         tb.put("id", "lichkham-" + lich.getId());
-//         if (lich.getCreatedAt() != null) {
-//             tb.put("thoiGian", lich.getCreatedAt().format(isoFormatter));
-//         }
-//         thongBaoList.add(tb);
-//     }
-
-//     // Kết quả khám
-//     List<KetquaKhambenh> kqs = ketquaKhambenhRepository.findByEmailBenhNhanOrderByNgayKhamDesc(email);
-//     for (KetquaKhambenh kq : kqs) {
-//         Map<String, String> tb = new HashMap<>();
-//         tb.put("loai", "ketqua");
-//         tb.put("tieuDe", "📝 Có kết quả khám mới ngày " + kq.getNgayKham().toString());
-//         tb.put("link", "/customer/ketquadieutri");
-//         tb.put("id", "ketqua-" + kq.getId());
-//         if (kq.getCreatedAt() != null) {
-//             tb.put("thoiGian", kq.getCreatedAt().format(isoFormatter));
-//         }
-//         thongBaoList.add(tb);
-//     }
-
-//     // Lịch trình điều trị
-//     List<LichTrungGian> lichTrinhs = lichTrungGianRepository.findByEmailBenhNhan(email);
-//     for (PhancongLichkham lich : lichKhams) {
-//     // Thêm nhắc nhở thông minh
-//     if (lich.getNgayKham() != null && lich.getLichKham() != null) {
-//         try {
-//             LocalDate ngay = lich.getNgayKham();
-//             LocalTime gio = LocalTime.parse(lich.getLichKham());
-//             LocalDateTime thoiDiemKham = LocalDateTime.of(ngay, gio);
-//             Duration duration = Duration.between(LocalDateTime.now(), thoiDiemKham);
-
-//             long hours = duration.toHours();
-//             String reminder = null;
-
-//             if (hours <= 6 && hours >= 0) {
-//                 reminder = "🕕 Bạn có lịch khám sau 6 giờ nữa, đừng quên nhé!";
-//             } else if (hours <= 12 && hours > 6) {
-//                 reminder = "⏰ Bạn có lịch khám sau 12 giờ nữa.";
-//             } else if (hours <= 24 && hours > 12) {
-//                 reminder = "📅 Bạn có lịch khám vào ngày mai.";
-//             }
-
-//             if (reminder != null) {
-//                 Map<String, String> nhac = new HashMap<>();
-//                 nhac.put("loai", "nhaclich");
-//                 nhac.put("tieuDe", reminder);
-//                 nhac.put("link", "/customer/thongbao");
-//                 nhac.put("id", "nhaclich-" + lich.getId());
-//                 nhac.put("thoiGian", LocalDateTime.now().format(isoFormatter));
-//                 thongBaoList.add(nhac);
-//             }
-//         } catch (Exception e) {
-//             System.err.println("Lỗi khi phân tích thời gian lịch khám: " + e.getMessage());
-//         }
-//     }
-
-//     // Thông báo lịch khám mặc định
-//     Map<String, String> tb = new HashMap<>();
-//     tb.put("loai", "lichkham");
-//     tb.put("tieuDe", "📅 Bạn có lịch khám vào " + lich.getNgayKham().toString());
-//     tb.put("link", "/customer/thongbao");
-//     tb.put("id", "lichkham-" + lich.getId());
-//     if (lich.getCreatedAt() != null) {
-//         tb.put("thoiGian", lich.getCreatedAt().format(isoFormatter));
-//     }
-//     thongBaoList.add(tb);
-// }
-
-//     // Sau khi đã add tất cả thông báo:
-// thongBaoList = thongBaoList.stream()
-//     .sorted((a, b) -> {
-//         String timeA = a.get("thoiGian");
-//         String timeB = b.get("thoiGian");
-//         if (timeA == null) return 1;
-//         if (timeB == null) return -1;
-//         return timeB.compareTo(timeA); // giảm dần
-//     })
-//     .collect(Collectors.toList());
-
-//     return thongBaoList;
-// }
+// Tổng hợp các tin mới của email tài khoản khi có trên bảng phan_cong_lich_kham, ket_qua_kham, lich_trung_gian
 @GetMapping("/api/thongbao")
 @ResponseBody
 public List<Map<String, String>> getThongBaoData() {

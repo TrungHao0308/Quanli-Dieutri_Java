@@ -59,11 +59,12 @@ private BacsiChuyenmonRepository bacsiChuyenmonRepository;
     public ManagerController(CustomerService customerService) {
         this.customerService = customerService;
     }
+
+    // trang chính của manager
     @GetMapping("")
 public String indexPage(Model model) {
     return loadManagerPage(model, "manager/dashboard");
 }
-
 
 
 @Autowired
@@ -73,8 +74,12 @@ private com.hao.demo.repository.LichTrungGianRepository lichTrungGianRepository;
 private KetquaKhambenhRepository ketquaKhambenhRepository;
 @Autowired
 private com.hao.demo.repository.BaocaoRepository baocaoRepository;
+    @Autowired
+private DangkiDichvuRepository dangkiDichvuRepository;
 
-
+@Autowired
+private PhancongLichkhamRepository phancongLichkhamRepository;
+// Lấy từ bảng dich_vu, các dịch vụ để báo cáo
 @GetMapping("/baocao")
 public String showBaoCao(Model model) {
     List<Dichvu> danhSachDichVu = dichvuRepository.findAll();
@@ -87,38 +92,7 @@ public String showBaoCao(Model model) {
     return loadManagerPage(model, "manager/baocao");
 }
 
-// @GetMapping("/baocao/loc")
-// public String locBaoCao(
-//         @RequestParam("reportType") Long dichvuId,
-//         @RequestParam("dateRangeStart") String dateStart,
-//         @RequestParam("dateRangeEnd") String dateEnd,
-//         Model model) {
-
-//     Optional<Dichvu> opt = dichvuRepository.findById(dichvuId);
-//     if (opt.isEmpty()) {
-//         model.addAttribute("error", "Không tìm thấy dịch vụ.");
-//         return loadManagerPage(model, "manager/baocao");
-//     }
-
-//     String tenDichVu = opt.get().getTenDichVu();
-
-//     LocalDate startDate = LocalDate.parse(dateStart);
-//     LocalDate endDate = LocalDate.parse(dateEnd);
-
-//     List<com.hao.demo.model.LichTrungGian> ketQua =
-//         lichTrungGianRepository.findByTenDichVuAndNgayKhamBetween(tenDichVu, startDate, endDate);
-
-//     List<Dichvu> danhSachDichVu = dichvuRepository.findAll();
-//     model.addAttribute("danhSachDichVu", danhSachDichVu);
-//     model.addAttribute("ketQuaBaoCao", ketQua);
-
-//     // ✅ THÊM DÒNG NÀY để luôn hiển thị bảng báo cáo dưới:
-//     List<Baocao> baoCaoList = baocaoRepository.findAll();
-//     model.addAttribute("baoCaoList", baoCaoList);
-
-//     return loadManagerPage(model, "manager/baocao");
-// }
-
+// Lấy từ bảng ket_qua_kham theo tên dịch vụ và ngày khám
 @GetMapping("/baocao/loc")
 public String locBaoCao(
         @RequestParam("reportType") Long dichvuId,
@@ -150,7 +124,7 @@ public String locBaoCao(
     return loadManagerPage(model, "manager/baocao");
 }
 
-
+// Tính số lượt và doanh thu khám trên bảng ket_qua_kham, gửi lên bảng bao_cao và hiện trên manager/baocao
 @PostMapping("/baocao/tao")
 public String taoBaoCao(
         @RequestParam("dichvuId") Long dichvuId,
@@ -193,6 +167,7 @@ public String taoBaoCao(
 @Autowired
 private DichvuRepository dichvuRepository;
 
+// Lấy từ bảng customer có ROLE_DOCTOR
 @GetMapping("/quanlybacsi")
 public String showBacSi(Model model) {
         List<Customer> doctors = customerRepository.findByRoleName("ROLE_DOCTOR");
@@ -211,17 +186,60 @@ model.addAttribute("dichVus", dichVus);
     return loadManagerPage(model, "manager/quanlybacsi");
 }
 
+// kéo bảng dich_vu về, thêm dich vụ và ca làm cho bác sĩ đẩy lên bảng bac_si_chuyen_mon
+@PostMapping("/themBacSi")
+@ResponseBody
+public ResponseEntity<String> themBacSi(@RequestBody Map<String, String> data) {
+    Long customerId = Long.parseLong(data.get("id"));
+    String chuyenMon = data.get("specialty");
+    String caLam = data.get("shift");
+
+    Optional<Customer> optCustomer = customerRepository.findById(customerId);
+    if (optCustomer.isEmpty()) return ResponseEntity.badRequest().body("Không tìm thấy bác sĩ");
+
+    Customer customer = optCustomer.get();
+
+    BacsiChuyenmon bacsi = new BacsiChuyenmon();
+    bacsi.setCustomer(customer); // Gắn liên kết
+    bacsi.setEmail(customer.getEmail());
+    bacsi.setTen(customer.getFullName());
+    bacsi.setChuyenMon(chuyenMon);
+    bacsi.setCaLam(caLam);
+
+    bacsiChuyenmonRepository.save(bacsi);
+
+    return ResponseEntity.ok("Đã thêm bác sĩ");
+
+}
+@Autowired
+private BacsiChuyenmonService bacsiChuyenmonService;
+// Gọi BacsiChuyenmonService.deleteByCustomerId → xoá bác sĩ theo ID người dùng.
+@DeleteMapping("/huyBacSi/{id}")
+@ResponseBody
+public ResponseEntity<String> huyBacSi(@PathVariable("id") Long customerId) {
+    bacsiChuyenmonService.deleteByCustomerId(customerId);
+    return ResponseEntity.ok("Đã hủy bác sĩ");
+}
+@PostMapping("/huylich/{id}")
+public String huyLich(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+    phancongLichkhamRepository.deleteById(id);
+    redirectAttributes.addFlashAttribute("success", "Đã hủy phân công lịch khám.");
+    return "redirect:/manager/quanlylichkham";
+}
+
 
 
 @Autowired
 private DanhgiaRepository danhgiaRepository;
-
+// Kéo bảng danh_gia về
 @GetMapping("/quanlydanhgia")
 public String hienThiDanhSachDanhGia(Model model) {
     List<Danhgia> danhgiaList = danhgiaRepository.findAll();
     model.addAttribute("danhgiaList", danhgiaList);
     return "manager/quanlydanhgia";
 }
+
+// Có thể xóa các danh_gia
 @PostMapping("/xoa-danhgia/{id}")
 public String xoaDanhGia(@PathVariable Long id, RedirectAttributes redirectAttributes) {
     danhgiaRepository.deleteById(id);
@@ -240,6 +258,7 @@ public String showDichvu(Model model) {
     return loadManagerPage(model, "manager/quanlydichvu");
 }
 
+// Thêm dịch vụ
 @PostMapping("/quanlydichvu/add")
 public String themDichvu(@ModelAttribute("dichVu") Dichvu dichVu) {
     dichVuRepository.save(dichVu);
@@ -270,14 +289,6 @@ public String capNhatDichVu(@ModelAttribute("dichVu") Dichvu dichVu) {
     return "redirect:/manager/quanlydichvu";
 }
 
-
-    // @GetMapping("/quanlylichkham")
-    // public String showLichkham(Model model) {
-    //     return loadManagerPage(model, "manager/quanlylichkham");
-    // }
-
-    // === Helper methods giống như trong CustomerController ===
-
     private Customer getLoggedInCustomer() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated() ||
@@ -298,12 +309,8 @@ public String capNhatDichVu(@ModelAttribute("dichVu") Dichvu dichVu) {
 
         return viewName;
     }
-    @Autowired
-private DangkiDichvuRepository dangkiDichvuRepository;
 
-@Autowired
-private PhancongLichkhamRepository phancongLichkhamRepository;
-
+// Kéo tất cả từ bảng dang_ki_dich_vu về
 @GetMapping("/quanlylichkham")
 public String hienThiDangKy(Model model) {
     Customer customer = getLoggedInCustomer();
@@ -327,7 +334,7 @@ public String hienThiDangKy(Model model) {
     return "manager/quanlylichkham";
 }
 
-
+// Hiển thị các form để phân công sau khi đã lấy từ bảng dang_ki_dich_vu
 @GetMapping("/phancong/{id}")
 public String hienThiFormPhanCong(@PathVariable("id") Long id, Model model) {
     Customer manager = getLoggedInCustomer();
@@ -352,7 +359,7 @@ public String hienThiFormPhanCong(@PathVariable("id") Long id, Model model) {
     return "manager/phanconglichkham";
 }
 
-
+// Bấm phân công để xác nhận lịch khám đó, đưa lên bảng phan_cong_lich_kham
 @PostMapping("/phancong")
 public String luuPhanCong(
     @RequestParam String emailBenhNhan,
@@ -392,45 +399,5 @@ return "redirect:/manager/quanlylichkham";
 
 
 
-
-@PostMapping("/themBacSi")
-@ResponseBody
-public ResponseEntity<String> themBacSi(@RequestBody Map<String, String> data) {
-    Long customerId = Long.parseLong(data.get("id"));
-    String chuyenMon = data.get("specialty");
-    String caLam = data.get("shift");
-
-    Optional<Customer> optCustomer = customerRepository.findById(customerId);
-    if (optCustomer.isEmpty()) return ResponseEntity.badRequest().body("Không tìm thấy bác sĩ");
-
-    Customer customer = optCustomer.get();
-
-    BacsiChuyenmon bacsi = new BacsiChuyenmon();
-    bacsi.setCustomer(customer); // Gắn liên kết
-    bacsi.setEmail(customer.getEmail());
-    bacsi.setTen(customer.getFullName());
-    bacsi.setChuyenMon(chuyenMon);
-    bacsi.setCaLam(caLam);
-
-    bacsiChuyenmonRepository.save(bacsi);
-
-    return ResponseEntity.ok("Đã thêm bác sĩ");
-
-}
-@Autowired
-private BacsiChuyenmonService bacsiChuyenmonService;
-
-@DeleteMapping("/huyBacSi/{id}")
-@ResponseBody
-public ResponseEntity<String> huyBacSi(@PathVariable("id") Long customerId) {
-    bacsiChuyenmonService.deleteByCustomerId(customerId);
-    return ResponseEntity.ok("Đã hủy bác sĩ");
-}
-@PostMapping("/huylich/{id}")
-public String huyLich(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-    phancongLichkhamRepository.deleteById(id);
-    redirectAttributes.addFlashAttribute("success", "Đã hủy phân công lịch khám.");
-    return "redirect:/manager/quanlylichkham";
-}
 
 }
